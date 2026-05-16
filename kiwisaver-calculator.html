@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F1FPHEDGM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4F1FPHEDGM');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KiwiSaver Calculator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ─── Reset & Tokens ─────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --teal-50:  #f0fdfa;
+  --teal-100: #ccfbf1;
+  --teal-400: #2dd4bf;
+  --teal-500: #14b8a6;
+  --teal-600: #0d9488;
+  --teal-700: #0f766e;
+  --teal-800: #115e59;
+  --teal-900: #134e4a;
+
+  --slate-50:  #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+
+  --amber-400: #fbbf24;
+  --amber-500: #f59e0b;
+  --amber-100: #fef3c7;
+  --amber-800: #92400e;
+
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-100: #d1fae5;
+  --emerald-800: #065f46;
+
+  --violet-400: #a78bfa;
+  --violet-500: #8b5cf6;
+
+  --red-400:  #f87171;
+  --red-100:  #fee2e2;
+  --red-800:  #991b1b;
+
+  --surface:   #ffffff;
+  --bg:        #f1f5f9;
+  --border:    #e2e8f0;
+
+  --shadow-sm: 0 1px 2px rgba(0,0,0,.05);
+  --shadow:    0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,.07), 0 10px 24px -4px rgba(0,0,0,.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,.08), 0 20px 40px -8px rgba(0,0,0,.07);
+
+  --radius-sm: 8px;
+  --radius:    12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+}
+
+html { font-size: 15px; }
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--slate-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── Header ─────────────────────────────────────────────── */
+.site-header {
+  background: var(--slate-900);
+  padding: 0 2.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,.06);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: white;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 30px; height: 30px;
+  background: linear-gradient(135deg, var(--teal-500), var(--teal-400));
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 15px; font-weight: 800; color: white;
+  letter-spacing: -0.5px;
+}
+
+.logo-text { font-size: .9rem; font-weight: 700; letter-spacing: -.01em; }
+.logo-sub  { font-size: .7rem; color: var(--slate-400); font-weight: 500; }
+
+.header-badge {
+  background: rgba(13,148,136,.2);
+  color: var(--teal-400);
+  border: 1px solid rgba(13,148,136,.3);
+  font-size: .7rem;
+  font-weight: 600;
+  padding: .2rem .7rem;
+  border-radius: 20px;
+  letter-spacing: .02em;
+}
+
+/* ─── Layout ─────────────────────────────────────────────── */
+.page { max-width: 1280px; margin: 0 auto; padding: 2rem 1.75rem 4rem; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 380px 1fr;
+  gap: 1.75rem;
+  align-items: start;
+}
+
+@media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
+
+/* ─── Input Panel ────────────────────────────────────────── */
+.input-panel {
+  background: var(--surface);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  position: sticky;
+  top: 76px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--slate-200) transparent;
+}
+
+.input-panel::-webkit-scrollbar { width: 4px; }
+.input-panel::-webkit-scrollbar-track { background: transparent; }
+.input-panel::-webkit-scrollbar-thumb { background: var(--slate-200); border-radius: 4px; }
+
+.inp-section {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--slate-100);
+}
+.inp-section:last-child { border-bottom: none; }
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.section-icon {
+  width: 26px; height: 26px;
+  border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+
+.icon-blue   { background: #eff6ff; }
+.icon-teal   { background: var(--teal-50); }
+.icon-violet { background: #f5f3ff; }
+.icon-amber  { background: #fffbeb; }
+.icon-slate  { background: var(--slate-100); }
+
+.section-label {
+  font-size: .68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--slate-500);
+}
+
+/* Fields */
+.field { margin-bottom: .9rem; }
+.field:last-child { margin-bottom: 0; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+.field > label, .field-row > div > label {
+  display: block;
+  font-size: .78rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  margin-bottom: .35rem;
+}
+
+.hint {
+  font-size: .7rem;
+  color: var(--slate-400);
+  margin-top: .25rem;
+  line-height: 1.5;
+}
+
+/* Text inputs */
+.inp {
+  width: 100%;
+  height: 38px;
+  padding: 0 .75rem;
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  font-family: inherit;
+  font-size: .82rem;
+  font-weight: 500;
+  color: var(--slate-800);
+  background: var(--surface);
+  transition: border-color .15s, box-shadow .15s;
+  -moz-appearance: textfield;
+}
+
+.inp::-webkit-outer-spin-button,
+.inp::-webkit-inner-spin-button { -webkit-appearance: none; }
+
+.inp:focus {
+  outline: none;
+  border-color: var(--teal-500);
+  box-shadow: 0 0 0 3px rgba(20,184,166,.12);
+}
+
+.inp-wrap { position: relative; }
+.inp-prefix { position: absolute; left: .7rem; top: 50%; transform: translateY(-50%); font-size: .82rem; font-weight: 600; color: var(--slate-400); pointer-events: none; }
+.inp-suffix { position: absolute; right: .7rem; top: 50%; transform: translateY(-50%); font-size: .82rem; font-weight: 600; color: var(--slate-400); pointer-events: none; }
+.inp-wrap .inp.has-prefix { padding-left: 1.5rem; }
+.inp-wrap .inp.has-suffix { padding-right: 2rem; }
+
+select.inp { cursor: pointer; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .75rem center; padding-right: 2.25rem; appearance: none; }
+
+/* Range slider */
+.slider-wrap {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.slider-val {
+  min-width: 52px;
+  height: 32px;
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  font-size: .82rem;
+  font-weight: 700;
+  color: var(--slate-700);
+  background: var(--slate-50);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  height: 5px;
+  border-radius: 99px;
+  background: var(--slate-200);
+  cursor: pointer;
+  outline: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2.5px solid var(--teal-600);
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  cursor: pointer;
+  transition: transform .12s, box-shadow .12s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 0 4px rgba(13,148,136,.15);
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 18px; height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  border: 2.5px solid var(--teal-600);
+  box-shadow: 0 1px 4px rgba(0,0,0,.15);
+  cursor: pointer;
+}
+
+/* Pill buttons */
+.pills { display: flex; gap: .4rem; flex-wrap: wrap; }
+
+.pill {
+  height: 32px;
+  padding: 0 .85rem;
+  border: 1.5px solid var(--slate-200);
+  border-radius: 99px;
+  background: var(--surface);
+  font-family: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  color: var(--slate-500);
+  cursor: pointer;
+  transition: all .15s;
+  white-space: nowrap;
+}
+
+.pill:hover { border-color: var(--teal-500); color: var(--teal-600); background: var(--teal-50); }
+.pill.on { background: var(--teal-600); border-color: var(--teal-600); color: white; }
+
+/* Fund selector */
+.fund-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+
+.fund-card {
+  padding: .55rem .35rem;
+  border: 1.5px solid var(--slate-200);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  font-family: inherit;
+  text-align: center;
+  cursor: pointer;
+  transition: all .15s;
+}
+
+.fund-card:hover { border-color: var(--teal-500); background: var(--teal-50); }
+.fund-card.on { background: var(--teal-600); border-color: var(--teal-600); color: white; }
+
+.fund-name { font-size: .72rem; font-weight: 700; display: block; }
+.fund-rate { font-size: .64rem; color: var(--slate-400); margin-top: 2px; display: block; }
+.fund-card.on .fund-rate { color: rgba(255,255,255,.65); }
+
+/* Toggle switch */
+.toggle-row { display: flex; align-items: center; justify-content: space-between; gap: .75rem; }
+.toggle-row label:first-child { font-size: .78rem; font-weight: 600; color: var(--slate-700); margin: 0; }
+
+.sw { position: relative; width: 40px; height: 22px; flex-shrink: 0; }
+.sw input { opacity: 0; width: 0; height: 0; }
+.sw-track {
+  position: absolute; cursor: pointer; inset: 0;
+  background: var(--slate-200); border-radius: 99px;
+  transition: background .2s;
+}
+.sw-track::before {
+  content: ''; position: absolute;
+  height: 16px; width: 16px;
+  left: 3px; bottom: 3px;
+  background: white; border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2);
+  transition: transform .2s;
+}
+.sw input:checked + .sw-track { background: var(--teal-600); }
+.sw input:checked + .sw-track::before { transform: translateX(18px); }
+
+/* Advanced section */
+.adv-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .9rem 1.5rem;
+  cursor: pointer;
+  background: var(--slate-50);
+  border-bottom: 1px solid var(--slate-100);
+  user-select: none;
+  transition: background .15s;
+}
+.adv-toggle:hover { background: var(--slate-100); }
+.adv-toggle-left { display: flex; align-items: center; gap: .5rem; font-size: .78rem; font-weight: 600; color: var(--slate-500); }
+.adv-chevron { font-size: .65rem; color: var(--slate-400); transition: transform .2s; }
+.adv-chevron.open { transform: rotate(180deg); }
+.adv-body { display: none; }
+.adv-body.open { display: block; }
+
+/* ─── Results Panel ──────────────────────────────────────── */
+.results { display: flex; flex-direction: column; gap: 1.25rem; }
+
+/* Hero card */
+.hero-card {
+  background: var(--slate-900);
+  border-radius: var(--radius-xl);
+  padding: 2rem 2rem 1.75rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 80% -20%, rgba(20,184,166,.25) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at -10% 110%, rgba(13,148,136,.2) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.hero-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  position: relative;
+}
+
+.hero-left {}
+
+.hero-eyebrow {
+  font-size: .72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .1em;
+  color: var(--teal-400);
+  margin-bottom: .5rem;
+}
+
+.hero-amount {
+  font-size: 3.6rem;
+  font-weight: 900;
+  letter-spacing: -.04em;
+  color: white;
+  line-height: 1;
+  margin-bottom: .5rem;
+}
+
+.hero-meta {
+  font-size: .78rem;
+  color: var(--slate-400);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.hero-dot {
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--slate-600);
+  display: inline-block;
+}
+
+.hero-pill {
+  background: rgba(20,184,166,.15);
+  border: 1px solid rgba(20,184,166,.25);
+  color: var(--teal-400);
+  font-size: .68rem;
+  font-weight: 700;
+  padding: .2rem .6rem;
+  border-radius: 20px;
+  letter-spacing: .02em;
+}
+
+.hero-years-badge {
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.hytop { font-size: 2rem; font-weight: 900; color: white; line-height: 1; }
+.hybottom { font-size: .67rem; color: var(--slate-500); margin-top: .25rem; line-height: 1.4; }
+
+.hero-bottom {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: rgba(255,255,255,.06);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  margin-top: 1.5rem;
+  position: relative;
+}
+
+.hero-stat {
+  background: rgba(255,255,255,.03);
+  padding: .85rem 1rem;
+  transition: background .15s;
+}
+.hero-stat:hover { background: rgba(255,255,255,.06); }
+
+.hstat-label { font-size: .65rem; color: var(--slate-500); font-weight: 500; text-transform: uppercase; letter-spacing: .07em; margin-bottom: .2rem; }
+.hstat-value { font-size: 1.05rem; font-weight: 800; color: white; }
+.hstat-sub { font-size: .65rem; color: var(--slate-500); margin-top: .15rem; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.card-head {
+  padding: .9rem 1.4rem;
+  border-bottom: 1px solid var(--slate-100);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: .75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--slate-400);
+}
+
+.card-body { padding: 1.25rem 1.4rem; }
+
+/* Income tiles */
+.income-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; margin-bottom: 1.1rem; }
+
+.itile {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-100);
+  border-radius: var(--radius);
+  padding: .95rem .75rem;
+  text-align: center;
+  transition: transform .15s, box-shadow .15s;
+}
+
+.itile:hover { transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+
+.itile-amount { font-size: 1.35rem; font-weight: 800; letter-spacing: -.02em; }
+.itile-label  { font-size: .67rem; color: var(--slate-400); font-weight: 500; margin-top: .2rem; }
+
+/* Progress */
+.prog-wrap {
+  height: 8px;
+  background: var(--slate-100);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.prog-fill {
+  height: 100%;
+  border-radius: 99px;
+  transition: width .6s cubic-bezier(.4,0,.2,1), background .4s;
+}
+
+.prog-meta { display: flex; justify-content: space-between; align-items: center; margin-top: .45rem; }
+.prog-label { font-size: .72rem; color: var(--slate-400); }
+.prog-pct   { font-size: .72rem; font-weight: 700; }
+
+/* Breakdown */
+.bk-item {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  padding: .5rem 0;
+  border-bottom: 1px solid var(--slate-50);
+}
+.bk-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.bk-color { width: 3px; height: 28px; border-radius: 99px; flex-shrink: 0; }
+.bk-info  { flex: 1; min-width: 0; }
+.bk-name  { font-size: .78rem; font-weight: 600; color: var(--slate-700); }
+.bk-pct   { font-size: .67rem; color: var(--slate-400); }
+.bk-bar-outer { flex: 2; height: 6px; background: var(--slate-100); border-radius: 99px; overflow: hidden; margin: 0 .5rem; }
+.bk-bar-fill  { height: 100%; border-radius: 99px; transition: width .6s cubic-bezier(.4,0,.2,1); }
+.bk-amount { font-size: .82rem; font-weight: 700; color: var(--slate-700); width: 70px; text-align: right; flex-shrink: 0; }
+
+/* Stats grid */
+.stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+
+.stile {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-100);
+  border-radius: var(--radius);
+  padding: .9rem 1rem;
+}
+
+.stile-label { font-size: .67rem; font-weight: 500; color: var(--slate-400); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .3rem; }
+.stile-value { font-size: 1.25rem; font-weight: 800; letter-spacing: -.02em; color: var(--slate-800); }
+.stile-sub   { font-size: .67rem; color: var(--slate-400); margin-top: .15rem; }
+
+/* Scenarios */
+.sc-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+
+.sc-card {
+  border-radius: var(--radius);
+  border: 1.5px solid var(--border);
+  padding: 1rem .85rem;
+  text-align: center;
+  transition: transform .15s;
+}
+
+.sc-card:hover { transform: translateY(-2px); }
+.sc-pess { border-color: #fca5a5; background: #fff5f5; }
+.sc-base { border-color: var(--teal-500); background: var(--teal-50); }
+.sc-opt  { border-color: var(--emerald-400); background: var(--emerald-100); }
+
+.sc-tag    { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .09em; color: var(--slate-400); }
+.sc-amount { font-size: 1.2rem; font-weight: 800; letter-spacing: -.02em; margin: .35rem 0 .2rem; }
+.sc-rate   { font-size: .67rem; color: var(--slate-400); }
+
+/* Alert */
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: .55rem;
+  padding: .8rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: .78rem;
+  line-height: 1.55;
+  border: 1px solid transparent;
+}
+.alert strong { font-weight: 700; }
+.alert-icon { font-size: .95rem; flex-shrink: 0; margin-top: .05rem; }
+.alert-warn { background: var(--amber-100); color: var(--amber-800); border-color: #fde68a; }
+.alert-ok   { background: var(--emerald-100); color: var(--emerald-800); border-color: #a7f3d0; }
+
+/* Chart */
+.chart-area { position: relative; height: 220px; }
+
+/* Disclaimer */
+.disclaimer {
+  margin-top: 2rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  font-size: .69rem;
+  color: var(--slate-400);
+  line-height: 1.75;
+}
+
+.disclaimer strong { color: var(--slate-500); }
+
+/* Separator */
+.sep { height: 1px; background: var(--slate-100); margin: .75rem 0; }
+
+/* Chip */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  font-size: .67rem;
+  font-weight: 600;
+  padding: .2rem .55rem;
+  border-radius: 99px;
+}
+
+.chip-teal { background: var(--teal-50); color: var(--teal-700); }
+</style>
+</head>
+<body>
+
+<!-- ── Header ──────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="logo">
+    <div class="logo-mark">KS</div>
+    <div>
+      <div class="logo-text">KiwiSaver Calculator</div>
+      <div class="logo-sub">Retirement Projection Tool</div>
+    </div>
+  </div>
+  <div class="header-badge">New Zealand · 2025</div>
+</header>
+
+<!-- ── Page ────────────────────────────────────────────────── -->
+<div class="page">
+<div class="grid">
+
+<!-- ════ INPUT PANEL ════════════════════════════════════════ -->
+<div class="input-panel">
+
+  <!-- Personal -->
+  <div class="inp-section">
+    <div class="section-head">
+      <div class="section-icon icon-blue">👤</div>
+      <div class="section-label">Personal Details</div>
+    </div>
+
+    <div class="field">
+      <label>Current Age</label>
+      <div class="slider-wrap">
+        <input type="range" id="currentAge" min="18" max="64" value="30">
+        <div class="slider-val" id="currentAgeVal">30</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Retirement Age</label>
+      <div class="slider-wrap">
+        <input type="range" id="retireAge" min="55" max="75" value="65">
+        <div class="slider-val" id="retireAgeVal">65</div>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Relationship Status</label>
+      <div class="inp-wrap">
+        <select class="inp" id="relationship">
+          <option value="single">Single</option>
+          <option value="couple">Couple / Partner</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Income -->
+  <div class="inp-section">
+    <div class="section-head">
+      <div class="section-icon icon-teal">💼</div>
+      <div class="section-label">Income</div>
+    </div>
+
+    <div class="field">
+      <label>Annual Gross Salary</label>
+      <div class="inp-wrap">
+        <span class="inp-prefix">$</span>
+        <input type="number" class="inp has-prefix" id="salary" value="75000" min="0" step="1000">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Annual Salary Growth</label>
+      <div class="inp-wrap">
+        <input type="number" class="inp has-suffix" id="salaryGrowth" value="2.0" min="0" max="15" step="0.5">
+        <span class="inp-suffix">%</span>
+      </div>
+      <div class="hint">Average annual pay increase assumption</div>
+    </div>
+  </div>
+
+  <!-- Contributions -->
+  <div class="inp-section">
+    <div class="section-head">
+      <div class="section-icon icon-violet">💰</div>
+      <div class="section-label">Contributions</div>
+    </div>
+
+    <div class="field">
+      <label>Your Contribution Rate</label>
+      <div class="pills">
+        <button class="pill on" data-rate="0.03">3%</button>
+        <button class="pill" data-rate="0.04">4%</button>
+        <button class="pill" data-rate="0.06">6%</button>
+        <button class="pill" data-rate="0.08">8%</button>
+        <button class="pill" data-rate="0.10">10%</button>
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Employer Contribution Rate</label>
+      <div class="inp-wrap">
+        <input type="number" class="inp has-suffix" id="employerRate" value="3" min="0" max="20" step="0.5">
+        <span class="inp-suffix">%</span>
+      </div>
+      <div class="hint">Minimum 3% — subject to ESCT deduction</div>
+    </div>
+
+    <div class="field">
+      <label>Current KiwiSaver Balance</label>
+      <div class="inp-wrap">
+        <span class="inp-prefix">$</span>
+        <input type="number" class="inp has-prefix" id="currentBalance" value="0" min="0" step="500">
+      </div>
+    </div>
+  </div>
+
+  <!-- Fund & Returns -->
+  <div class="inp-section">
+    <div class="section-head">
+      <div class="section-icon icon-amber">📈</div>
+      <div class="section-label">Fund &amp; Returns</div>
+    </div>
+
+    <div class="field">
+      <label>Fund Type</label>
+      <div class="fund-grid">
+        <button class="fund-card" data-fund="Conservative" data-return="3.5">
+          <span class="fund-name">Conservative</span>
+          <span class="fund-rate">~3.5%/yr</span>
+        </button>
+        <button class="fund-card on" data-fund="Balanced" data-return="5.5">
+          <span class="fund-name">Balanced</span>
+          <span class="fund-rate">~5.5%/yr</span>
+        </button>
+        <button class="fund-card" data-fund="Growth" data-return="7.0">
+          <span class="fund-name">Growth</span>
+          <span class="fund-rate">~7.0%/yr</span>
+        </button>
+        <button class="fund-card" data-fund="Aggressive" data-return="8.5">
+          <span class="fund-name">Aggressive</span>
+          <span class="fund-rate">~8.5%/yr</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-row">
+        <div>
+          <label>Expected Return</label>
+          <div class="inp-wrap">
+            <input type="number" class="inp has-suffix" id="returnRate" value="5.5" min="0" max="25" step="0.5">
+            <span class="inp-suffix">%</span>
+          </div>
+        </div>
+        <div>
+          <label>Annual Fees</label>
+          <div class="inp-wrap">
+            <input type="number" class="inp has-suffix" id="feeRate" value="0.8" min="0" max="5" step="0.1">
+            <span class="inp-suffix">%</span>
+          </div>
+        </div>
+      </div>
+      <div class="hint">Net return used in projection: <strong id="netReturnDisplay">4.7%</strong></div>
+    </div>
+  </div>
+
+  <!-- Advanced toggle -->
+  <div class="adv-toggle" id="advToggle">
+    <div class="adv-toggle-left">
+      <div class="section-icon icon-slate" style="font-size:12px">⚙️</div>
+      Advanced Options
+    </div>
+    <span class="adv-chevron" id="advChevron">▼</span>
+  </div>
+
+  <div class="adv-body" id="advBody">
+    <div class="inp-section">
+
+      <div class="field">
+        <div class="toggle-row">
+          <label>Contributions Break</label>
+          <label class="sw"><input type="checkbox" id="hasBreak"><span class="sw-track"></span></label>
+        </div>
+      </div>
+
+      <div id="breakFields" style="display:none" class="field">
+        <div class="field-row">
+          <div>
+            <label>From Age</label>
+            <input type="number" class="inp" id="breakFrom" value="35" min="18" max="64">
+          </div>
+          <div>
+            <label>To Age</label>
+            <input type="number" class="inp" id="breakTo" value="37" min="18" max="65">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="toggle-row">
+          <label>One-off Lump Sum</label>
+          <label class="sw"><input type="checkbox" id="hasLump"><span class="sw-track"></span></label>
+        </div>
+      </div>
+
+      <div id="lumpFields" style="display:none" class="field">
+        <div class="field-row">
+          <div>
+            <label>Amount</label>
+            <div class="inp-wrap">
+              <span class="inp-prefix">$</span>
+              <input type="number" class="inp has-prefix" id="lumpAmt" value="10000" min="0">
+            </div>
+          </div>
+          <div>
+            <label>At Age</label>
+            <input type="number" class="inp" id="lumpAge" value="40" min="18" max="65">
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Drawdown Period</label>
+        <div class="slider-wrap">
+          <input type="range" id="drawdownYears" min="10" max="35" value="20">
+          <div class="slider-val" id="drawdownVal">20</div>
+        </div>
+        <div class="hint">Years to spread KiwiSaver over in retirement</div>
+      </div>
+
+      <div class="field">
+        <div class="toggle-row">
+          <label>Inflation-adjusted (real returns)</label>
+          <label class="sw"><input type="checkbox" id="inflAdj"><span class="sw-track"></span></label>
+        </div>
+        <div class="hint">Subtracts ~2% to show balance in today's dollars</div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- /input-panel -->
+
+
+<!-- ════ RESULTS PANEL ══════════════════════════════════════ -->
+<div class="results">
+
+  <!-- Hero -->
+  <div class="hero-card">
+    <div class="hero-top">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Projected Retirement Balance</div>
+        <div class="hero-amount" id="heroAmount">$0</div>
+        <div class="hero-meta">
+          <span id="heroAge">Age 65</span>
+          <span class="hero-dot"></span>
+          <span id="heroFund">Balanced fund</span>
+          <span class="hero-dot"></span>
+          <span class="hero-pill" id="heroNet">4.7% net</span>
+        </div>
+      </div>
+      <div class="hero-years-badge">
+        <div class="hytop" id="heroYears">35</div>
+        <div class="hybottom">years to<br>save</div>
+      </div>
+    </div>
+
+    <div class="hero-bottom">
+      <div class="hero-stat">
+        <div class="hstat-label">Weekly from KiwiSaver</div>
+        <div class="hstat-value" id="heroWkKiwi">$0</div>
+        <div class="hstat-sub">over <span id="heroDrawdown">20</span> yr drawdown</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hstat-label">+ NZ Super (est.)</div>
+        <div class="hstat-value" id="heroWkSuper">$496</div>
+        <div class="hstat-sub" id="heroSuperNote">Single rate · 2025</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hstat-label">Total weekly income</div>
+        <div class="hstat-value" id="heroWkTotal" style="color:var(--teal-400)">$496</div>
+        <div class="hstat-sub">KiwiSaver + NZ Super</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MTC alert -->
+  <div id="mtcAlert" style="display:none"></div>
+
+  <!-- Income vs benchmark -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Retirement Income vs Benchmark</div>
+      <div class="chip chip-teal" id="gapChip">0%</div>
+    </div>
+    <div class="card-body">
+      <div class="income-row">
+        <div class="itile">
+          <div class="itile-amount" id="incKiwi" style="color:var(--teal-600)">$0</div>
+          <div class="itile-label">From KiwiSaver /wk</div>
+        </div>
+        <div class="itile">
+          <div class="itile-amount" id="incSuper" style="color:#8b5cf6">$496</div>
+          <div class="itile-label">NZ Super /wk</div>
+        </div>
+        <div class="itile">
+          <div class="itile-amount" id="incTotal" style="color:var(--slate-800)">$496</div>
+          <div class="itile-label">Total /wk</div>
+        </div>
+      </div>
+
+      <div class="prog-wrap">
+        <div class="prog-fill" id="gapBar" style="width:0%"></div>
+      </div>
+      <div class="prog-meta">
+        <div class="prog-label" id="gapLabel">vs comfortable retirement benchmark</div>
+        <div class="prog-pct" id="gapPct">0%</div>
+      </div>
+
+      <div style="margin-top:.85rem" id="gapNote"></div>
+    </div>
+  </div>
+
+  <!-- Breakdown -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Where Your Balance Comes From</div>
+    </div>
+    <div class="card-body" id="breakdown"></div>
+  </div>
+
+  <!-- Chart -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Balance Growth Over Time</div>
+    </div>
+    <div class="card-body">
+      <div class="chart-area"><canvas id="growthChart"></canvas></div>
+    </div>
+  </div>
+
+  <!-- Scenarios -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">Return Scenarios</div>
+    </div>
+    <div class="card-body">
+      <div class="sc-grid">
+        <div class="sc-card sc-pess">
+          <div class="sc-tag">Pessimistic</div>
+          <div class="sc-amount" id="scPess">$0</div>
+          <div class="sc-rate" id="scPessR">—</div>
+        </div>
+        <div class="sc-card sc-base">
+          <div class="sc-tag">Base Case</div>
+          <div class="sc-amount" id="scBase">$0</div>
+          <div class="sc-rate" id="scBaseR">Your settings</div>
+        </div>
+        <div class="sc-card sc-opt">
+          <div class="sc-tag">Optimistic</div>
+          <div class="sc-amount" id="scOpt">$0</div>
+          <div class="sc-rate" id="scOptR">—</div>
+        </div>
+      </div>
+      <div class="hint" style="margin-top:.85rem">Investment return adjusted ±2% only. All other inputs unchanged.</div>
+    </div>
+  </div>
+
+  <!-- This year -->
+  <div class="card">
+    <div class="card-head">
+      <div class="card-title">This Year's Numbers</div>
+    </div>
+    <div class="card-body">
+      <div class="stat-grid">
+        <div class="stile">
+          <div class="stile-label">Your Annual Contribution</div>
+          <div class="stile-value" id="sEmp">$0</div>
+          <div class="stile-sub">Employee contributions</div>
+        </div>
+        <div class="stile">
+          <div class="stile-label">Fortnightly Impact</div>
+          <div class="stile-value" id="sFortn">$0</div>
+          <div class="stile-sub">Reduction in take-home pay</div>
+        </div>
+        <div class="stile">
+          <div class="stile-label">Employer Adds (after ESCT)</div>
+          <div class="stile-value" id="sEmplr">$0</div>
+          <div class="stile-sub">Net of super contribution tax</div>
+        </div>
+        <div class="stile">
+          <div class="stile-label">Govt Member Tax Credit</div>
+          <div class="stile-value" id="sMTC">$0</div>
+          <div class="stile-sub">Max $521.43 per year</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /results -->
+</div><!-- /grid -->
+
+<div class="disclaimer">
+  <strong>Disclaimer:</strong> This tool provides estimates only and is not financial advice. Projected balances and returns are illustrative; past performance is not indicative of future results. KiwiSaver Member Tax Credits, NZ Super entitlements, ESCT rates, and contribution rules are set by the New Zealand Government and are subject to change. NZ Super rates are approximate 2025 after-tax figures. Comfortable retirement benchmarks are indicative, based on Massey University Fin-Ed Centre research. Please consult a licensed Financial Advice Provider (FAP) before making investment decisions.
+</div>
+
+</div><!-- /page -->
+
+<script>
+/* ─── State ──────────────────────────────────────────────── */
+let empRate = 0.03;
+let chartInst = null;
+let prevBalance = 0;
+
+const NZ_SUPER   = { single: 496,  couple: 762  };
+const BENCHMARK  = { single: 650,  couple: 950  };
+
+/* ─── ESCT ───────────────────────────────────────────────── */
+function esctRate(r) {
+  if (r <= 16800)  return 0.105;
+  if (r <= 57600)  return 0.175;
+  if (r <= 84000)  return 0.30;
+  return 0.33;
+}
+
+/* ─── Format ─────────────────────────────────────────────── */
+function fmtBig(n) {
+  if (n >= 1e6) return '$' + (n / 1e6).toFixed(2) + 'M';
+  return '$' + Math.round(n).toLocaleString('en-NZ');
+}
+function fmtShort(n) {
+  if (n >= 1e6) return '$' + (n / 1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return '$' + (n / 1e3).toFixed(0) + 'k';
+  return '$' + Math.round(n);
+}
+function fmtWk(n) {
+  return '$' + Math.round(n).toLocaleString('en-NZ');
+}
+
+/* ─── Animated counter ───────────────────────────────────── */
+const counterTargets = {};
+
+function animCount(el, toVal, formatFn, duration = 500) {
+  const id = el.id || el.className;
+  if (counterTargets[id] === toVal) return;
+  const from = counterTargets[id] ?? toVal;
+  counterTargets[id] = toVal;
+  const start = performance.now();
+  function tick(now) {
+    const t = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - t, 3);
+    el.textContent = formatFn(from + (toVal - from) * ease);
+    if (t < 1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ─── Slider fill ────────────────────────────────────────── */
+function updateSliderFill(el) {
+  const min = +el.min, max = +el.max, val = +el.value;
+  const pct = ((val - min) / (max - min)) * 100;
+  el.style.background = `linear-gradient(to right, var(--teal-600) ${pct}%, var(--slate-200) ${pct}%)`;
+}
+
+document.querySelectorAll('input[type=range]').forEach(s => {
+  updateSliderFill(s);
+  s.addEventListener('input', () => updateSliderFill(s));
+});
+
+/* ─── Calculation ────────────────────────────────────────── */
+function calc(netRetOverride) {
+  const currentAge  = +document.getElementById('currentAge').value;
+  const retireAge   = +document.getElementById('retireAge').value;
+  const salary      = +document.getElementById('salary').value || 0;
+  const salGrowth   = (+document.getElementById('salaryGrowth').value || 0) / 100;
+  const eplrPct     = (+document.getElementById('employerRate').value || 0) / 100;
+  const startBal    = +document.getElementById('currentBalance').value || 0;
+  const grossRet    = (+document.getElementById('returnRate').value || 0) / 100;
+  const fees        = (+document.getElementById('feeRate').value || 0) / 100;
+  const drawYrs     = +document.getElementById('drawdownYears').value || 20;
+  const rel         = document.getElementById('relationship').value;
+  const hasBreak    = document.getElementById('hasBreak').checked;
+  const breakFrom   = +document.getElementById('breakFrom').value;
+  const breakTo     = +document.getElementById('breakTo').value;
+  const hasLump     = document.getElementById('hasLump').checked;
+  const lumpAmt     = +document.getElementById('lumpAmt').value || 0;
+  const lumpAge     = +document.getElementById('lumpAge').value;
+  const inflAdj     = document.getElementById('inflAdj').checked;
+
+  let netRet = netRetOverride !== undefined
+    ? netRetOverride
+    : Math.max(0, grossRet - fees - (inflAdj ? 0.02 : 0));
+
+  const years = Math.max(0, retireAge - currentAge);
+  let bal = startBal, annSal = salary;
+  let totEmp = 0, totEplr = 0, totMTC = 0;
+
+  const balHist = [bal], ageArr = [currentAge];
+  const empHist = [0], eplrHist = [0], mtcHist = [0], growHist = [0];
+
+  for (let y = 0; y < years; y++) {
+    const age     = currentAge + y;
+    const onBreak = hasBreak && age >= breakFrom && age < breakTo;
+
+    const empC   = onBreak ? 0 : annSal * empRate;
+    const eplrG  = onBreak ? 0 : annSal * eplrPct;
+    const eplrN  = eplrG * (1 - esctRate(annSal + eplrG));
+    const mtc    = (!onBreak && age >= 18 && age < 65) ? Math.min(empC * 0.5, 521.43) : 0;
+    const lump   = (hasLump && age === lumpAge) ? lumpAmt : 0;
+
+    bal      = (bal + empC + eplrN + mtc + lump) * (1 + netRet);
+    totEmp  += empC;
+    totEplr += eplrN;
+    totMTC  += mtc;
+
+    balHist.push(Math.round(bal));
+    ageArr.push(age + 1);
+    empHist.push(totEmp);
+    eplrHist.push(totEplr);
+    mtcHist.push(totMTC);
+    const growth = Math.max(0, bal - startBal - totEmp - totEplr - totMTC);
+    growHist.push(growth);
+
+    annSal *= (1 + salGrowth);
+  }
+
+  const growth  = Math.max(0, bal - startBal - totEmp - totEplr - totMTC);
+  const superWk = NZ_SUPER[rel] || NZ_SUPER.single;
+  const kiwiWk  = bal / (drawYrs * 52);
+  const totalWk = kiwiWk + superWk;
+  const bench   = BENCHMARK[rel] || BENCHMARK.single;
+
+  const fyEmp   = salary * empRate;
+  const fyEplrG = salary * eplrPct;
+  const fyEplrN = fyEplrG * (1 - esctRate(salary + fyEplrG));
+  const fyMTC   = Math.min(fyEmp * 0.5, 521.43);
+
+  return {
+    bal, totEmp, totEplr, totMTC, growth, netRet,
+    balHist, ageArr, empHist, eplrHist, mtcHist, growHist,
+    kiwiWk, superWk, totalWk, bench,
+    fyEmp, fyEplrN, fyMTC,
+    years, retireAge, rel, drawYrs
+  };
+}
+
+/* ─── Render ─────────────────────────────────────────────── */
+function render() {
+  const r = calc();
+  const inflAdj  = document.getElementById('inflAdj').checked;
+  const fundName = document.querySelector('.fund-card.on')?.dataset.fund || 'Balanced';
+  const netPct   = (r.netRet * 100).toFixed(1);
+
+  /* net return label */
+  document.getElementById('netReturnDisplay').textContent = netPct + '%';
+
+  /* Hero */
+  animCount(document.getElementById('heroAmount'), r.bal, fmtBig, 600);
+  document.getElementById('heroYears').textContent  = r.years;
+  document.getElementById('heroAge').textContent    = `Age ${r.retireAge}`;
+  document.getElementById('heroFund').textContent   = `${fundName} fund`;
+  document.getElementById('heroNet').textContent    = `${netPct}% net${inflAdj ? ' real' : ''}`;
+  document.getElementById('heroDrawdown').textContent = r.drawYrs;
+
+  animCount(document.getElementById('heroWkKiwi'),  r.kiwiWk,  fmtWk, 500);
+  animCount(document.getElementById('heroWkSuper'), r.superWk, fmtWk, 500);
+  animCount(document.getElementById('heroWkTotal'), r.totalWk, fmtWk, 500);
+  document.getElementById('heroSuperNote').textContent =
+    r.rel === 'couple' ? 'Combined couple · 2025' : 'Single rate · 2025';
+
+  /* MTC alert */
+  const salary   = +document.getElementById('salary').value || 0;
+  const empYr    = salary * empRate;
+  const mtcEl    = document.getElementById('mtcAlert');
+  if (empYr > 0 && empYr < 1042.86) {
+    const short = Math.round(1042.86 - empYr);
+    mtcEl.style.display = 'block';
+    mtcEl.innerHTML = `<div class="alert alert-warn">
+      <span class="alert-icon">⚠️</span>
+      <span>You're missing out on government top-up. Contribute an extra
+      <strong>$${short.toLocaleString()}/yr</strong> to unlock the full
+      <strong>$521.43 Member Tax Credit</strong>.</span></div>`;
+  } else if (empYr >= 1042.86) {
+    mtcEl.style.display = 'block';
+    mtcEl.innerHTML = `<div class="alert alert-ok">
+      <span class="alert-icon">✓</span>
+      <span>You're contributing enough to receive the <strong>full $521.43 government
+      Member Tax Credit</strong> each year.</span></div>`;
+  } else {
+    mtcEl.style.display = 'none';
+  }
+
+  /* Income tiles */
+  animCount(document.getElementById('incKiwi'),  r.kiwiWk,  fmtWk, 500);
+  animCount(document.getElementById('incSuper'), r.superWk, fmtWk, 500);
+  animCount(document.getElementById('incTotal'), r.totalWk, fmtWk, 500);
+
+  /* Gap bar */
+  const pct = Math.min(100, (r.totalWk / r.bench) * 100);
+  const bar = document.getElementById('gapBar');
+  bar.style.width    = pct + '%';
+  bar.style.background = pct >= 100 ? 'var(--emerald-500)' : pct >= 70 ? 'var(--amber-500)' : 'var(--red-400)';
+  document.getElementById('gapPct').textContent   = Math.round(pct) + '%';
+  document.getElementById('gapChip').textContent  = Math.round(pct) + '%';
+  document.getElementById('gapLabel').textContent =
+    `vs ${r.rel} comfortable retirement benchmark ($${r.bench}/wk)`;
+
+  const gn = document.getElementById('gapNote');
+  if (pct >= 100) {
+    gn.innerHTML = `<div class="alert alert-ok"><span class="alert-icon">✓</span>
+      <span>On track to meet or exceed the comfortable retirement benchmark.</span></div>`;
+  } else {
+    const shortWk = Math.round(r.bench - r.totalWk);
+    gn.innerHTML = `<div class="alert alert-warn"><span class="alert-icon">⚠️</span>
+      <span>Estimated <strong>$${shortWk}/week short</strong> of the comfortable benchmark.
+      Try increasing your contribution rate or adjusting your retirement age.</span></div>`;
+  }
+
+  /* Breakdown */
+  const bkData = [
+    { label: 'Investment Growth',        val: r.growth,   color: 'var(--emerald-500)' },
+    { label: 'Your Contributions',        val: r.totEmp,   color: 'var(--teal-600)' },
+    { label: 'Employer Contributions',    val: r.totEplr,  color: '#8b5cf6' },
+    { label: 'Govt Member Tax Credit',    val: r.totMTC,   color: 'var(--amber-500)' },
+  ].sort((a, b) => b.val - a.val);
+
+  const total = r.bal;
+  document.getElementById('breakdown').innerHTML = bkData.map(d => {
+    const pct = total > 0 ? (d.val / total * 100).toFixed(1) : '0.0';
+    return `<div class="bk-item">
+      <div class="bk-color" style="background:${d.color}"></div>
+      <div class="bk-info">
+        <div class="bk-name">${d.label}</div>
+        <div class="bk-pct">${pct}% of total</div>
+      </div>
+      <div class="bk-bar-outer">
+        <div class="bk-bar-fill" style="width:${pct}%;background:${d.color}"></div>
+      </div>
+      <div class="bk-amount">${fmtShort(d.val)}</div>
+    </div>`;
+  }).join('');
+
+  /* Scenarios */
+  const pR = Math.max(0, r.netRet - 0.02);
+  const oR = r.netRet + 0.02;
+  const rP = calc(pR);
+  const rO = calc(oR);
+  document.getElementById('scPess').textContent  = fmtShort(rP.bal);
+  document.getElementById('scBase').textContent  = fmtShort(r.bal);
+  document.getElementById('scOpt').textContent   = fmtShort(rO.bal);
+  document.getElementById('scPessR').textContent = `${(pR * 100).toFixed(1)}% net return`;
+  document.getElementById('scBaseR').textContent = `${(r.netRet * 100).toFixed(1)}% net return`;
+  document.getElementById('scOptR').textContent  = `${(oR * 100).toFixed(1)}% net return`;
+
+  /* This year */
+  animCount(document.getElementById('sEmp'),   r.fyEmp,   fmtBig, 400);
+  animCount(document.getElementById('sFortn'), r.fyEmp / 26, fmtWk, 400);
+  animCount(document.getElementById('sEmplr'), r.fyEplrN, fmtBig, 400);
+  animCount(document.getElementById('sMTC'),   r.fyMTC,   fmtWk,  400);
+
+  /* Chart */
+  renderChart(r);
+}
+
+/* ─── Chart ──────────────────────────────────────────────── */
+function renderChart(r) {
+  const ctx = document.getElementById('growthChart').getContext('2d');
+  if (chartInst) chartInst.destroy();
+
+  const n = r.ageArr.length;
+  const step = Math.max(1, Math.floor(n / 30));
+  const labels = [], dBal = [], dEmp = [], dEplr = [], dMTC = [], dGrow = [];
+
+  for (let i = 0; i < n; i += step) {
+    labels.push(r.ageArr[i]);
+    dBal.push(r.balHist[i]);
+    dEmp.push(r.empHist[i]);
+    dEplr.push(r.eplrHist[i]);
+    dMTC.push(r.mtcHist[i]);
+    dGrow.push(r.growHist[i]);
+  }
+
+  if (labels[labels.length - 1] !== r.ageArr[n - 1]) {
+    labels.push(r.ageArr[n - 1]);
+    dBal.push(r.balHist[n - 1]);
+    dEmp.push(r.empHist[n - 1]);
+    dEplr.push(r.eplrHist[n - 1]);
+    dMTC.push(r.mtcHist[n - 1]);
+    dGrow.push(r.growHist[n - 1]);
+  }
+
+  chartInst = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        {
+          label: 'Balance',
+          data: dBal,
+          borderColor: '#14b8a6',
+          backgroundColor: 'rgba(20,184,166,0.08)',
+          fill: true,
+          tension: 0.4,
+          borderWidth: 2.5,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#14b8a6',
+          pointHoverBorderColor: '#fff',
+          pointHoverBorderWidth: 2,
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#0f172a',
+          titleColor: '#94a3b8',
+          bodyColor: '#fff',
+          borderColor: '#1e293b',
+          borderWidth: 1,
+          padding: 10,
+          cornerRadius: 8,
+          callbacks: {
+            title: items => `Age ${items[0].label}`,
+            label: ctx => ` Balance: ${fmtBig(ctx.parsed.y)}`
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          border: { display: false },
+          ticks: {
+            font: { family: 'Inter', size: 11 },
+            color: '#94a3b8',
+          },
+          title: { display: true, text: 'Age', font: { family: 'Inter', size: 11 }, color: '#94a3b8' }
+        },
+        y: {
+          grid: { color: '#f1f5f9', drawBorder: false },
+          border: { display: false, dash: [4, 4] },
+          ticks: {
+            callback: v => fmtShort(v),
+            maxTicksLimit: 6,
+            font: { family: 'Inter', size: 11 },
+            color: '#94a3b8',
+          }
+        }
+      }
+    }
+  });
+}
+
+/* ─── Wire sliders ───────────────────────────────────────── */
+function wireSlider(id, valId, suffix = '') {
+  const sl = document.getElementById(id);
+  const vl = document.getElementById(valId);
+  sl.addEventListener('input', () => {
+    vl.textContent = sl.value + suffix;
+    updateSliderFill(sl);
+    render();
+  });
+}
+
+wireSlider('currentAge',    'currentAgeVal');
+wireSlider('retireAge',     'retireAgeVal');
+wireSlider('drawdownYears', 'drawdownVal', ' yrs');
+
+/* ─── Pill buttons ───────────────────────────────────────── */
+document.querySelectorAll('.pill').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pill').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    empRate = parseFloat(btn.dataset.rate);
+    render();
+  });
+});
+
+/* ─── Fund cards ─────────────────────────────────────────── */
+document.querySelectorAll('.fund-card').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.fund-card').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    document.getElementById('returnRate').value = btn.dataset.return;
+    render();
+  });
+});
+
+/* ─── Advanced toggle ────────────────────────────────────── */
+document.getElementById('advToggle').addEventListener('click', () => {
+  const body  = document.getElementById('advBody');
+  const chev  = document.getElementById('advChevron');
+  body.classList.toggle('open');
+  chev.classList.toggle('open');
+});
+
+/* ─── Break / lump sum toggles ───────────────────────────── */
+document.getElementById('hasBreak').addEventListener('change', e => {
+  document.getElementById('breakFields').style.display = e.target.checked ? 'block' : 'none';
+  render();
+});
+
+document.getElementById('hasLump').addEventListener('change', e => {
+  document.getElementById('lumpFields').style.display = e.target.checked ? 'block' : 'none';
+  render();
+});
+
+/* ─── All other inputs ───────────────────────────────────── */
+[
+  'salary', 'salaryGrowth', 'employerRate', 'currentBalance',
+  'returnRate', 'feeRate', 'breakFrom', 'breakTo',
+  'lumpAmt', 'lumpAge', 'inflAdj'
+].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render);
+});
+
+document.getElementById('relationship').addEventListener('change', render);
+
+/* ─── Boot ───────────────────────────────────────────────── */
+render();
+</script>
+</body>
+</html>

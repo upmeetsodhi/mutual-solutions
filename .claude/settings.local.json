@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.mutuals.co.nz)",
+      "WebSearch",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "Bash(open -a \"Google Chrome\" http://localhost:3456)",
+      "mcp__Claude_in_Chrome__javascript_tool",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(ls /Users/upmeetsodhi/Claude/ && ls ~/Downloads/ | grep -i -E \"\\(upmeet|mutual|photo|headshot|sodhi\\)\" 2>/dev/null | head -20)",
+      "Bash(xargs ls -lt)",
+      "Bash(find ~/Desktop ~/Downloads ~/Documents -maxdepth 3 \\\\\\( -name \"*.jpg\" -o -name \"*.jpeg\" -o -name \"*.png\" -o -name \"*.webp\" -o -name \"*.HEIC\" -o -name \"*.heic\" \\\\\\) 2>/dev/null | head -30)",
+      "Bash(cp \"/Users/upmeetsodhi/Desktop/pictures/img_0059.jpg\" \"/Users/upmeetsodhi/Claude/upmeet.jpg\" && echo \"Copied\")",
+      "Bash(python3 -c ' *)",
+      "Bash(ipconfig getifaddr *)"
+    ]
+  }
+}
