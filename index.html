@@ -229,12 +229,10 @@
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <script>
-    if (window.innerWidth > 768) {
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    }
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+    script.defer = true;
+    document.head.appendChild(script);
   </script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -1918,7 +1916,7 @@ window.addEventListener('scroll', () => {
    HERO THREE.JS — dark particles + wireframes on white
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
-if (window.innerWidth > 768 && window.THREE) {
+if (window.THREE) {
 (function initHero() {
   const canvas   = document.getElementById('hero-canvas');
   if (!canvas) return;
@@ -2000,7 +1998,7 @@ if (window.innerWidth > 768 && window.THREE) {
    SPLIT-PANEL THREE.JS — white wireframes on dark
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
-if (window.innerWidth > 768 && window.THREE) {
+if (window.THREE) {
 (function initSplit() {
   const canvas   = document.getElementById('split-canvas');
   const panel    = document.getElementById('split');
@@ -2053,7 +2051,7 @@ if (window.innerWidth > 768 && window.THREE) {
    CTA THREE.JS — subtle spinning rings on light bg
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
-if (window.innerWidth > 768 && window.THREE) {
+if (window.THREE) {
 (function initCta() {
   const canvas   = document.getElementById('cta-canvas');
   if (!canvas) return;
