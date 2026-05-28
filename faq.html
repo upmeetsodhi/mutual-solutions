@@ -187,21 +187,21 @@
     /* ── NAV ─────────────────────────────────────── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center;
+      display: flex; align-items: center; justify-content: space-between;
       padding: 22px 52px;
       background: rgba(255,255,255,0.9);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
       box-shadow: 0 1px 0 var(--border);
+      transition: background .4s, box-shadow .4s;
     }
-
-    .back-link {
-      font-size: 14px; font-weight: 600;
-      color: var(--ink-muted); text-decoration: none;
-      display: flex; align-items: center; gap: 7px;
-      transition: color .2s, gap .2s;
-    }
-    .back-link:hover { color: var(--ink); gap: 11px; }
+    .nav-logo { font-size: 16px; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nav-logo-sub { font-weight: 300; color: var(--ink-muted); font-size: 15px; }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a { color: var(--ink-muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-phone { color: var(--ink-muted) !important; }
+    .nav-cta { background: var(--ink); color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 13px !important; font-weight: 600; }
 
     /* ── PAGE LAYOUT ─────────────────────────────── */
     .page-wrap {
@@ -323,8 +323,13 @@
     .btn-dark:hover { opacity: .82; transform: scale(1.02); }
 
     /* ── MOBILE ──────────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+
     @media (max-width: 600px) {
-      nav { padding: 18px 20px; }
+      nav { padding: 14px 16px; }
       .page-wrap { padding: 0 20px; padding-top: 96px; padding-bottom: 80px; }
       .page-header { padding: 40px 0 48px; }
       .faq-cta { padding: 36px 24px; }
@@ -335,8 +340,21 @@
 <body>
 
   <!-- ════ NAV ════════════════════════════════════ -->
-  <nav>
-    <a class="back-link" href="index.html">← Back to Mutual Solutions</a>
+  <nav id="main-nav">
+    <a class="nav-logo" href="/">
+      Mutual<span class="nav-logo-sub">&nbsp;Solutions</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Insurance</a></li>
+      <li><a href="/">Why Us</a></li>
+      <li><a href="/">About</a></li>
+      <li><a href="/adviser/upmeet.html">Adviser</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/">Reviews</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="tel:0800675555" class="nav-phone">0800 67 55 55</a></li>
+      <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult →</a></li>
+    </ul>
   </nav>
 
   <div class="page-wrap">
