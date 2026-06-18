@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upmeet Sodhi — Independent Financial Adviser | Mutual Solutions NZ</title>
+
+  <!-- ── PRIMARY SEO ──────────────────────────────── -->
+  <meta name="description" content="Upmeet Sodhi — Independent Financial Adviser with 10+ years experience. Specializing in insurance, KiwiSaver, and home loans. FSP 729871. Free consultation." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.mutuals.co.nz/adviser/upmeet.html" />
+
+  <!-- ── JSON-LD PERSON SCHEMA ───────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Upmeet Sodhi",
+    "jobTitle": "Independent Financial Adviser",
+    "url": "https://www.mutuals.co.nz/adviser/upmeet.html",
+    "image": "https://www.mutuals.co.nz/upmeet.jpg",
+    "worksFor": {"@type": "Organization", "name": "Mutual Solutions Limited"},
+    "hasCredential": [
+      {"@type": "EducationalOccupationalCredential", "name": "Executive MBA"},
+      {"@type": "EducationalOccupationalCredential", "name": "Diploma in Financial Services"},
+      {"@type": "EducationalOccupationalCredential", "name": "Financial Service Provider", "credentialId": "729871"}
+    ]
+  }
+  </script>
+
+  <!-- ── BREADCRUMB SCHEMA ─────────────────────────── -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.mutuals.co.nz"},
+    {"@type": "ListItem", "position": 2, "name": "Adviser", "item": "https://www.mutuals.co.nz/adviser/upmeet.html"}
+  ]}
+  </script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg-subtle:    #f5f5f5;
+      --bg-dark:      #0a0a0a;
+      --ink:          #0a0a0a;
+      --ink-2:        #1c1c1c;
+      --ink-muted:    #6b6b6b;
+      --ink-faint:    #b8b8b8;
+      --border:       rgba(0,0,0,0.08);
+      --border-mid:   rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 52px;
+      transition: background .4s, box-shadow .4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-size: 16px; font-weight: 700; letter-spacing: -0.4px;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-logo-sub { font-weight: 300; color: var(--ink-muted); font-size: 15px; }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      color: var(--ink-muted); text-decoration: none;
+      font-size: 14px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: #fff !important;
+      padding: 9px 22px; border-radius: 100px;
+      font-size: 13px !important; font-weight: 600;
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    #hero {
+      position: relative; height: 100vh; min-height: 680px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 28px; }
+    .hero-image {
+      width: 140px; height: 140px; border-radius: 16px;
+      margin: 0 auto 40px; box-shadow: 0 24px 72px rgba(0,0,0,0.12);
+      object-fit: cover;
+      opacity: 0; transform: translateY(24px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.1s;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.9);
+      border: 1px solid var(--border-mid);
+      border-radius: 100px; padding: 6px 16px 6px 12px;
+      font-size: 12px; font-weight: 500; color: var(--ink-muted);
+      margin-bottom: 36px;
+      opacity: 0; transform: translateY(16px);
+      backdrop-filter: blur(8px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.2s;
+    }
+    .badge-stars { color: #f59e0b; font-size: 11px; letter-spacing: 1px; }
+    .hero-title {
+      font-size: clamp(50px, 9vw, 116px);
+      font-weight: 800; line-height: 1.0;
+      letter-spacing: -5px; color: var(--ink);
+      opacity: 0; transform: translateY(48px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.3s;
+    }
+    .hero-title .ghost {
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(0,0,0,0.14);
+    }
+    .hero-sub {
+      margin-top: 40px;
+      font-size: 17px; line-height: 1.65;
+      color: var(--ink-muted); max-width: 440px;
+      margin-left: auto; margin-right: auto;
+      opacity: 0; transform: translateY(24px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.4s;
+    }
+    .hero-btns {
+      margin-top: 44px; display: flex;
+      gap: 12px; justify-content: center; flex-wrap: wrap;
+      opacity: 0; transform: translateY(20px);
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.5s;
+    }
+    .btn-dark {
+      background: var(--ink); color: #fff;
+      padding: 14px 32px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      letter-spacing: -0.2px;
+      transition: opacity .2s, transform .2s;
+    }
+    .btn-dark:hover { opacity: .82; transform: scale(1.02); }
+    .btn-outline {
+      background: transparent; color: var(--ink);
+      padding: 14px 32px; border-radius: 100px;
+      font-size: 14px; font-weight: 500; text-decoration: none;
+      border: 1px solid var(--border-mid);
+      transition: border-color .2s, transform .2s;
+    }
+    .btn-outline:hover { border-color: var(--ink); transform: scale(1.02); }
+    .hero-scroll-hint {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      opacity: 0;
+      animation: fadeInUp 0.8s ease-out forwards;
+      animation-delay: 0.6s;
+    }
+    .scroll-label {
+      font-size: 10px; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--ink-faint);
+    }
+    .scroll-line {
+      width: 1px; height: 42px;
+      background: linear-gradient(to bottom, var(--ink-faint), transparent);
+      animation: scrollpulse 2s ease-in-out infinite;
+    }
+    @keyframes scrollpulse { 0%,100%{opacity:.25} 50%{opacity:.8} }
+
+    /* ── SECTION PRIMITIVES ──────────────────────── */
+    .section-wrap { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+    .tag {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -2px; line-height: 1.05;
+    }
+
+    /* ── ABOUT SECTION ───────────────────────────– */
+    #about { padding: 80px 0; }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .about-left .tag { margin-bottom: 18px; }
+    .about-left .h2 { margin-top: 0; margin-bottom: 28px; }
+    .about-right { padding-top: 6px; display: flex; flex-direction: column; gap: 18px; }
+    .about-right p {
+      font-size: 16px; line-height: 1.75; color: var(--ink-muted);
+    }
+    .about-right p strong { color: var(--ink); font-weight: 600; }
+
+    /* ── CREDENTIALS SECTION ────────────────────── */
+    #credentials {
+      border-top: 1px solid var(--border);
+      background: var(--bg-subtle);
+      padding: 80px 0;
+    }
+    .credentials-header { margin-bottom: 52px; }
+    .credentials-header .tag { margin-bottom: 16px; }
+    .credentials-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: var(--border);
+    }
+    .cred-item {
+      background: var(--bg); padding: 48px 40px; text-align: center;
+    }
+    .cred-icon { font-size: 40px; margin-bottom: 18px; }
+    .cred-name { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .cred-desc { font-size: 13px; line-height: 1.65; color: var(--ink-muted); }
+
+    /* ── SPECIALTIES SECTION ────────────────────– */
+    #specialties { padding: 80px 0; border-top: 1px solid var(--border); }
+    .specialties-header { margin-bottom: 52px; }
+    .specialties-header .tag { margin-bottom: 16px; }
+    .specialties-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .specialty {
+      border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: 40px 32px;
+      background: var(--bg);
+      transition: box-shadow .3s, transform .3s;
+    }
+    .specialty:hover {
+      box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+      transform: translateY(-5px);
+    }
+    .specialty-name { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+    .specialty-desc { font-size: 14px; line-height: 1.65; color: var(--ink-muted); }
+
+    /* ── REVIEWS SECTION ────────────────────────– */
+    #reviews-outer {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .reviews-sticky {
+      position: sticky; top: 0; height: auto;
+      display: flex; overflow: hidden;
+      min-height: 600px;
+    }
+    .reviews-sidebar {
+      width: 280px; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 48px 32px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--bg);
+    }
+    .reviews-sidebar .tag { margin-bottom: 16px; }
+    .reviews-sidebar .h2 { font-size: 36px; margin-bottom: 18px; }
+    .gscore-block {
+      margin: 24px 0; padding: 20px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .gscore-num { font-size: 44px; font-weight: 800; line-height: 1; }
+    .gstars { font-size: 14px; color: #f59e0b; margin: 8px 0; letter-spacing: 1px; }
+    .gcount { font-size: 12px; color: var(--ink-muted); }
+    .reviews-rail {
+      flex: 1; display: flex; align-items: center;
+      padding: 0 40px; gap: 20px;
+      overflow-x: auto; scrollbar-width: none;
+      cursor: grab;
+    }
+    .reviews-rail::-webkit-scrollbar { display: none; }
+    .r-card {
+      flex-shrink: 0; width: 320px;
+      border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: 32px 28px;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      height: 320px;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .r-card:hover {
+      box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+      transform: translateY(-5px);
+    }
+    .r-stars { color: #f59e0b; font-size: 12px; letter-spacing: 2px; margin-bottom: 16px; }
+    .r-text {
+      font-size: 14px; line-height: 1.65; color: var(--ink-2);
+      flex: 1; margin-bottom: 18px;
+    }
+    .r-author strong { display: block; font-size: 13px; font-weight: 700; color: var(--ink); }
+    .r-author span { font-size: 11px; color: var(--ink-faint); }
+
+    /* ── TESTIMONIALS SECTION ──────────────────── */
+    #testimonials-outer {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .testimonials-sticky {
+      position: sticky; top: 0; height: auto;
+      display: flex; overflow: hidden;
+      min-height: 600px;
+    }
+    .testimonials-sidebar {
+      width: 280px; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 48px 32px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--bg);
+    }
+    .testimonials-sidebar .tag { margin-bottom: 16px; }
+    .testimonials-sidebar .h2 { font-size: 36px; margin-bottom: 18px; }
+    .testimonials-rail {
+      flex: 1; display: flex; align-items: center;
+      padding: 0 40px; gap: 20px;
+      overflow-x: auto; scrollbar-width: none;
+      cursor: grab;
+    }
+    .testimonials-rail::-webkit-scrollbar { display: none; }
+    .t-card {
+      flex-shrink: 0; width: 320px;
+      border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: 36px 28px;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      height: 340px;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .t-card:hover {
+      box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+      transform: translateY(-5px);
+    }
+    .t-stars { color: #f59e0b; font-size: 13px; letter-spacing: 2px; margin-bottom: 18px; }
+    .t-text {
+      font-size: 14px; line-height: 1.75; color: var(--ink-2);
+      font-style: italic; flex: 1; margin-bottom: 24px;
+    }
+    .t-author strong { display: block; font-size: 13px; font-weight: 700; }
+    .t-author span { font-size: 12px; color: var(--ink-faint); }
+
+    /* ── PROCESS SECTION ────────────────────────– */
+    #process { padding: 80px 0; border-top: 1px solid var(--border); }
+    .process-header { margin-bottom: 52px; }
+    .process-header .tag { margin-bottom: 16px; }
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--border); border-radius: 16px;
+      overflow: hidden; gap: 1px; background: var(--border);
+    }
+    .p-step {
+      background: var(--bg); padding: 44px 32px;
+    }
+    .p-num {
+      font-size: 44px; font-weight: 800; letter-spacing: -3px;
+      line-height: 1; margin-bottom: 22px;
+      -webkit-text-stroke: 0.5px var(--ink);
+    }
+    .p-title { font-size: 16px; font-weight: 700; margin-bottom: 10px; }
+    .p-desc { font-size: 13px; line-height: 1.68; color: var(--ink-muted); }
+
+    /* ── BLOG SECTION ────────────────────────────– */
+    #blog-outer {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg);
+    }
+    .blog-sticky {
+      position: sticky; top: 0; height: auto;
+      display: flex; overflow: hidden;
+      min-height: 600px;
+    }
+    .blog-sidebar {
+      width: 280px; flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      padding: 48px 32px;
+      display: flex; flex-direction: column; justify-content: center;
+      background: var(--bg);
+    }
+    .blog-sidebar .tag { margin-bottom: 16px; }
+    .blog-sidebar .h2 { font-size: 36px; margin-bottom: 18px; }
+    .blog-rail {
+      flex: 1; display: flex; align-items: center;
+      padding: 0 40px; gap: 20px;
+      overflow-x: auto; scrollbar-width: none;
+      cursor: grab;
+    }
+    .blog-rail::-webkit-scrollbar { display: none; }
+    .b-card {
+      flex-shrink: 0; width: 320px;
+      border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: 36px 28px;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      justify-content: space-between;
+      height: 340px;
+      transition: box-shadow .3s, transform .3s;
+    }
+    .b-card:hover {
+      box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+      transform: translateY(-5px);
+    }
+    .b-meta { font-size: 12px; color: var(--ink-faint); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; display: flex; gap: 16px; }
+    .b-title { font-size: 18px; font-weight: 700; line-height: 1.3; margin-bottom: 12px; color: var(--ink); }
+    .b-excerpt { font-size: 14px; line-height: 1.65; color: var(--ink-muted); flex: 1; margin-bottom: 18px; }
+    .b-link { color: var(--ink); font-size: 13px; font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: gap .2s; }
+    .b-link:hover { gap: 12px; }
+
+    /* ── CTA SECTION ────────────────────────────– */
+    #cta {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-dark); color: #fff;
+      padding: 80px 0;
+    }
+    .cta-header { margin-bottom: 44px; }
+    .cta-header .tag { color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+    .cta-header .h2 { color: #fff; margin-bottom: 20px; }
+    .cta-sub {
+      font-size: 16px; line-height: 1.7;
+      color: rgba(255,255,255,0.6); max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .cta-btns { display: flex; gap: 12px; }
+    .btn-light {
+      background: #fff; color: var(--bg-dark);
+      padding: 14px 32px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn-light:hover { opacity: .88; }
+
+    /* ── COMPLIANCE BAR ────────────────────────– */
+    .compliance-bar { background: #f9f9f9; border-top: 1px solid rgba(0,0,0,0.07); padding: 14px 56px; font-size: 11px; color: #888; text-align: center; }
+    .compliance-bar a { color: #888; text-decoration: underline; }
+
+    /* ── FOOTER ────────────────────────────────– */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 56px;
+      margin-bottom: 36px;
+    }
+    .footer-brand-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--ink);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 16px;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      color: var(--ink-muted);
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+    .footer-brand .fsp {
+      font-size: 12px;
+      color: var(--ink-faint);
+    }
+    .trust-badges {
+      display: flex;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .trust-badge {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+      text-align: center;
+    }
+    .badge-label {
+      color: var(--ink-faint);
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .badge-name {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .badge-sub {
+      color: var(--ink-muted);
+      font-size: 10px;
+    }
+    .footer-social {
+      display: flex;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    .social-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--ink);
+      text-decoration: none;
+      transition: border-color .2s, color .2s;
+    }
+    .social-icon:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .footer-col a {
+      font-size: 13px;
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-col a:hover {
+      color: var(--ink);
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--ink-muted);
+    }
+    .footer-bottom span:last-child {
+      display: flex;
+      gap: 12px;
+    }
+    .footer-bottom a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .footer-bottom a:hover {
+      color: var(--ink);
+    }
+
+    /* ── MOBILE ──────────────────────────────────– */
+    @media (max-width: 920px) {
+      nav { padding: 16px 28px; }
+      .nav-links { gap: 18px; }
+      .section-wrap { padding: 0 28px; }
+      .about-grid,
+      .blog-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: clamp(36px, 8vw, 52px); }
+      .reviews-sticky { flex-direction: column; min-height: auto; }
+      .reviews-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 36px 28px; }
+      .reviews-rail { padding: 0 28px; }
+      .r-card { width: 100%; height: auto; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: column !important; gap: 6px !important; text-align: center; }
+      .footer-bottom span:last-child { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px; line-height: 1.8; }
+      .compliance-bar { padding: 12px 28px !important; }
+    }
+
+    /* ── ANIMATIONS ──────────────────────────────– */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-on-load {
+      animation: fadeInUp 0.8s ease-out forwards;
+    }
+
+    .hero-image { animation-delay: 0.1s; }
+    .hero-title { animation-delay: 0.2s; }
+    .hero-credentials { animation-delay: 0.3s; }
+    .hero-sub { animation-delay: 0.4s; }
+    .hero-btns { animation-delay: 0.5s; }
+  </style>
+</head>
+<body>
+  <!-- ── NAVIGATION ──────────────────────────────– -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">Mutual <span class="nav-logo-sub">Solutions</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/adviser/upmeet.html">Adviser</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/#cta" class="nav-cta">Free Consult</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO SECTION ──────────────────────────– -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-stars">★★★★★</span>
+        &nbsp;4.9 · 96 Google Reviews
+      </div>
+      <h1 class="hero-title">
+        Upmeet<br/>
+        <span class="ghost">Sodhi</span>
+      </h1>
+      <p class="hero-sub">Independent Financial Adviser helping New Zealand families with insurance, KiwiSaver, and home loans</p>
+      <div class="hero-btns">
+        <a href="#cta" class="btn-dark">Book Free Consultation</a>
+        <a href="#about" class="btn-outline">Learn More →</a>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span class="scroll-label">Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ── ABOUT SECTION ──────────────────────────– -->
+  <section id="about">
+    <div class="section-wrap">
+      <div class="about-grid">
+        <div class="about-left">
+          <div class="tag">About</div>
+          <h2 class="h2">10+ Years of Independent Advice</h2>
+        </div>
+        <div class="about-right">
+          <p>With over a decade of experience, I've helped hundreds of New Zealand families make confident financial decisions. <strong>My approach is simple: independent, unbiased advice tailored to your situation.</strong></p>
+          <p>I'm not tied to any product provider, which means my recommendations are genuinely in your best interest. Whether it's protecting your income, optimizing your KiwiSaver, or finding the right home loan, I take time to understand your goals before suggesting solutions.</p>
+          <p>Based in Palmerston North but serving clients nationwide, I combine personal service with access to a nationwide network of specialists and lenders.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── GOOGLE REVIEWS (sticky drag rail) ══════ -->
+  <div id="reviews-outer">
+    <div class="reviews-sticky">
+
+      <!-- Sidebar -->
+      <div class="reviews-sidebar">
+        <p class="tag">Google Reviews</p>
+        <h2 class="h2">What our<br/>clients say</h2>
+        <div class="gscore-block">
+          <div class="gscore-num">4.9</div>
+          <div class="gstars">★★★★★</div>
+          <div class="gcount">96 reviews · Mutual Solutions</div>
+        </div>
+        <p>Drag the cards to read more → <span style="font-size: 0.9em; opacity: 0.8; display: none;" class="mobile-hint">Use ← → arrows on mobile</span></p>
+      </div>
+
+      <!-- Drag rail -->
+      <div class="reviews-rail" id="reviews-rail">
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Fantastic communication and service throughout the process. Everything was handled smoothly, and I'm very pleased with the outcome."</p>
+          </div>
+          <div class="r-author">
+            <strong>Satish Shinde</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Absolutely outstanding service! Upmeet went above and beyond to help us with the process of buying our first home. Highly recommend Mutual Solutions to anyone looking for a knowledgeable and caring adviser."</p>
+          </div>
+          <div class="r-author">
+            <strong>Kirstie Brown</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Highly recommend Upmeet — he likes to meet regularly and check in, which is a bonus. He picked up on a claim we would have overlooked and missed if it wasn't for him checking in. Outstanding service."</p>
+          </div>
+          <div class="r-author">
+            <strong>Phillip Prince</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"I have found working with Upmeet seamless. We've had conversations about what our needs are as a family, and he put packages together that met all of those needs. I would absolutely recommend him."</p>
+          </div>
+          <div class="r-author">
+            <strong>Helen Hagan</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet is professional, really supportive and awesome to work with. He understood what we wanted and went above and beyond to find the best solution for our family. Couldn't be happier."</p>
+          </div>
+          <div class="r-author">
+            <strong>Gayani Gamage</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"We were recommended to use Mutual Solutions from family who were already using their services. Upmeet has been exceptional — knowledgeable, thorough, and always available when we have questions."</p>
+          </div>
+          <div class="r-author">
+            <strong>Tessa Young</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"I found working with Upmeet at Mutual Solutions to be a pleasant and professional experience. He demonstrated great knowledge and made sure I understood everything clearly before making any decisions."</p>
+          </div>
+          <div class="r-author">
+            <strong>Iritana Smith</strong>
+            <span>Google Review · Jan 2025</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Excellent to deal with, great communication and explained everything in an easy way. Thanks for the help."</p>
+          </div>
+          <div class="r-author">
+            <strong>Gregory Moss</strong>
+            <span>Google Review · Jan 2025</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet was a pleasure to work with. He is both personable and professional, takes all aspects into account and ensures the best solution to suit your needs whilst keeping you informed at every step. Anyone looking for financial or insurance advice — I would recommend Upmeet 100%!"</p>
+          </div>
+          <div class="r-author">
+            <strong>Kara Davis</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"If I have to describe the service in one word — AMAZING! Upmeet made our first home buying journey smooth and stress-free. He was always available to answer our questions and guided us every step of the way."</p>
+          </div>
+          <div class="r-author">
+            <strong>Palak Arora</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet is great to deal with — honest, patient and very informative. Takes the time to explain things. Also very efficient. Thanks again Upmeet!"</p>
+          </div>
+          <div class="r-author">
+            <strong>Jaimee</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet was approachable, knowledgeable and confident in giving us advice. He listened to our needs and formulated options to best assist us. He followed through on what he said he would do — I would recommend him to anyone."</p>
+          </div>
+          <div class="r-author">
+            <strong>Kerry Holden</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet was very helpful when I wanted to change my life insurance. We caught up, had a good talk and worked out what I really needed — not an overkill. He listened to what I had to say. Highly recommend."</p>
+          </div>
+          <div class="r-author">
+            <strong>Maxine Jones</strong>
+            <span>Local Guide · Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet made setting up our policies a breeze. Very professional, friendly and welcoming — he made what would seem a daunting task a simple and enjoyable experience. Would highly recommend!"</p>
+          </div>
+          <div class="r-author">
+            <strong>Jack Hildred</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"My insurance and investments required review and Upmeet was incredibly helpful with advice and efficient follow-through to completion. Very approachable and helpful. Highly recommend."</p>
+          </div>
+          <div class="r-author">
+            <strong>Laura Medhurst</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Great, friendly, helpful and knowledgeable. Very easy to deal with. Nothing was ever an issue."</p>
+          </div>
+          <div class="r-author">
+            <strong>Amanda Bright</strong>
+            <span>Local Guide · Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet has been extremely helpful in providing a service that is custom to our lifestyle and needs. He is very professional in what he does and also very friendly and easy to talk to. Highly recommend."</p>
+          </div>
+          <div class="r-author">
+            <strong>Travis-Lucy Parry</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet gives a great service — he is friendly and explains everything in a way that's easy to understand. We would happily recommend Upmeet and Mutual Solutions Limited."</p>
+          </div>
+          <div class="r-author">
+            <strong>Janine Shaw</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet has been fantastic to deal with and helped us get much better coverage on our insurance. He is very friendly and approachable, explains things clearly, and made the whole process very easy."</p>
+          </div>
+          <div class="r-author">
+            <strong>Jeff Goodman</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+        <div class="r-card">
+          <div>
+            <div class="r-stars">★★★★★</div>
+            <p class="r-text">"Upmeet was very friendly, knowledgeable and approachable. We had no idea about what insurance we should go for but he gave us a great understanding and made our decision easy. Would definitely recommend."</p>
+          </div>
+          <div class="r-author">
+            <strong>Georgia Brunton</strong>
+            <span>Google Review</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div style="height: 100vh"></div>
+  </div>
+
+
+  <!-- ── BLOG SECTION (sticky drag rail) ═════════ -->
+  <div id="blog-outer">
+    <div class="blog-sticky">
+
+      <!-- Sidebar -->
+      <div class="blog-sidebar">
+        <div>
+          <div class="tag">Insights</div>
+          <h2 class="h2">Articles & Insights</h2>
+        </div>
+      </div>
+
+      <!-- Drag rail -->
+      <div class="blog-rail" id="blog-rail">
+
+        <div class="b-card">
+          <div>
+            <div class="b-meta">
+              <span>May 2026</span>
+              <span>8 min</span>
+            </div>
+            <h3 class="b-title">Why Do Insurance Premiums Go Up? Complete NZ Guide</h3>
+            <p class="b-excerpt">Understand the factors driving insurance premium increases and strategies to manage rising costs effectively.</p>
+          </div>
+          <a href="/blog/why-insurance-premiums-increase.html" class="b-link">Read Article →</a>
+        </div>
+
+        <div class="b-card">
+          <div>
+            <div class="b-meta">
+              <span>May 2026</span>
+              <span>7 min</span>
+            </div>
+            <h3 class="b-title">Why Independent Financial Advice Matters in 2025</h3>
+            <p class="b-excerpt">Discover the key differences between bank advice and independent financial advisers, and why it matters for your future.</p>
+          </div>
+          <a href="/blog/why-independent-advice-matters.html" class="b-link">Read Article →</a>
+        </div>
+
+        <div class="b-card">
+          <div>
+            <div class="b-meta">
+              <span>May 2026</span>
+              <span>8 min</span>
+            </div>
+            <h3 class="b-title">Medical Insurance in New Zealand: Do You Need It?</h3>
+            <p class="b-excerpt">Explore the gaps in NZ's public health system and evaluate whether private medical insurance is right for you.</p>
+          </div>
+          <a href="/blog/medical-insurance-nz.html" class="b-link">Read Article →</a>
+        </div>
+
+        <div class="b-card">
+          <div>
+            <div class="b-meta">
+              <span>May 2026</span>
+              <span>9 min</span>
+            </div>
+            <h3 class="b-title">First-Time Home Buyer's Guide to Home Loans in New Zealand</h3>
+            <p class="b-excerpt">Navigate the mortgage market with confidence. Learn about loan types, deposit requirements, and strategies for first-time buyers.</p>
+          </div>
+          <a href="/blog/first-time-home-buyer-loans.html" class="b-link">Read Article →</a>
+        </div>
+
+      </div>
+    </div>
+    <div style="height: 100vh"></div>
+  </div>
+
+  <!-- ── CTA SECTION ────────────────────────────– -->
+  <section id="cta">
+    <div class="section-wrap">
+      <div class="cta-header">
+        <div class="tag">Get Started</div>
+        <h2 class="h2">Ready to Discuss Your Financial Future?</h2>
+        <p class="cta-sub">Let's work together to create a plan that works for your situation. First consultation is free with no obligation.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="tel:+64211874926" class="btn-light">Call 021 187 4926</a>
+        <a href="mailto:upmeet@mutuals.co.nz" class="btn-light">Email Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── COMPLIANCE BAR ════════════════════════════ -->
+  <div class="compliance-bar" style="background:#f9f9f9;border-top:1px solid rgba(0,0,0,0.07);padding:14px 56px;font-size:11px;color:#888;text-align:center;">
+    Mutual Solutions Limited (FSP 729871) is a registered Financial Advice Provider. Financial advice is subject to fees and our full disclosure statement. &nbsp;·&nbsp; <a href="/disclosure.html" style="color:#888;text-decoration:underline">View Disclosure</a>
+  </div>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a class="footer-brand-name" href="/">
+          Mutual Solutions
+        </a>
+        <p>Independent insurance &amp; financial advisers proudly serving Palmerston North and the Manawatū region since 2012.</p>
+        <p class="fsp">FSP 729871 · Registered Financial Advice Provider</p>
+        <p class="fsp" style="margin-top:6px">
+          <a href="/disclosure.html" style="color:inherit;text-decoration:underline">Disclosure Statement</a> &nbsp;·&nbsp;
+          <a href="/disclosure.html#complaints" style="color:inherit;text-decoration:underline">Complaints</a>
+        </p>
+        <div class="trust-badges">
+          <div class="trust-badge">
+            <span class="badge-label">Member</span>
+            <span class="badge-name">FSCL</span>
+            <span class="badge-sub">Dispute Resolution</span>
+          </div>
+          <div class="trust-badge">
+            <span class="badge-label">Registered</span>
+            <span class="badge-name">FSP</span>
+            <span class="badge-sub">729871</span>
+          </div>
+        </div>
+        <div class="footer-social">
+          <a href="https://www.facebook.com/mutualsolutionslimited" aria-label="Facebook" target="_blank" rel="noopener" class="social-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/upmeet-sodhi-b49b1271/" aria-label="LinkedIn" target="_blank" rel="noopener" class="social-icon">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Insurance</h4>
+        <ul>
+          <li><a href="/#cta">Life Insurance</a></li>
+          <li><a href="/#cta">Income Protection</a></li>
+          <li><a href="/#cta">Health Insurance</a></li>
+          <li><a href="/#cta">Critical Illness</a></li>
+          <li><a href="/#cta">Disability Cover</a></li>
+          <li><a href="/#cta">Level Premiums</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Financial</h4>
+        <ul>
+          <li><a href="/#cta">Home Loans</a></li>
+          <li><a href="/kiwisaver.html">KiwiSaver Advice</a></li>
+          <li><a href="/#cta">Investments</a></li>
+          <li><a href="/faq.html">FAQ</a></li>
+          <li><a href="/#cta">Free Consultation</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:0800675555">0800 67 55 55</a></li>
+          <li><a href="mailto:info@mutuals.co.nz">info@mutuals.co.nz</a></li>
+          <li><a href="https://www.mutuals.co.nz" target="_blank">www.mutuals.co.nz</a></li>
+          <li><a href="/#cta">Level 2, 26 Broadway Ave<br/>Palmerston North</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mutual Solutions Limited · FSP 729871</span>
+      <span>
+        <a href="/disclosure.html#privacy">Privacy Policy</a>
+        &nbsp;·&nbsp;
+        <a href="/disclosure.html#disclosure">Disclosure Statement</a>
+        &nbsp;·&nbsp;
+        <a href="/disclosure.html#complaints">Complaints</a>
+      </span>
+    </div>
+  </footer>
+
+  <!-- ── THREE.JS BACKGROUND ANIMATION ──────────– -->
+  <script>
+    let scene, camera, renderer, geometry, material, mesh;
+    const colors = { light: 0xf5f5f5, dark: 0x0a0a0a };
+    let currentColors = { ...colors };
+
+    function initThreeJS() {
+      if (!window.THREE) {
+        setTimeout(initThreeJS, 100);
+        return;
+      }
+
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 10000);
+      camera.position.z = 60;
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(colors.light, 1);
+
+      geometry = new THREE.IcosahedronGeometry(25, 4);
+      material = new THREE.MeshPhongMaterial({
+        color: 0xd0d0d0,
+        emissive: 0x111111,
+        shininess: 100,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15,
+      });
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(10, 20, 10);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.x += 0.0002;
+        mesh.rotation.y += 0.0003;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initThreeJS);
+    } else {
+      initThreeJS();
+    }
+  </script>
+
+  <!-- ── SCROLL ANIMATIONS ──────────────────────– -->
+  <script>
+    function handleNavScroll() {
+      const nav = document.getElementById('nav');
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll);
+
+    if (window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      const elements = document.querySelectorAll('[class*="reveal"]');
+      elements.forEach(el => {
+        gsap.from(el, {
+          duration: 0.8,
+          opacity: 0,
+          y: 30,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' },
+        });
+      });
+    }
+
+    // Reviews drag
+    const reviewsRail = document.getElementById('reviews-rail');
+    if (reviewsRail) {
+      let isDown = false, startX, scrollLeft;
+      reviewsRail.addEventListener('mousedown', e => {
+        isDown = true;
+        startX = e.pageX - reviewsRail.offsetLeft;
+        scrollLeft = reviewsRail.scrollLeft;
+      });
+      reviewsRail.addEventListener('mouseleave', () => isDown = false);
+      reviewsRail.addEventListener('mouseup', () => isDown = false);
+      reviewsRail.addEventListener('mousemove', e => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - reviewsRail.offsetLeft;
+        const walk = x - startX;
+        reviewsRail.scrollLeft = scrollLeft - walk;
+      });
+    }
+  </script>
+</body>
+</html>

@@ -30,5 +30,53 @@
     <priority>0.7</priority>
     <lastmod>2026-05-10</lastmod>
   </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/kiwisaver-contribution-strategy.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/self-employed-mortgage-advice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/income-protection-self-employed.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/why-insurance-premiums-increase.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/why-independent-advice-matters.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/medical-insurance-nz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-18</lastmod>
+  </url>
+  <url>
+    <loc>https://www.mutuals.co.nz/blog/first-time-home-buyer-loans.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <lastmod>2026-05-18</lastmod>
+  </url>
 
 </urlset>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financial Advice Blog | Mutual Solutions NZ</title>
+
+  <!-- ── PRIMARY SEO ──────────────────────────────── -->
+  <meta name="description" content="Expert financial advice blog. Learn about insurance, KiwiSaver, home loans, and personal finance strategies from independent adviser Upmeet Sodhi." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://www.mutuals.co.nz/blog/" />
+
+  <!-- ── JSON-LD SCHEMA ───────────────────────────– -->
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.mutuals.co.nz"},
+    {"@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.mutuals.co.nz/blog/"}
+  ]}
+  </script>
+
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script>
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+    script.defer = true;
+    document.head.appendChild(script);
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg-subtle:    #f5f5f5;
+      --bg-dark:      #0a0a0a;
+      --ink:          #0a0a0a;
+      --ink-2:        #1c1c1c;
+      --ink-muted:    #6b6b6b;
+      --ink-faint:    #b8b8b8;
+      --border:       rgba(0,0,0,0.08);
+      --border-mid:   rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 52px;
+      transition: background .4s, box-shadow .4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      font-size: 16px; font-weight: 700; letter-spacing: -0.4px;
+      color: var(--ink); text-decoration: none;
+    }
+    .nav-logo-sub { font-weight: 300; color: var(--ink-muted); font-size: 15px; }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      color: var(--ink-muted); text-decoration: none;
+      font-size: 14px; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-cta {
+      background: var(--ink); color: #fff !important;
+      padding: 9px 22px; border-radius: 100px;
+      font-size: 13px !important; font-weight: 600;
+    }
+
+    /* ── HERO ────────────────────────────────────── */
+    #hero {
+      position: relative; height: 60vh; min-height: 480px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden;
+    }
+    #hero-canvas {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+    }
+    .hero-content { position: relative; z-index: 2; padding: 0 28px; }
+    .hero-title {
+      font-size: clamp(48px, 8vw, 64px);
+      font-weight: 800; line-height: 1.1;
+      letter-spacing: -2px; color: var(--ink);
+      opacity: 0; transform: translateY(24px);
+      animation: fadeInUp 0.8s ease-out forwards 0.2s;
+    }
+    .hero-sub {
+      margin-top: 18px;
+      font-size: 18px; line-height: 1.65;
+      color: var(--ink-muted); max-width: 580px;
+      margin-left: auto; margin-right: auto;
+      opacity: 0; transform: translateY(24px);
+      animation: fadeInUp 0.8s ease-out forwards 0.3s;
+    }
+
+    /* ── SECTION PRIMITIVES ──────────────────────── */
+    .section-wrap { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+    .tag {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--ink-faint);
+    }
+    .h2 {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; letter-spacing: -2px; line-height: 1.05;
+    }
+
+    /* ── BLOG GRID ───────────────────────────────– */
+    #blog-posts { padding: 130px 0; }
+    .blog-header { margin-bottom: 52px; }
+    .blog-header .tag { margin-bottom: 16px; }
+    .blog-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 36px;
+    }
+    .blog-card {
+      border: 1px solid var(--border-mid);
+      border-radius: 20px; padding: 40px 36px;
+      background: var(--bg);
+      transition: box-shadow .3s, transform .3s;
+      display: flex; flex-direction: column;
+    }
+    .blog-card:hover {
+      box-shadow: 0 20px 56px rgba(0,0,0,0.09);
+      transform: translateY(-5px);
+    }
+    .blog-date {
+      font-size: 12px; color: var(--ink-faint);
+      letter-spacing: 1px; text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .blog-title {
+      font-size: 22px; font-weight: 700;
+      line-height: 1.4; margin-bottom: 16px;
+      color: var(--ink);
+    }
+    .blog-excerpt {
+      font-size: 14px; line-height: 1.7;
+      color: var(--ink-muted); margin-bottom: 24px;
+      flex: 1;
+    }
+    .blog-meta {
+      display: flex; justify-content: space-between;
+      align-items: center; font-size: 12px;
+      color: var(--ink-faint);
+    }
+    .blog-link {
+      color: var(--ink); text-decoration: none;
+      font-weight: 600; transition: color .2s;
+    }
+    .blog-link:hover { color: var(--ink-muted); }
+
+    /* ── CTA SECTION ────────────────────────────– */
+    #cta {
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-dark); color: #fff;
+      padding: 130px 0;
+    }
+    .cta-header { margin-bottom: 44px; }
+    .cta-header .tag { color: rgba(255,255,255,0.3); margin-bottom: 16px; }
+    .cta-header .h2 { color: #fff; margin-bottom: 20px; }
+    .cta-sub {
+      font-size: 16px; line-height: 1.7;
+      color: rgba(255,255,255,0.6); max-width: 520px;
+      margin-bottom: 36px;
+    }
+    .cta-btns { display: flex; gap: 12px; }
+    .btn-light {
+      background: #fff; color: var(--bg-dark);
+      padding: 14px 32px; border-radius: 100px;
+      font-size: 14px; font-weight: 600; text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn-light:hover { opacity: .88; }
+
+    /* ── FOOTER ────────────────────────────────– */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .footer-content { max-width: 1160px; margin: 0 auto; padding: 0 56px; }
+    .footer-text { font-size: 13px; color: var(--ink-muted); line-height: 1.7; }
+
+    /* ── MOBILE ──────────────────────────────────– */
+    @media (max-width: 920px) {
+      nav { padding: 16px 28px; }
+      .nav-links { gap: 18px; }
+      .section-wrap { padding: 0 28px; }
+      .blog-grid { grid-template-columns: 1fr; }
+      .hero-title { font-size: clamp(36px, 8vw, 48px); }
+    }
+
+    /* ── ANIMATIONS ──────────────────────────────– */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <!-- ── NAVIGATION ──────────────────────────────– -->
+  <nav id="nav">
+    <a href="/" class="nav-logo">Mutual <span class="nav-logo-sub">Solutions</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#services">Services</a></li>
+      <li><a href="/adviser/upmeet.html">Adviser</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="/#cta" class="nav-cta">Free Consult</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO SECTION ──────────────────────────– -->
+  <section id="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="hero-content">
+      <h1 class="hero-title">Financial Advice Blog</h1>
+      <p class="hero-sub">Expert insights on insurance, KiwiSaver, home loans, and personal finance</p>
+    </div>
+  </section>
+
+  <!-- ── BLOG POSTS SECTION ────────────────────– -->
+  <section id="blog-posts">
+    <div class="section-wrap">
+      <div class="blog-header">
+        <div class="tag">Articles</div>
+        <h2 class="h2">Latest from the Blog</h2>
+      </div>
+      <div class="blog-grid">
+        <!-- Post 1: KiwiSaver Contribution Strategy -->
+        <div class="blog-card" style="border: 2px solid #0a0a0a;">
+          <div class="blog-date">June 2026 · FEATURED</div>
+          <h3 class="blog-title">KiwiSaver Contribution Strategy: How Much Should You Contribute?</h3>
+          <p class="blog-excerpt">Expert guide on KiwiSaver contribution strategies. Learn the optimal contribution rate, how to maximize employer matches, and how to claim the annual tax credit worth up to $521.</p>
+          <div class="blog-meta">
+            <span>7 min read</span>
+            <a href="/blog/kiwisaver-contribution-strategy.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 2: Self-Employed Mortgage -->
+        <div class="blog-card" style="border: 2px solid #0a0a0a;">
+          <div class="blog-date">June 2026 · FEATURED</div>
+          <h3 class="blog-title">Self-Employed Mortgage Advice: Getting Approved for a Home Loan</h3>
+          <p class="blog-excerpt">Complete guide for self-employed people getting a mortgage. Learn what lenders want, how to improve your application, and which lenders work best for self-employed.</p>
+          <div class="blog-meta">
+            <span>8 min read</span>
+            <a href="/blog/self-employed-mortgage-advice.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 3: Income Protection for Self-Employed -->
+        <div class="blog-card" style="border: 2px solid #0a0a0a;">
+          <div class="blog-date">June 2026 · FEATURED</div>
+          <h3 class="blog-title">Income Protection Insurance for Self-Employed: Complete Guide</h3>
+          <p class="blog-excerpt">Why self-employed people need income protection insurance and how it works. Learn about coverage options, costs, and how to protect your business if you can't work.</p>
+          <div class="blog-meta">
+            <span>7 min read</span>
+            <a href="/blog/income-protection-self-employed.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 4: Why Do Insurance Premiums Go Up -->
+        <div class="blog-card">
+          <div class="blog-date">May 2026</div>
+          <h3 class="blog-title">Why Do Insurance Premiums Go Up? Complete NZ Guide</h3>
+          <p class="blog-excerpt">Understanding the factors that affect your insurance costs — from age and health to market conditions. Learn how to manage premium increases and when to review your cover.</p>
+          <div class="blog-meta">
+            <span>8 min read</span>
+            <a href="/blog/why-insurance-premiums-increase.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 2 -->
+        <div class="blog-card">
+          <div class="blog-date">May 2026</div>
+          <h3 class="blog-title">Why Independent Financial Advice Matters in 2025</h3>
+          <p class="blog-excerpt">The difference between bank advice and independent advisers. Discover how independent advisers can provide unbiased recommendations and personalized strategies tailored to your goals.</p>
+          <div class="blog-meta">
+            <span>7 min read</span>
+            <a href="/blog/why-independent-advice-matters.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 3 -->
+        <div class="blog-card">
+          <div class="blog-date">May 2026</div>
+          <h3 class="blog-title">Medical Insurance in New Zealand: Do You Need It?</h3>
+          <p class="blog-excerpt">Explore the gaps in NZ's public health system and whether private medical insurance is right for you. Compare coverage options and understand when health insurance is essential.</p>
+          <div class="blog-meta">
+            <span>8 min read</span>
+            <a href="/blog/medical-insurance-nz.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+
+        <!-- Post 4 -->
+        <div class="blog-card">
+          <div class="blog-date">May 2026</div>
+          <h3 class="blog-title">First-Time Home Buyer's Guide to Home Loans in New Zealand</h3>
+          <p class="blog-excerpt">Navigate the mortgage market with confidence. Learn about first-home buyer programs, loan types, deposit requirements, and strategies for getting the best home loan deal.</p>
+          <div class="blog-meta">
+            <span>9 min read</span>
+            <a href="/blog/first-time-home-buyer-loans.html" class="blog-link">Read →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA SECTION ────────────────────────────– -->
+  <section id="cta">
+    <div class="section-wrap">
+      <div class="cta-header">
+        <div class="tag">Get Started</div>
+        <h2 class="h2">Want Personalized Advice?</h2>
+        <p class="cta-sub">Blog articles provide helpful information, but your situation is unique. Schedule a free consultation to discuss your specific financial goals and needs.</p>
+      </div>
+      <div class="cta-btns">
+        <a href="tel:+64211874926" class="btn-light">Call 021 187 4926</a>
+        <a href="mailto:upmeet@mutuals.co.nz" class="btn-light">Email Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ──────────────────────────────────– -->
+  <footer>
+    <div class="footer-content">
+      <p class="footer-text">&copy; 2026 Mutual Solutions Limited. FSP: 729871. Based in Palmerston North, serving all of New Zealand.</p>
+    </div>
+  </footer>
+
+  <!-- ── THREE.JS BACKGROUND ANIMATION ──────────– -->
+  <script>
+    let scene, camera, renderer, geometry, material, mesh;
+    const colors = { light: 0xf5f5f5, dark: 0x0a0a0a };
+
+    function initThreeJS() {
+      if (!window.THREE) {
+        setTimeout(initThreeJS, 100);
+        return;
+      }
+
+      const canvas = document.getElementById('hero-canvas');
+      if (!canvas) return;
+
+      const w = canvas.clientWidth, h = canvas.clientHeight;
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 10000);
+      camera.position.z = 60;
+      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setSize(w, h);
+      renderer.setPixelRatio(window.devicePixelRatio);
+      renderer.setClearColor(colors.light, 1);
+
+      geometry = new THREE.IcosahedronGeometry(25, 4);
+      material = new THREE.MeshPhongMaterial({
+        color: 0xd0d0d0,
+        emissive: 0x111111,
+        shininess: 100,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.15,
+      });
+      mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const light = new THREE.DirectionalLight(0xffffff, 0.5);
+      light.position.set(10, 20, 10);
+      scene.add(light);
+      scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+      function animate() {
+        requestAnimationFrame(animate);
+        mesh.rotation.x += 0.0002;
+        mesh.rotation.y += 0.0003;
+        renderer.render(scene, camera);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = canvas.clientWidth, h = canvas.clientHeight;
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+        renderer.setSize(w, h);
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initThreeJS);
+    } else {
+      initThreeJS();
+    }
+  </script>
+
+  <!-- ── SCROLL ANIMATIONS ──────────────────────– -->
+  <script>
+    function handleNavScroll() {
+      const nav = document.getElementById('nav');
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }
+    window.addEventListener('scroll', handleNavScroll);
+  </script>
+</body>
+</html>
