@@ -675,7 +675,7 @@ input[type=range]::-moz-range-thumb {
       <div class="logo-sub">Retirement Projection Tool</div>
     </div>
   </a>
-  <div class="header-badge">New Zealand · 2025</div>
+  <div class="header-badge">New Zealand</div>
 </header>
 
 <!-- ── Page ────────────────────────────────────────────────── -->
@@ -939,7 +939,7 @@ input[type=range]::-moz-range-thumb {
       <div class="hero-stat">
         <div class="hstat-label">+ NZ Super (est.)</div>
         <div class="hstat-value" id="heroWkSuper">$496</div>
-        <div class="hstat-sub" id="heroSuperNote">Single rate · 2025</div>
+        <div class="hstat-sub" id="heroSuperNote">Single estimate</div>
       </div>
       <div class="hero-stat">
         <div class="hstat-label">Total weekly income</div>
@@ -1054,9 +1054,9 @@ input[type=range]::-moz-range-thumb {
           <div class="stile-sub">Net of super contribution tax</div>
         </div>
         <div class="stile">
-          <div class="stile-label">Govt Member Tax Credit</div>
+          <div class="stile-label">Govt contribution est.</div>
           <div class="stile-value" id="sMTC">$0</div>
-          <div class="stile-sub">Max $521.43 per year</div>
+          <div class="stile-sub">Check current IRD settings</div>
         </div>
       </div>
     </div>
@@ -1066,7 +1066,7 @@ input[type=range]::-moz-range-thumb {
 </div><!-- /grid -->
 
 <div class="disclaimer">
-  <strong>Disclaimer:</strong> This tool provides estimates only and is not financial advice. Projected balances and returns are illustrative; past performance is not indicative of future results. KiwiSaver Member Tax Credits, NZ Super entitlements, ESCT rates, and contribution rules are set by the New Zealand Government and are subject to change. NZ Super rates are approximate 2025 after-tax figures. Comfortable retirement benchmarks are indicative, based on Massey University Fin-Ed Centre research. Please consult a licensed Financial Advice Provider (FAP) before making investment decisions.
+  <strong>Disclaimer:</strong> This tool provides estimates only and is not financial advice. Projected balances and returns are illustrative; past performance is not indicative of future results. KiwiSaver government contribution settings, NZ Super entitlements, ESCT rates, and contribution rules are set by the New Zealand Government and are subject to change. Comfortable retirement benchmarks are indicative, based on Massey University Fin-Ed Centre research. Please consult a licensed Financial Advice Provider (FAP) before making investment decisions and verify current government settings before acting.
 </div>
 
 </div><!-- /page -->
@@ -1231,7 +1231,7 @@ function render() {
   animCount(document.getElementById('heroWkSuper'), r.superWk, fmtWk, 500);
   animCount(document.getElementById('heroWkTotal'), r.totalWk, fmtWk, 500);
   document.getElementById('heroSuperNote').textContent =
-    r.rel === 'couple' ? 'Combined couple · 2025' : 'Single rate · 2025';
+    r.rel === 'couple' ? 'Combined estimate' : 'Single estimate';
 
   /* MTC alert */
   const salary   = +document.getElementById('salary').value || 0;
@@ -1242,15 +1242,13 @@ function render() {
     mtcEl.style.display = 'block';
     mtcEl.innerHTML = `<div class="alert alert-warn">
       <span class="alert-icon">⚠️</span>
-      <span>You're missing out on government top-up. Contribute an extra
-      <strong>$${short.toLocaleString()}/yr</strong> to unlock the full
-      <strong>$521.43 Member Tax Credit</strong>.</span></div>`;
+      <span>You may be missing out on part of the annual government contribution. Contribute an extra
+      <strong>$${short.toLocaleString()}/yr</strong> based on this calculator's current settings, and verify the latest IRD thresholds before acting.</span></div>`;
   } else if (empYr >= 1042.86) {
     mtcEl.style.display = 'block';
     mtcEl.innerHTML = `<div class="alert alert-ok">
       <span class="alert-icon">✓</span>
-      <span>You're contributing enough to receive the <strong>full $521.43 government
-      Member Tax Credit</strong> each year.</span></div>`;
+      <span>You're contributing enough to receive the full annual government contribution based on this calculator's current settings. Please verify the latest IRD thresholds before acting.</span></div>`;
   } else {
     mtcEl.style.display = 'none';
   }
@@ -1286,7 +1284,7 @@ function render() {
     { label: 'Investment Growth',        val: r.growth,   color: 'var(--emerald-500)' },
     { label: 'Your Contributions',        val: r.totEmp,   color: 'var(--teal-600)' },
     { label: 'Employer Contributions',    val: r.totEplr,  color: '#8b5cf6' },
-    { label: 'Govt Member Tax Credit',    val: r.totMTC,   color: 'var(--amber-500)' },
+    { label: 'Govt contribution est.',    val: r.totMTC,   color: 'var(--amber-500)' },
   ].sort((a, b) => b.val - a.val);
 
   const total = r.bal;
