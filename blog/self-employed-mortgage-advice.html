@@ -53,9 +53,29 @@
     .breadcrumb { font-size: 0.9em; color: #666; margin-bottom: 20px; }
     a { color: #0B57D0; text-decoration: none; }
     a:hover { text-decoration: underline; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 200; display: flex; align-items: center; justify-content: space-between; padding: 18px 40px; background: rgba(255,255,255,0.96); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid rgba(0,0,0,0.08); }
+    .nav-logo { font-size: 16px; font-weight: 700; color: #0a0a0a; text-decoration: none; }
+    .nav-logo-sub { font-weight: 300; color: #6b6b6b; font-size: 15px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: #6b6b6b; text-decoration: none; font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: #0a0a0a; }
+    .nav-cta { background: #0a0a0a !important; color: #fff !important; padding: 8px 20px; border-radius: 100px; font-size: 13px !important; font-weight: 600; }
+    .container { padding-top: 100px !important; }
+    @media (max-width: 768px) { nav { padding: 14px 20px; } .nav-links li:not(:last-child) { display: none; } }
   </style>
 </head>
 <body>
+  <nav>
+    <a href="/" class="nav-logo">Mutual <span class="nav-logo-sub">Solutions</span></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#services-outer">Services</a></li>
+      <li><a href="/adviser/upmeet.html">Adviser</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a></li>
+    </ul>
+  </nav>
   <div class="container">
     <div class="breadcrumb">
       <a href="/">Home</a> / <a href="/blog/">Blog</a> / Self-Employed Mortgage Advice
