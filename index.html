@@ -2220,10 +2220,14 @@ gsap.from('.r-card', {
 
 /* ── SERVICES DRAG-SCROLL ───────────────────────── */
 const rail = document.getElementById('services-rail');
-let isDown = false, startX = 0, scrollLeft = 0;
+let isDown = false, startX = 0, scrollLeft = 0, railDragged = false;
+
+/* cards are links: stop native link-drag so drag-scroll works */
+rail.addEventListener('dragstart', e => e.preventDefault());
 
 rail.addEventListener('mousedown', e => {
   isDown = true;
+  railDragged = false;
   rail.classList.add('dragging');
   startX     = e.pageX - rail.offsetLeft;
   scrollLeft = rail.scrollLeft;
@@ -2234,8 +2238,15 @@ rail.addEventListener('mousemove',  e => {
   if (!isDown) return;
   e.preventDefault();
   const x = e.pageX - rail.offsetLeft;
+  if (Math.abs(x - startX) > 6) railDragged = true;
   rail.scrollLeft = scrollLeft - (x - startX) * 1.3;
 });
+
+/* after a real drag, swallow the click so cards don't navigate accidentally;
+   plain clicks still navigate normally */
+rail.addEventListener('click', e => {
+  if (railDragged) { e.preventDefault(); e.stopPropagation(); railDragged = false; }
+}, true);
 
 /* touch scroll — services */
 let touchX = 0;
