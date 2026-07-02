@@ -58,7 +58,13 @@
     <loc>https://mutuals.co.nz/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-06-18</lastmod>
+    <lastmod>2026-06-25</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/blog/how-much-life-insurance-nz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-06-25</lastmod>
   </url>
   <url>
     <loc>https://mutuals.co.nz/blog/kiwisaver-contribution-strategy.html</loc>
