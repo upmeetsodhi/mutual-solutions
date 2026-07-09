@@ -125,7 +125,7 @@
       "@type": "Person",
       "name": "Upmeet Sodhi",
       "jobTitle": "Financial Adviser",
-      "description": "Upmeet Sodhi is a registered financial adviser (FSP 729871) based in Palmerston North with over 10 years of experience helping New Zealand families with insurance and financial planning.",
+      "description": "Upmeet Sodhi is a Financial Adviser (FSP 250405) based in Palmerston North with over 10 years of experience helping New Zealand families with insurance and financial planning.",
       "worksFor": { "@type": "Organization", "name": "Mutual Solutions Limited" }
     },
     "identifier": {
@@ -488,6 +488,7 @@
       border-bottom: 1px solid var(--border);
       min-height: 580px;
     }
+    #split > * { min-width: 0; } /* prevent intrinsic content width from overflowing the grid track on small screens */
     .split-left {
       background: var(--bg-dark); color: #fff;
       padding: 96px 68px;
@@ -2178,9 +2179,11 @@ gsap.from('.stat-item', {
   scrollTrigger: { trigger: '#stats', start: 'top 80%' }
 });
 
-/* split panel slide */
-gsap.from('.split-left',  { x: -60, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
-gsap.from('.split-right', { x:  60, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
+/* split panel entrance — vertical motion only; horizontal (x) transforms on
+   full-width edge-flush elements can push them past the viewport edge before
+   the scroll trigger fires, causing page-wide horizontal overflow on mobile */
+gsap.from('.split-left',  { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
+gsap.from('.split-right', { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
 
 /* review cards stagger */
 gsap.from('.r-card', {

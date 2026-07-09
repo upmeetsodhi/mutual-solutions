@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-NZ">
 <head>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F1FPHEDGM"></script>
@@ -11,7 +11,37 @@
   </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>KiwiSaver Calculator</title>
+<title>KiwiSaver Calculator | Retirement Balance Projections | Mutual Solutions</title>
+<meta name="description" content="Free KiwiSaver calculator for New Zealand. Project your retirement balance across fund types and contribution rates, and check you're getting the full government contribution." />
+<meta name="robots" content="index, follow, max-image-preview:large" />
+<link rel="canonical" href="https://mutuals.co.nz/kiwisaver-calculator.html" />
+<!-- Open Graph / Twitter -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Mutual Solutions" />
+<meta property="og:title" content="KiwiSaver Calculator | Mutual Solutions" />
+<meta property="og:description" content="Project your KiwiSaver retirement balance across fund types and contribution rates, and check you're getting the full government contribution." />
+<meta property="og:url" content="https://mutuals.co.nz/kiwisaver-calculator.html" />
+<meta property="og:image" content="https://mutuals.co.nz/upmeet.jpg" />
+<meta property="og:locale" content="en_NZ" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="KiwiSaver Calculator | Mutual Solutions" />
+<meta name="twitter:description" content="Project your KiwiSaver retirement balance across fund types and contribution rates, and check you're getting the full government contribution." />
+<meta name="twitter:image" content="https://mutuals.co.nz/upmeet.jpg" />
+<link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0a'/%3E%3Cpath d='M16 4L4 10v8c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-8L16 4z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "KiwiSaver Calculator",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any (web browser)",
+  "description": "Free tool to project KiwiSaver retirement balances across fund types and contribution rates for New Zealand savers.",
+  "url": "https://mutuals.co.nz/kiwisaver-calculator.html",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "NZD" },
+  "provider": { "@type": "FinancialService", "name": "Mutual Solutions Limited", "url": "https://mutuals.co.nz" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -81,6 +111,7 @@ body {
   color: var(--slate-800);
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 /* ─── Header ─────────────────────────────────────────────── */
@@ -137,6 +168,7 @@ body {
   gap: 1.75rem;
   align-items: start;
 }
+.grid > * { min-width: 0; } /* prevent intrinsic content width from overflowing the grid track on small screens */
 
 @media (max-width: 960px) { .grid { grid-template-columns: 1fr; } }
 
@@ -1078,7 +1110,8 @@ let empRate = 0.035;
 let chartInst = null;
 let prevBalance = 0;
 
-/* Government KiwiSaver settings (effective 1 July 2025). Verify at IRD.govt.nz before relying on these for advice. */
+/* Government KiwiSaver settings introduced 1 July 2025, confirmed still current as at July 2026 (source: IRD.govt.nz).
+   These are set by the NZ Government and may change in future Budgets — verify at IRD.govt.nz before relying on these for advice. */
 const MTC_RATE           = 0.25;    // government contribution: 25c per dollar contributed
 const MTC_MAX            = 260.72;  // maximum annual government contribution
 const MTC_MIN_CONTRIB    = MTC_MAX / MTC_RATE; // contribution needed for the full MTC ($1,042.88)

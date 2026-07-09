@@ -543,6 +543,7 @@
       padding: 0 56px;
       margin-bottom: 36px;
     }
+    .footer-top > * { min-width: 0; } /* prevent intrinsic content (e.g. phone numbers) overflowing narrow columns */
     .footer-brand-name {
       font-size: 16px;
       font-weight: 700;
@@ -683,6 +684,10 @@
       .footer-bottom { flex-direction: column !important; gap: 6px !important; text-align: center; }
       .footer-bottom span:last-child { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px; line-height: 1.8; }
       .compliance-bar { padding: 12px 28px !important; }
+    }
+
+    @media (max-width: 480px) {
+      .footer-top { grid-template-columns: 1fr; padding: 0 24px; gap: 32px; }
     }
 
     /* ── ANIMATIONS ──────────────────────────────– */
