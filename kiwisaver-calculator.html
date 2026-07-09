@@ -1078,6 +1078,14 @@ let empRate = 0.035;
 let chartInst = null;
 let prevBalance = 0;
 
+/* Government KiwiSaver settings (effective 1 July 2025). Verify at IRD.govt.nz before relying on these for advice. */
+const MTC_RATE           = 0.25;    // government contribution: 25c per dollar contributed
+const MTC_MAX            = 260.72;  // maximum annual government contribution
+const MTC_MIN_CONTRIB    = MTC_MAX / MTC_RATE; // contribution needed for the full MTC ($1,042.88)
+const MTC_INCOME_CAP     = 180000;  // MTC is not available above this annual income
+const MTC_MIN_AGE        = 16;
+const MTC_MAX_AGE        = 65;
+
 const NZ_SUPER   = { single: 496,  couple: 762  };
 const BENCHMARK  = { single: 650,  couple: 950  };
 
@@ -1171,7 +1179,7 @@ function calc(netRetOverride) {
     const empC   = onBreak ? 0 : annSal * empRate;
     const eplrG  = onBreak ? 0 : annSal * eplrPct;
     const eplrN  = eplrG * (1 - esctRate(annSal + eplrG));
-    const mtc    = (!onBreak && age >= 16 && age < 65 && annSal < 180000) ? Math.min(empC * 0.25, 260.72) : 0;
+    const mtc    = (!onBreak && age >= MTC_MIN_AGE && age < MTC_MAX_AGE && annSal < MTC_INCOME_CAP) ? Math.min(empC * MTC_RATE, MTC_MAX) : 0;
     const lump   = (hasLump && age === lumpAge) ? lumpAmt : 0;
 
     bal      = (bal + empC + eplrN + mtc + lump) * (1 + netRet);
@@ -1199,7 +1207,7 @@ function calc(netRetOverride) {
   const fyEmp   = salary * empRate;
   const fyEplrG = salary * eplrPct;
   const fyEplrN = fyEplrG * (1 - esctRate(salary + fyEplrG));
-  const fyMTC   = (salary < 180000) ? Math.min(fyEmp * 0.25, 260.72) : 0;
+  const fyMTC   = (salary < MTC_INCOME_CAP) ? Math.min(fyEmp * MTC_RATE, MTC_MAX) : 0;
 
   return {
     bal, totEmp, totEplr, totMTC, growth, netRet,
@@ -1238,14 +1246,14 @@ function render() {
   const salary   = +document.getElementById('salary').value || 0;
   const empYr    = salary * empRate;
   const mtcEl    = document.getElementById('mtcAlert');
-  if (empYr > 0 && empYr < 1042.86) {
-    const short = Math.round(1042.86 - empYr);
+  if (empYr > 0 && empYr < MTC_MIN_CONTRIB) {
+    const short = Math.round(MTC_MIN_CONTRIB - empYr);
     mtcEl.style.display = 'block';
     mtcEl.innerHTML = `<div class="alert alert-warn">
       <span class="alert-icon">⚠️</span>
       <span>You may be missing out on part of the annual government contribution. Contribute an extra
       <strong>$${short.toLocaleString()}/yr</strong> based on this calculator's current settings, and verify the latest IRD thresholds before acting.</span></div>`;
-  } else if (empYr >= 1042.86) {
+  } else if (empYr >= MTC_MIN_CONTRIB) {
     mtcEl.style.display = 'block';
     mtcEl.innerHTML = `<div class="alert alert-ok">
       <span class="alert-icon">✓</span>
