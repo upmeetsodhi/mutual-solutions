@@ -135,7 +135,8 @@
     },
     "sameAs": [
       "https://www.facebook.com/mutualsolutionslimited",
-      "https://www.linkedin.com/in/upmeet-sodhi-b49b1271/"
+      "https://www.linkedin.com/in/upmeet-sodhi-b49b1271/",
+      "https://www.instagram.com/mutualsolution/"
     ]
   }
   </script>
@@ -1048,6 +1049,80 @@
     @media (max-width: 768px) {
       .rail-nav { display: block; }
     }
+
+    /* ═══ LEAD-GEN HERO + CLAIMS + REVIEW (added) ═══ */
+    .lg-wrap { max-width: 1180px; margin: 0 auto; padding: 0 52px; }
+    .lg-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
+    .lg-btn { display:flex; align-items:center; justify-content:center; width:100%; background:var(--ink); color:#fff; padding:14px 30px; border:none; border-radius:100px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:opacity .2s; }
+    .lg-btn:hover { opacity:.82; }
+    .lg-hero { padding: 132px 0 40px; }
+    .lg-hero .lg-wrap { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: 60px; align-items: center; }
+    .lg-hero h1 { font-size: clamp(40px,5.4vw,66px); font-weight: 800; line-height: 1.02; letter-spacing: -3px; color: var(--ink); }
+    .lg-hero h1 .lg-ghost { color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.16); }
+    .lg-sub { margin-top: 24px; font-size: 17px; line-height: 1.65; color: var(--ink-muted); max-width: 46ch; }
+    .lg-trust { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
+    .lg-trust span { display: inline-flex; align-items: center; gap: 8px; }
+    .lg-trust svg { flex: none; }
+    .lg-alt { margin-top: 24px; font-size: 13.5px; color: var(--ink-faint); }
+    .lg-alt a { color: var(--ink-muted); text-decoration: underline; }
+    .lg-card { background: var(--bg); border: 1px solid var(--border-mid); border-radius: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 18px 44px rgba(0,0,0,.07); overflow: hidden; }
+    .lg-chead { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
+    .lg-av { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex: none; }
+    .lg-chead strong { font-size: 14.5px; font-weight: 600; display: block; letter-spacing: -.2px; }
+    .lg-status { font-size: 12px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 6px; }
+    .lg-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22a565; }
+    .lg-prog { margin-left: auto; font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
+    .lg-log { padding: 20px; height: 392px; overflow-y: auto; display: flex; flex-direction: column; gap: 11px; scroll-behavior: smooth; }
+    .lg-msg { max-width: 88%; padding: 11px 15px; border-radius: 15px; font-size: 14.5px; line-height: 1.5; animation: lgpop .22s ease; }
+    @keyframes lgpop { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
+    .lg-bot { background: var(--bg-subtle); border-bottom-left-radius: 4px; align-self: flex-start; }
+    .lg-you { background: var(--ink); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+    .lg-plan { background: var(--bg-subtle); border: 1px solid var(--border-mid); border-bottom-left-radius: 4px; align-self: flex-start; max-width: 96%; }
+    .lg-plan strong { display: block; margin-bottom: 8px; font-size: 14px; letter-spacing: -.2px; }
+    .lg-plan ul { margin: 0 0 2px 17px; padding: 0; }
+    .lg-plan li { margin-bottom: 7px; }
+    .lg-disc { font-size: 11.5px; color: var(--ink-faint); margin-top: 4px; line-height: 1.5; }
+    .lg-typing { display: inline-flex; gap: 4px; padding: 13px 16px; }
+    .lg-typing i { width: 7px; height: 7px; border-radius: 50%; background: #c4c4c4; animation: lgblink 1s infinite; }
+    .lg-typing i:nth-child(2){animation-delay:.18s}.lg-typing i:nth-child(3){animation-delay:.36s}
+    @keyframes lgblink { 0%,60%,100%{opacity:.35}30%{opacity:1} }
+    .lg-chips { display: flex; flex-wrap: wrap; gap: 8px; padding: 2px 0; animation: lgpop .22s ease; }
+    .lg-chip { background: var(--bg); border: 1px solid var(--border-mid); border-radius: 100px; padding: 9px 16px; font-size: 13.5px; font-weight: 500; color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; }
+    .lg-chip:hover { border-color: var(--ink); background: var(--bg-subtle); }
+    .lg-lform { display: flex; flex-direction: column; gap: 9px; padding: 2px 0; animation: lgpop .22s ease; }
+    .lg-lform input { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 15px; font-family: inherit; width: 100%; }
+    .lg-lform input:focus { outline: none; border-color: var(--ink); }
+    .lg-err { border-color: #c0392b !important; }
+    .lg-note { font-size: 11.5px; color: var(--ink-faint); }
+    .lg-cfoot { padding: 12px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-faint); display: flex; justify-content: space-between; align-items: center; }
+    .lg-restart { background: none; border: none; color: var(--ink-muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
+    .lg-claims { padding: 40px 0 48px; text-align: center; border-bottom: 1px solid var(--border); }
+    .lg-claims h2 { font-size: clamp(30px,4.4vw,56px); font-weight: 800; letter-spacing: -2px; color: var(--ink); line-height: 1.04; }
+    .lg-claims p { margin-top: 14px; font-size: 16px; color: var(--ink-muted); max-width: 58ch; margin-left: auto; margin-right: auto; }
+    .lg-cfootnote { margin-top: 16px; font-size: 12px; color: var(--ink-faint); max-width: 62ch; margin-left: auto; margin-right: auto; line-height: 1.5; }
+    .lg-review { background: var(--bg-dark); color: #fff; padding: 88px 0; }
+    .lg-review .lg-wrap { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 60px; align-items: center; }
+    .lg-review .lg-eyebrow { color: #7a7a7a; }
+    .lg-review h2 { font-size: clamp(30px,3.8vw,44px); font-weight: 800; letter-spacing: -1.5px; margin: 16px 0 18px; line-height: 1.06; }
+    .lg-lede { font-size: 16.5px; line-height: 1.7; color: #b8b8b8; max-width: 52ch; }
+    .lg-rpoints { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px 26px; font-size: 13.5px; color: #cfcfcf; }
+    .lg-rpoints span { display: inline-flex; align-items: center; gap: 8px; }
+    .lg-rcard { background: var(--bg); color: var(--ink); border-radius: 18px; padding: 30px; }
+    .lg-rcard h3 { font-size: 19px; font-weight: 700; letter-spacing: -.4px; margin-bottom: 6px; }
+    .lg-rcard > p { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 20px; }
+    .lg-rform { display: flex; flex-direction: column; gap: 10px; }
+    .lg-rform input, .lg-rform select { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 15px; font-family: inherit; background: var(--bg); color: var(--ink); width: 100%; }
+    .lg-rform input:focus, .lg-rform select:focus { outline: none; border-color: var(--ink); }
+    .lg-docnote { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; }
+    .lg-docnote svg { flex: none; margin-top: 1px; }
+    .lg-rsuccess { display: none; background: var(--bg-subtle); border: 1px solid var(--border-mid); border-radius: 12px; padding: 15px; font-size: 14px; color: var(--ink-2); }
+    .lg-legal { font-size: 11.5px; color: var(--ink-faint); text-align: center; line-height: 1.5; }
+    @media (max-width: 920px) {
+      .lg-wrap { padding: 0 26px; }
+      .lg-hero { padding: 104px 0 30px; }
+      .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 40px; }
+      .lg-log { height: 360px; }
+    }
   </style>
 </head>
 <body>
@@ -1083,28 +1158,84 @@
     <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
   </div>
 
-  <!-- ════ HERO ════════════════════════════════════ -->
-  <section id="hero">
-    <canvas id="hero-canvas"></canvas>
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="badge-stars">★★★★★</span>
-        &nbsp;4.9 on Google
+  <!-- ════ HERO (lead-gen chatbot) ═════════════════ -->
+  <section id="hero" class="lg-hero">
+    <div class="lg-wrap">
+      <div>
+        <h1>Advice that puts <span class="lg-ghost">you</span> first.</h1>
+        <p class="lg-sub">Life, income, health, KiwiSaver and home loans, with one independent adviser who sees your whole picture. Answer five quick questions and get a plan outline in under a minute, before you share anything you would rather not.</p>
+        <div class="lg-trust">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>10+ years advising Kiwi families</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>100% independent</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>No spam, ever</span>
+        </div>
+        <p class="lg-alt">Prefer to talk first? <a href="tel:+64800675555">Call 0800 67 55 55</a> or <a href="mailto:info@mutuals.co.nz">email us</a>.</p>
       </div>
-      <h1 class="hero-title">
-        Protect what<br/>
-        <span class="ghost">matters</span><br/>
-        most.
-      </h1>
-      <p class="hero-sub">Independent insurance &amp; financial advice for Kiwi families across New Zealand. Life, income, health, KiwiSaver, and home loans, all under one roof, with personal advice wherever you are.</p>
-      <div class="hero-btns">
-        <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="btn-dark" target="_blank" rel="noopener">Book Free Consultation</a>
-        <a href="#services-outer" class="btn-outline">Explore Coverage →</a>
+      <div class="lg-card">
+        <div class="lg-chead">
+          <div class="lg-av">US</div>
+          <div>
+            <strong>Upmeet, your adviser</strong>
+            <span class="lg-status">Replies within a day</span>
+          </div>
+          <span class="lg-prog" id="lg-prog"></span>
+        </div>
+        <div class="lg-log" id="lg-log" role="log" aria-live="polite"></div>
+        <div class="lg-cfoot">
+          <span>Takes about 45 seconds. No login needed.</span>
+          <button class="lg-restart" id="lg-restart" type="button">Start over</button>
+        </div>
       </div>
     </div>
-    <div class="hero-scroll-hint">
-      <span class="scroll-label">Scroll</span>
-      <div class="scroll-line"></div>
+  </section>
+
+  <!-- ════ CLAIMS PROOF ════════════════════════════ -->
+  <section class="lg-claims">
+    <div class="lg-wrap">
+      <span class="lg-eyebrow">Advice that pays off, literally</span>
+      <h2 style="margin-top:14px">We have helped clients receive over<br>$9 million in insurance claims.</h2>
+      <p>When life goes sideways, the right cover set up properly is what actually pays out. That is the whole point of good advice.</p>
+      <p class="lg-cfootnote">Based on insurance claims settled for Mutual Solutions clients from insurer payment confirmations on file, 2011 to 2026. Individual circumstances differ and this is not a guarantee of any future claim.</p>
+    </div>
+  </section>
+
+  <!-- ════ FREE SECOND OPINION ═════════════════════ -->
+  <section class="lg-review" id="review">
+    <div class="lg-wrap">
+      <div>
+        <span class="lg-eyebrow">Already covered?</span>
+        <h2>Get a free second opinion on the cover you already have.</h2>
+        <p class="lg-lede">Most people never open their policy documents again after signing. Send us what you have and we will tell you, in writing, what is missing, what is overpriced, and what is working well. No pressure to change a thing.</p>
+        <div class="lg-rpoints">
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>Written review</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>Confidential</span>
+          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a8a8a" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>No obligation</span>
+        </div>
+      </div>
+      <div class="lg-rcard">
+        <h3>Your free policy review</h3>
+        <p>Leave your details and we will email you a secure way to send your documents.</p>
+        <form class="lg-rform" id="lg-rform" novalidate>
+          <input type="text" id="lg-rname" placeholder="Your name" autocomplete="name" required>
+          <input type="email" id="lg-remail" placeholder="Email address" autocomplete="email" required>
+          <input type="tel" id="lg-rphone" placeholder="Phone number" autocomplete="tel" required>
+          <select id="lg-rcover">
+            <option value="">What do you currently have? (optional)</option>
+            <option>Life, trauma or income protection</option>
+            <option>Health or medical insurance</option>
+            <option>KiwiSaver or investments</option>
+            <option>Home loan or mortgage</option>
+            <option>A mix, and not totally sure</option>
+          </select>
+          <div class="lg-docnote">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6b" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
+            <span>Once you submit, we will reply from <b>info@mutuals.co.nz</b> so you can email your policy documents straight back. Secure and confidential.</span>
+          </div>
+          <button class="lg-btn" type="submit">Get my free review</button>
+          <div class="lg-rsuccess" id="lg-rsuccess" role="status"></div>
+          <p class="lg-legal">Mutual Solutions Limited, FSP 729871. This is general information, not personalised financial advice.</p>
+        </form>
+      </div>
     </div>
   </section>
 
@@ -2357,6 +2488,139 @@ initArrowNavigation(rRail);
   function gtag() { dataLayer.push(arguments); }
   gtag('js', new Date());
   gtag('config', 'G-4F1FPHEDGM');
+})();
+</script>
+<script>
+/* ═══ Lead-gen chatbot + policy review (added) ═══ */
+(function(){
+  var LEAD_EMAIL = "info@mutuals.co.nz";
+  var ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
+  var DELAY = 650;
+  function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+  function validPhone(v){ return v.replace(/\D/g,"").length >= 8; }
+  function sendLead(p){
+    p._subject = "Website lead: " + (p.source || "enquiry");
+    p._template = "table";
+    try { fetch(ENDPOINT, { method:"POST", headers:{ "Content-Type":"application/json", "Accept":"application/json" }, body: JSON.stringify(p) }).catch(function(){}); } catch(e){}
+  }
+  var QUESTIONS = [
+    { id:"goal", text:"Kia ora. What would you most like to get sorted?", options:[
+      { label:"Protecting my family financially", value:"protect" },
+      { label:"Fast access to healthcare", value:"health" },
+      { label:"Protecting my income", value:"income" },
+      { label:"Buying or refinancing a home", value:"home" },
+      { label:"Making my KiwiSaver work harder", value:"kiwi" } ]},
+    { id:"who", text:"Who are you looking to protect?", options:[
+      { label:"Just me", value:"self" },
+      { label:"Me and my partner", value:"partner" },
+      { label:"My whole family", value:"family" },
+      { label:"My family and my business", value:"business" } ]},
+    { id:"stage", text:"Where are you at in life right now?", options:[
+      { label:"Under 30", value:"u30" },
+      { label:"30 to 40", value:"30s" },
+      { label:"40 to 50", value:"40s" },
+      { label:"50 and over", value:"50p" } ]},
+    { id:"confidence", text:"How sure are you that your current cover would actually pay out when it counts?", options:[
+      { label:"Very sure", value:"high" },
+      { label:"Fairly sure", value:"mid" },
+      { label:"Honestly not sure", value:"low" },
+      { label:"I have no cover yet", value:"none" } ]},
+    { id:"urgency", text:"If we spotted a gap, when would you want it sorted?", options:[
+      { label:"As soon as possible", value:"asap" },
+      { label:"Within a month", value:"month" },
+      { label:"Just exploring for now", value:"explore" } ]}
+  ];
+  var PLANS = {
+    protect:{ title:"Here is the shape of a protection plan for you:", items:[
+      "Life cover sized to your mortgage, your debts, and the years your family would need support",
+      "Trauma or income cover so a health event does not drain your savings",
+      "The ownership and beneficiary check most people skip, which decides whether a claim actually pays" ]},
+    health:{ title:"Here is the shape of a health cover plan:", items:[
+      "Private medical cover so you skip the public waitlist for specialists and surgery",
+      "An excess and structure that keeps premiums sensible as they rise with age",
+      "A claims readiness check so it is sorted well before you ever need it" ]},
+    income:{ title:"Here is the shape of an income protection plan:", items:[
+      "Cover replacing up to 75% of your income if illness or injury stops you working",
+      "A wait period and benefit period matched to your savings and your mortgage",
+      "An ACC offset check so you are not paying for cover that overlaps" ]},
+    home:{ title:"Here is the shape of a home loan plan:", items:[
+      "What the banks will lend you, and what you should comfortably borrow",
+      "A deposit and structure plan across multiple lenders, not just your own bank",
+      "Loan structuring across splits, terms and offset that can save real money in interest" ]},
+    kiwi:{ title:"Here is the shape of a KiwiSaver plan:", items:[
+      "A fund matched to your timeline and your appetite for risk, because most Kiwis are in the wrong one",
+      "A fees review, because small percentages quietly cost thousands over the years",
+      "A simple retirement projection so you know if you are on track" ]}
+  };
+  var log = document.getElementById("lg-log");
+  if(!log) return;
+  var prog = document.getElementById("lg-prog");
+  var answers = {}, step = 0;
+  function sl(){ log.scrollTop = log.scrollHeight; }
+  function add(cls, html){ var e=document.createElement("div"); e.className="lg-msg "+cls; e.innerHTML=html; log.appendChild(e); sl(); return e; }
+  function bot(html, cls, cb){ var t=document.createElement("div"); t.className="lg-msg lg-bot lg-typing"; t.innerHTML="<i></i><i></i><i></i>"; log.appendChild(t); sl(); setTimeout(function(){ t.remove(); add(cls||"lg-bot", html); if(cb) cb(); }, DELAY); }
+  function ask(){
+    var q=QUESTIONS[step]; prog.textContent=(step+1)+" of "+QUESTIONS.length;
+    bot(q.text, "lg-bot", function(){
+      var c=document.createElement("div"); c.className="lg-chips";
+      q.options.forEach(function(o){
+        var b=document.createElement("button"); b.className="lg-chip"; b.type="button"; b.textContent=o.label;
+        b.addEventListener("click", function(){ answers[q.id]=o; c.remove(); add("lg-you", o.label); step++; if(step<QUESTIONS.length) ask(); else plan(); });
+        c.appendChild(b);
+      });
+      log.appendChild(c); sl();
+    });
+  }
+  function summ(){ return QUESTIONS.map(function(q){ return q.id+": "+(answers[q.id]?answers[q.id].label:""); }).join(" | "); }
+  function plan(){
+    prog.textContent="Done";
+    var p=PLANS[answers.goal.value]; var items=p.items.slice();
+    if(answers.confidence.value==="low"||answers.confidence.value==="mid") items.push("A free second opinion on the cover you already have, with no obligation");
+    var html="<strong>"+p.title+"</strong><ul>"+items.map(function(i){return "<li>"+i+"</li>";}).join("")+"</ul><div class='lg-disc'>General information to get you started, not personalised financial advice. A licensed adviser (Upmeet, FSP 250405) will tailor it to you.</div>";
+    bot(html, "lg-plan", function(){
+      var c; if(answers.urgency.value==="explore") c="Want the full version with real numbers? No pressure, and no calls unless you ask. We will email it to you.";
+      else if(answers.urgency.value==="asap") c="Want the full version with real numbers? Leave your details and we will be in touch today.";
+      else c="Want the full version with real numbers? Leave your details and we will be in touch.";
+      bot(c, "lg-bot", form);
+    });
+  }
+  function form(){
+    var f=document.createElement("form"); f.className="lg-lform"; f.noValidate=true;
+    f.innerHTML='<input type="text" id="lg-name" placeholder="Your first name" autocomplete="given-name">'+
+      '<input type="email" id="lg-email" placeholder="Email address" autocomplete="email">'+
+      '<input type="tel" id="lg-phone" placeholder="Phone number" autocomplete="tel">'+
+      '<button class="lg-btn" type="submit">Send me my plan</button>'+
+      '<span class="lg-note">Straight to Upmeet. We will never share your details.</span>';
+    log.appendChild(f); sl();
+    f.addEventListener("submit", function(e){
+      e.preventDefault();
+      var n=f.querySelector("#lg-name"), em=f.querySelector("#lg-email"), ph=f.querySelector("#lg-phone"); var ok=true;
+      [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); });
+      if(!n.value.trim()){ n.classList.add("lg-err"); ok=false; }
+      if(!validEmail(em.value)){ em.classList.add("lg-err"); ok=false; }
+      if(!validPhone(ph.value)){ ph.classList.add("lg-err"); ok=false; }
+      if(!ok) return;
+      sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), answers:summ() });
+      f.remove();
+      bot("Thanks, "+n.value.trim()+". Your plan is on its way to your inbox, and Upmeet will follow up personally.", "lg-bot");
+    });
+  }
+  document.getElementById("lg-restart").addEventListener("click", function(){ log.innerHTML=""; answers={}; step=0; ask(); });
+  var rf=document.getElementById("lg-rform");
+  if(rf) rf.addEventListener("submit", function(e){
+    e.preventDefault();
+    var n=document.getElementById("lg-rname"), em=document.getElementById("lg-remail"), ph=document.getElementById("lg-rphone"), cv=document.getElementById("lg-rcover"); var ok=true;
+    [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); });
+    if(!n.value.trim()){ n.classList.add("lg-err"); ok=false; }
+    if(!validEmail(em.value)){ em.classList.add("lg-err"); ok=false; }
+    if(!validPhone(ph.value)){ ph.classList.add("lg-err"); ok=false; }
+    if(!ok) return;
+    sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value });
+    var box=document.getElementById("lg-rsuccess"); box.style.display="block";
+    box.textContent="Thanks, "+n.value.trim()+". We will email you from info@mutuals.co.nz so you can send your documents securely. Your written review follows within a couple of working days.";
+    e.target.querySelector("button[type=submit]").disabled=true;
+  });
+  ask();
 })();
 </script>
 </body>
