@@ -1055,7 +1055,7 @@
     .lg-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
     .lg-btn { display:flex; align-items:center; justify-content:center; width:100%; background:var(--ink); color:#fff; padding:14px 30px; border:none; border-radius:100px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:opacity .2s; }
     .lg-btn:hover { opacity:.82; }
-    .lg-hero { padding: 132px 0 40px; }
+    .lg-hero { padding: 96px 0 32px; }
     .lg-hero .lg-wrap { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: 60px; align-items: center; }
     .lg-hero h1 { font-size: clamp(40px,5.4vw,66px); font-weight: 800; line-height: 1.02; letter-spacing: -3px; color: var(--ink); }
     .lg-hero h1 .lg-ghost { color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.16); }
@@ -1072,7 +1072,7 @@
     .lg-status { font-size: 12px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 6px; }
     .lg-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22a565; }
     .lg-prog { margin-left: auto; font-size: 12px; color: var(--ink-faint); font-variant-numeric: tabular-nums; }
-    .lg-log { padding: 20px; height: 392px; overflow-y: auto; display: flex; flex-direction: column; gap: 11px; scroll-behavior: smooth; }
+    .lg-log { padding: 20px; min-height: 240px; max-height: 392px; overflow-y: auto; display: flex; flex-direction: column; gap: 11px; scroll-behavior: smooth; transition: min-height .25s ease; }
     .lg-msg { max-width: 88%; padding: 11px 15px; border-radius: 15px; font-size: 14.5px; line-height: 1.5; animation: lgpop .22s ease; }
     @keyframes lgpop { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:none} }
     .lg-bot { background: var(--bg-subtle); border-bottom-left-radius: 4px; align-self: flex-start; }
@@ -1096,11 +1096,24 @@
     .lg-note { font-size: 11.5px; color: var(--ink-faint); }
     .lg-cfoot { padding: 12px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-faint); display: flex; justify-content: space-between; align-items: center; }
     .lg-restart { background: none; border: none; color: var(--ink-muted); font-size: 12px; text-decoration: underline; cursor: pointer; }
-    .lg-claims { padding: 40px 0 48px; text-align: center; border-bottom: 1px solid var(--border); }
+    .lg-claims { padding: 28px 0 34px; text-align: center; border-bottom: 1px solid var(--border); }
     .lg-claims h2 { font-size: clamp(30px,4.4vw,56px); font-weight: 800; letter-spacing: -2px; color: var(--ink); line-height: 1.04; }
     .lg-claims p { margin-top: 14px; font-size: 16px; color: var(--ink-muted); max-width: 58ch; margin-left: auto; margin-right: auto; }
-    .lg-cfootnote { margin-top: 16px; font-size: 12px; color: var(--ink-faint); max-width: 62ch; margin-left: auto; margin-right: auto; line-height: 1.5; }
-    .lg-review { background: var(--bg-dark); color: #fff; padding: 88px 0; }
+    .lg-cfootnote { margin-top: 14px; font-size: 11.5px; font-style: italic; color: var(--ink-faint); max-width: 62ch; margin-left: auto; margin-right: auto; line-height: 1.5; }
+    .lg-cfootnote::before { content: "\002A\0020"; font-style: normal; }
+    .lg-fstar { font-size: 0.55em; vertical-align: super; margin-left: 2px; font-weight: 700; }
+    /* Split-flap "flip clock" digit display for the claims figure */
+    .flap-number { display: inline-flex; align-items: baseline; perspective: 400px; }
+    .flap-char { display: inline-block; }
+    .flap-digit { display: inline-block; min-width: 0.6em; text-align: center; transform-origin: 50% 50%; }
+    .flap-digit.flapping { animation: flapTick .11s linear; }
+    @keyframes flapTick {
+      0%   { transform: rotateX(0deg);   opacity: 1; }
+      45%  { transform: rotateX(-90deg); opacity: .35; }
+      55%  { transform: rotateX(-90deg); opacity: .35; }
+      100% { transform: rotateX(0deg);   opacity: 1; }
+    }
+    .lg-review { background: var(--bg-dark); color: #fff; padding: 60px 0; }
     .lg-review .lg-wrap { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 60px; align-items: center; }
     .lg-review .lg-eyebrow { color: #7a7a7a; }
     .lg-review h2 { font-size: clamp(30px,3.8vw,44px); font-weight: 800; letter-spacing: -1.5px; margin: 16px 0 18px; line-height: 1.06; }
@@ -1119,9 +1132,11 @@
     .lg-legal { font-size: 11.5px; color: var(--ink-faint); text-align: center; line-height: 1.5; }
     @media (max-width: 920px) {
       .lg-wrap { padding: 0 26px; }
-      .lg-hero { padding: 104px 0 30px; }
-      .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 40px; }
-      .lg-log { height: 360px; }
+      .lg-hero { padding: 84px 0 24px; }
+      .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .lg-log { min-height: 220px; max-height: 360px; }
+      .lg-claims { padding: 24px 0 28px; }
+      .lg-review { padding: 48px 0; }
     }
   </style>
 </head>
@@ -1193,7 +1208,7 @@
   <section class="lg-claims">
     <div class="lg-wrap">
       <span class="lg-eyebrow">Advice that pays off, literally</span>
-      <h2 style="margin-top:14px">We have helped clients receive over<br>$9 million in insurance claims.</h2>
+      <h2 style="margin-top:14px">We have helped clients receive<br><span class="flap-number" id="claimsFlap" data-value="$9,056,494">$9,056,494</span><span class="lg-fstar">*</span> in insurance claims.</h2>
       <p>When life goes sideways, the right cover set up properly is what actually pays out. That is the whole point of good advice.</p>
       <p class="lg-cfootnote">Based on insurance claims settled for Mutual Solutions clients from insurer payment confirmations on file, 2011 to 2026. Individual circumstances differ and this is not a guarantee of any future claim.</p>
     </div>
@@ -2658,6 +2673,60 @@ initArrowNavigation(rRail);
     e.target.querySelector("button[type=submit]").disabled=true;
   });
   ask();
+})();
+
+/* ═══ Split-flap "flip clock" claims figure (added) ═══
+   To update the figure later: change data-value on #claimsFlap (and the
+   fallback text inside the span) to the new amount. It replays the flip
+   animation for every visitor who scrolls to it, so a fresh figure always
+   arrives with the same flip-clock effect. */
+(function(){
+  var el = document.getElementById("claimsFlap");
+  if(!el) return;
+  var target = el.getAttribute("data-value") || el.textContent;
+
+  function tick(span, finalCh, ticksLeft, perTick){
+    if(ticksLeft <= 0){ span.textContent = finalCh; return; }
+    span.classList.remove("flapping");
+    void span.offsetWidth;
+    span.classList.add("flapping");
+    var mid = ticksLeft === 1 ? finalCh : String(Math.floor(Math.random()*10));
+    setTimeout(function(){ span.textContent = mid; }, perTick*0.45);
+    setTimeout(function(){ tick(span, finalCh, ticksLeft-1, perTick); }, perTick);
+  }
+
+  function render(){
+    el.innerHTML = "";
+    var chars = target.split("");
+    var digitIndex = 0;
+    chars.forEach(function(ch){
+      var span = document.createElement("span");
+      var isDigit = /\d/.test(ch);
+      span.className = "flap-char" + (isDigit ? " flap-digit" : "");
+      span.textContent = isDigit ? "0" : ch;
+      el.appendChild(span);
+      if(isDigit){
+        (function(s, finalCh, idx){
+          var ticks = 8 + Math.floor(Math.random()*5);
+          var perTick = 75;
+          var startDelay = idx * 85;
+          setTimeout(function(){ tick(s, finalCh, ticks, perTick); }, startDelay);
+        })(span, ch, digitIndex);
+        digitIndex++;
+      }
+    });
+  }
+
+  if("IntersectionObserver" in window){
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){ render(); obs.disconnect(); }
+      });
+    }, { threshold: 0.4 });
+    obs.observe(el);
+  } else {
+    render();
+  }
 })();
 </script>
 </body>
