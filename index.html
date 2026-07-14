@@ -1102,17 +1102,24 @@
     .lg-cfootnote { margin-top: 14px; font-size: 11.5px; font-style: italic; color: var(--ink-faint); max-width: 62ch; margin-left: auto; margin-right: auto; line-height: 1.5; }
     .lg-cfootnote::before { content: "\002A\0020"; font-style: normal; }
     .lg-fstar { font-size: 0.55em; vertical-align: super; margin-left: 2px; font-weight: 700; }
-    /* Split-flap "flip clock" digit display for the claims figure */
-    .flap-number { display: inline-flex; align-items: baseline; perspective: 400px; }
-    .flap-char { display: inline-block; }
-    .flap-digit { display: inline-block; min-width: 0.6em; text-align: center; transform-origin: 50% 50%; }
-    .flap-digit.flapping { animation: flapTick .11s linear; }
-    @keyframes flapTick {
-      0%   { transform: rotateX(0deg);   opacity: 1; }
-      45%  { transform: rotateX(-90deg); opacity: .35; }
-      55%  { transform: rotateX(-90deg); opacity: .35; }
-      100% { transform: rotateX(0deg);   opacity: 1; }
+    /* Split-flap "flip clock" digit display for the claims figure.
+       Each digit is a real dark tile with a centre seam, like an old
+       departure-board clock — a 3D card flip swaps digits on each tick. */
+    .flap-number { display: inline-flex; align-items: center; justify-content: center; gap: 3px; flex-wrap: wrap; margin: 6px 0; vertical-align: middle; }
+    .flap-static { font-size: clamp(26px,4.2vw,50px); font-weight: 800; color: var(--ink); line-height: 1; }
+    .flap-tile { position: relative; width: clamp(24px,4vw,44px); height: clamp(38px,6vw,64px); perspective: 240px; }
+    .flap-face {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: var(--ink); color: #fff; font-weight: 800; font-variant-numeric: tabular-nums;
+      font-size: clamp(20px,3.4vw,36px); border-radius: 5px; backface-visibility: hidden;
+      box-shadow: 0 2px 6px rgba(0,0,0,.28);
     }
+    .flap-face::after { content: ""; position: absolute; left: 3px; right: 3px; top: 50%; height: 1px; background: rgba(255,255,255,.2); }
+    .flap-face.back { transform: rotateX(180deg); }
+    .flap-tile.flapping .flap-face.front { animation: flapFront .16s ease-in forwards; }
+    .flap-tile.flapping .flap-face.back  { animation: flapBack  .16s ease-in forwards; }
+    @keyframes flapFront { from { transform: rotateX(0deg); }   to { transform: rotateX(-180deg); } }
+    @keyframes flapBack  { from { transform: rotateX(180deg); } to { transform: rotateX(0deg); } }
     .lg-review { background: var(--bg-dark); color: #fff; padding: 60px 0; }
     .lg-review .lg-wrap { display: grid; grid-template-columns: minmax(0,1.1fr) minmax(0,.9fr); gap: 60px; align-items: center; }
     .lg-review .lg-eyebrow { color: #7a7a7a; }
@@ -2515,12 +2522,16 @@ initArrowNavigation(rRail);
       { label:"Making my KiwiSaver work harder", value:"kiwi" } ]},
     { id:"who", dynamic:true },
     { id:"stage", dynamic:true },
+    { id:"domain", dynamic:true },
     { id:"confidence", dynamic:true },
     { id:"urgency", dynamic:true }
   ];
-  /* Every question after Q1 changes wording (and where relevant, options) to match
-     the goal picked in Q1, so the funnel never asks about "cover" or "protecting"
-     someone when the goal was a home loan or KiwiSaver, and feels tailored throughout. */
+  /* Every question after Q1 changes wording AND, for "who"/"domain"/"confidence",
+     the actual answer choices, to match the goal picked in Q1. "domain" is the
+     one a real adviser would actually ask for that product: debt exposure for
+     protection, what's driving the health decision, employment type for income
+     protection, purchase stage for home loans, and KiwiSaver intent. It directly
+     shapes the plan shown at the end, not just the wording around it. */
   var STAGE_OPTIONS = [
     { label:"Under 30", value:"u30" }, { label:"30 to 40", value:"30s" },
     { label:"40 to 50", value:"40s" }, { label:"50 and over", value:"50p" }
@@ -2535,6 +2546,9 @@ initArrowNavigation(rRail);
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
       stage:{ text:"Where are you at in life right now? Age shapes what protection actually makes sense.", options:STAGE_OPTIONS },
+      domain:{ text:"Do you currently have a mortgage or other large debts?", options:[
+        { label:"No debts", value:"none" }, { label:"Mortgage only", value:"mortgage" },
+        { label:"Mortgage plus other debts", value:"mortgage_plus" }, { label:"Not sure", value:"unsure" } ]},
       confidence:{ text:"How sure are you that your current cover would actually pay out when it counts?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
         { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
@@ -2545,6 +2559,9 @@ initArrowNavigation(rRail);
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
       stage:{ text:"What age bracket are you in? Health premiums vary a lot by age.", options:STAGE_OPTIONS },
+      domain:{ text:"What is mainly driving this for you right now?", options:[
+        { label:"Public hospital wait times", value:"waitlist" }, { label:"A health concern or family history", value:"health_history" },
+        { label:"Wanting my own choice of specialist", value:"choice" }, { label:"My employer used to cover this", value:"employer_lapsed" } ]},
       confidence:{ text:"How sure are you that you would get fast treatment if you needed it tomorrow?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
         { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
@@ -2555,6 +2572,9 @@ initArrowNavigation(rRail);
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
       stage:{ text:"What age bracket are you in? This affects how income protection is priced.", options:STAGE_OPTIONS },
+      domain:{ text:"Are you self-employed, or on a salary or wage?", options:[
+        { label:"Self-employed", value:"self_employed" }, { label:"Salary or wage", value:"paye" },
+        { label:"Contractor", value:"contractor" }, { label:"A mix of both", value:"mixed" } ]},
       confidence:{ text:"How sure are you that your income would keep coming in if you could not work tomorrow?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
         { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
@@ -2565,6 +2585,9 @@ initArrowNavigation(rRail);
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"Me and a business partner", value:"business" } ]},
       stage:{ text:"What age bracket are you in? This affects how lenders assess your loan.", options:STAGE_OPTIONS },
+      domain:{ text:"Where are you at with buying or refinancing?", options:[
+        { label:"First home buyer", value:"first_home" }, { label:"Moving to a new home", value:"moving" },
+        { label:"Refinancing my current loan", value:"refinancing" }, { label:"Investment property", value:"investment" } ]},
       confidence:{ text:"How confident are you that your current loan structure is the right one for you?", options:[
         { label:"Very confident", value:"high" }, { label:"Fairly confident", value:"mid" },
         { label:"Honestly not sure", value:"low" }, { label:"I do not have a loan yet", value:"none" } ]},
@@ -2575,6 +2598,9 @@ initArrowNavigation(rRail);
         { label:"Just mine", value:"self" }, { label:"Mine and my partner's", value:"partner" },
         { label:"The whole family's", value:"family" }, { label:"Mine and my employees'", value:"business" } ]},
       stage:{ text:"What age bracket are you in? This shapes how much time your KiwiSaver has to grow.", options:STAGE_OPTIONS },
+      domain:{ text:"What is the main thing you want from your KiwiSaver?", options:[
+        { label:"Grow it for retirement", value:"retirement" }, { label:"Use it for a first home", value:"first_home_withdrawal" },
+        { label:"Make sure I am not overpaying in fees", value:"fees" }, { label:"Not sure what fund I am even in", value:"unsure_fund" } ]},
       confidence:{ text:"How confident are you that you are in the right fund for your goals?", options:[
         { label:"Very confident", value:"high" }, { label:"Fairly confident", value:"mid" },
         { label:"Honestly not sure", value:"low" }, { label:"I am not sure what I am in", value:"none" } ]},
@@ -2624,9 +2650,43 @@ initArrowNavigation(rRail);
     });
   }
   function summ(){ return QUESTIONS.map(function(q){ return q.id+": "+(answers[q.id]?answers[q.id].label:""); }).join(" | "); }
+  var DOMAIN_INSIGHTS = {
+    protect: {
+      none: "With no mortgage or debt to cover, we would size cover around future costs and replacing your income, not clearing debt",
+      mortgage: "With a mortgage in the picture, we would size cover to clear it outright so your family is never forced to sell up",
+      mortgage_plus: "With a mortgage and other debts, cover needs to clear all of it, not just the home loan, so nothing gets left behind",
+      unsure: "First step would be mapping out exactly what debts and costs your cover actually needs to clear"
+    },
+    health: {
+      waitlist: "Skipping public wait times is exactly what private cover is built for, we would prioritise fast access to specialists",
+      health_history: "Given a health concern or family history, pre-existing condition rules matter, we would check underwriting carefully before you apply",
+      choice: "If choosing your own specialist and hospital matters most, we would prioritise a plan with the widest treatment network",
+      employer_lapsed: "Moving off an employer scheme, we would check exactly what cover you can keep without fresh underwriting"
+    },
+    income: {
+      self_employed: "As self-employed, income protection is structured differently, we would look at agreed value cover backed by your financials",
+      paye: "On salary or wage, we would check what your employer already covers before recommending anything extra",
+      contractor: "As a contractor, income can be irregular, so wait period and benefit structure matter more than for salaried income",
+      mixed: "With a mix of income sources, we would blend the right structure to cover both reliably"
+    },
+    home: {
+      first_home: "As a first home buyer, we would map out deposit options, including KiwiSaver withdrawal and any first home grants",
+      moving: "Moving house, we would check whether porting your existing loan or refinancing gets you the better deal",
+      refinancing: "Refinancing, we would compare your current rate and structure against the whole market, not just your existing bank",
+      investment: "For an investment property, lending rules and deposit limits differ from an owner-occupier loan, we would structure around that"
+    },
+    kiwi: {
+      retirement: "With retirement as the goal, we would check your fund matches your actual time horizon, not just your comfort with risk today",
+      first_home_withdrawal: "If a first home withdrawal is on the cards, we would check your eligibility and timing well ahead of when you need it",
+      fees: "We would run the numbers on your current fund's fees, since even a small difference compounds into real money by retirement",
+      unsure_fund: "First step is simply finding out what fund and provider you are actually in, more people are unsure of this than you would think"
+    }
+  };
   function plan(){
     prog.textContent="Done";
     var p=PLANS[answers.goal.value]; var items=p.items.slice();
+    var insight = DOMAIN_INSIGHTS[answers.goal.value] && DOMAIN_INSIGHTS[answers.goal.value][answers.domain.value];
+    if(insight) items.unshift(insight);
     if(answers.confidence.value==="low"||answers.confidence.value==="mid") items.push("A free second opinion on the cover you already have, with no obligation");
     var html="<strong>"+p.title+"</strong><ul>"+items.map(function(i){return "<li>"+i+"</li>";}).join("")+"</ul><div class='lg-disc'>General information to get you started, not personalised financial advice. A licensed adviser (Upmeet, FSP 250405) will tailor it to you.</div>";
     bot(html, "lg-plan", function(){
@@ -2676,43 +2736,57 @@ initArrowNavigation(rRail);
 })();
 
 /* ═══ Split-flap "flip clock" claims figure (added) ═══
-   To update the figure later: change data-value on #claimsFlap (and the
-   fallback text inside the span) to the new amount. It replays the flip
-   animation for every visitor who scrolls to it, so a fresh figure always
-   arrives with the same flip-clock effect. */
+   Real tile-and-seam digits with a front/back 3D card flip per tick, like an
+   old departure-board clock. To update the figure later: change data-value
+   on #claimsFlap (and the fallback text inside the span) to the new amount.
+   It replays for every visitor who scrolls to it. */
 (function(){
   var el = document.getElementById("claimsFlap");
   if(!el) return;
   var target = el.getAttribute("data-value") || el.textContent;
+  var FLIP_MS = 180; /* must exceed the .16s CSS flip animation */
 
-  function tick(span, finalCh, ticksLeft, perTick){
-    if(ticksLeft <= 0){ span.textContent = finalCh; return; }
-    span.classList.remove("flapping");
-    void span.offsetWidth;
-    span.classList.add("flapping");
-    var mid = ticksLeft === 1 ? finalCh : String(Math.floor(Math.random()*10));
-    setTimeout(function(){ span.textContent = mid; }, perTick*0.45);
-    setTimeout(function(){ tick(span, finalCh, ticksLeft-1, perTick); }, perTick);
+  function flipTileTo(tile, nextCh){
+    var front = tile.querySelector(".front");
+    var back = tile.querySelector(".back");
+    back.textContent = nextCh;
+    tile.classList.remove("flapping");
+    void tile.offsetWidth;
+    tile.classList.add("flapping");
+    setTimeout(function(){
+      front.textContent = nextCh;
+      tile.classList.remove("flapping");
+    }, FLIP_MS - 10);
+  }
+
+  function runTile(tile, finalCh, idx){
+    var ticks = 7 + Math.floor(Math.random()*4);
+    var i = 0;
+    function step(){
+      i++;
+      var isFinal = i >= ticks;
+      flipTileTo(tile, isFinal ? finalCh : String(Math.floor(Math.random()*10)));
+      if(!isFinal) setTimeout(step, FLIP_MS);
+    }
+    setTimeout(step, idx * 100);
   }
 
   function render(){
     el.innerHTML = "";
-    var chars = target.split("");
     var digitIndex = 0;
-    chars.forEach(function(ch){
-      var span = document.createElement("span");
-      var isDigit = /\d/.test(ch);
-      span.className = "flap-char" + (isDigit ? " flap-digit" : "");
-      span.textContent = isDigit ? "0" : ch;
-      el.appendChild(span);
-      if(isDigit){
-        (function(s, finalCh, idx){
-          var ticks = 8 + Math.floor(Math.random()*5);
-          var perTick = 75;
-          var startDelay = idx * 85;
-          setTimeout(function(){ tick(s, finalCh, ticks, perTick); }, startDelay);
-        })(span, ch, digitIndex);
+    target.split("").forEach(function(ch){
+      if(/\d/.test(ch)){
+        var tile = document.createElement("span");
+        tile.className = "flap-tile";
+        tile.innerHTML = '<span class="flap-face front">0</span><span class="flap-face back">0</span>';
+        el.appendChild(tile);
+        runTile(tile, ch, digitIndex);
         digitIndex++;
+      } else {
+        var s = document.createElement("span");
+        s.className = "flap-static";
+        s.textContent = ch;
+        el.appendChild(s);
       }
     });
   }
