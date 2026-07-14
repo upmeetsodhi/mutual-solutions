@@ -2335,19 +2335,7 @@ if (window.THREE) {
 ════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
-/* hero entrance */
-gsap.timeline({ delay: 0.35 })
-  .to('.hero-badge',       { opacity: 1, y: 0, duration: 0.7,  ease: 'power3.out' })
-  .to('.hero-title',       { opacity: 1, y: 0, duration: 1.0,  ease: 'power3.out' }, '-=0.4')
-  .to('.hero-sub',         { opacity: 1, y: 0, duration: 0.8,  ease: 'power3.out' }, '-=0.55')
-  .to('.hero-btns',        { opacity: 1, y: 0, duration: 0.7,  ease: 'power3.out' }, '-=0.5')
-  .to('.hero-scroll-hint', { opacity: 1,        duration: 0.5 },                      '-=0.2');
-
-/* hero title parallax — moves UP as user scrolls, giving depth without pushing into subtitle */
-gsap.to('.hero-title', {
-  y: -60, ease: 'none',
-  scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
-});
+/* Old canvas-hero entrance/parallax animation removed along with the old hero markup. */
 
 /* generic reveal */
 document.querySelectorAll('.reveal').forEach(el => {
@@ -2511,59 +2499,71 @@ initArrowNavigation(rRail);
       { label:"Buying or refinancing a home", value:"home" },
       { label:"Making my KiwiSaver work harder", value:"kiwi" } ]},
     { id:"who", dynamic:true },
-    { id:"stage", text:"Where are you at in life right now?", options:[
-      { label:"Under 30", value:"u30" },
-      { label:"30 to 40", value:"30s" },
-      { label:"40 to 50", value:"40s" },
-      { label:"50 and over", value:"50p" } ]},
+    { id:"stage", dynamic:true },
     { id:"confidence", dynamic:true },
-    { id:"urgency", text:"If we spotted a gap, when would you want it sorted?", options:[
-      { label:"As soon as possible", value:"asap" },
-      { label:"Within a month", value:"month" },
-      { label:"Just exploring for now", value:"explore" } ]}
+    { id:"urgency", dynamic:true }
   ];
-  /* Q2 and Q4 change wording per goal so the funnel does not ask about
-     "cover" or "protecting" someone when the goal was a home loan or KiwiSaver. */
+  /* Every question after Q1 changes wording (and where relevant, options) to match
+     the goal picked in Q1, so the funnel never asks about "cover" or "protecting"
+     someone when the goal was a home loan or KiwiSaver, and feels tailored throughout. */
+  var STAGE_OPTIONS = [
+    { label:"Under 30", value:"u30" }, { label:"30 to 40", value:"30s" },
+    { label:"40 to 50", value:"40s" }, { label:"50 and over", value:"50p" }
+  ];
+  var URGENCY_OPTIONS = [
+    { label:"As soon as possible", value:"asap" }, { label:"Within a month", value:"month" },
+    { label:"Just exploring for now", value:"explore" }
+  ];
   var GOAL_COPY = {
     protect: {
       who:{ text:"Who are you looking to protect?", options:[
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
+      stage:{ text:"Where are you at in life right now? Age shapes what protection actually makes sense.", options:STAGE_OPTIONS },
       confidence:{ text:"How sure are you that your current cover would actually pay out when it counts?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
-        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]}
+        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
+      urgency:{ text:"If we spotted a gap in your protection, when would you want it sorted?", options:URGENCY_OPTIONS }
     },
     health: {
       who:{ text:"Who would be covered alongside you?", options:[
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
+      stage:{ text:"What age bracket are you in? Health premiums vary a lot by age.", options:STAGE_OPTIONS },
       confidence:{ text:"How sure are you that you would get fast treatment if you needed it tomorrow?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
-        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]}
+        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
+      urgency:{ text:"If we spotted a gap in your health cover, when would you want it sorted?", options:URGENCY_OPTIONS }
     },
     income: {
       who:{ text:"Who relies on your income?", options:[
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"My family and my business", value:"business" } ]},
+      stage:{ text:"What age bracket are you in? This affects how income protection is priced.", options:STAGE_OPTIONS },
       confidence:{ text:"How sure are you that your income would keep coming in if you could not work tomorrow?", options:[
         { label:"Very sure", value:"high" }, { label:"Fairly sure", value:"mid" },
-        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]}
+        { label:"Honestly not sure", value:"low" }, { label:"I have no cover yet", value:"none" } ]},
+      urgency:{ text:"If we spotted a gap in your income protection, when would you want it sorted?", options:URGENCY_OPTIONS }
     },
     home: {
       who:{ text:"Who are you buying or refinancing with?", options:[
         { label:"Just me", value:"self" }, { label:"Me and my partner", value:"partner" },
         { label:"My whole family", value:"family" }, { label:"Me and a business partner", value:"business" } ]},
+      stage:{ text:"What age bracket are you in? This affects how lenders assess your loan.", options:STAGE_OPTIONS },
       confidence:{ text:"How confident are you that your current loan structure is the right one for you?", options:[
         { label:"Very confident", value:"high" }, { label:"Fairly confident", value:"mid" },
-        { label:"Honestly not sure", value:"low" }, { label:"I do not have a loan yet", value:"none" } ]}
+        { label:"Honestly not sure", value:"low" }, { label:"I do not have a loan yet", value:"none" } ]},
+      urgency:{ text:"If we found a better loan structure for you, when would you want to move on it?", options:URGENCY_OPTIONS }
     },
     kiwi: {
       who:{ text:"Whose KiwiSaver are we talking about?", options:[
         { label:"Just mine", value:"self" }, { label:"Mine and my partner's", value:"partner" },
         { label:"The whole family's", value:"family" }, { label:"Mine and my employees'", value:"business" } ]},
+      stage:{ text:"What age bracket are you in? This shapes how much time your KiwiSaver has to grow.", options:STAGE_OPTIONS },
       confidence:{ text:"How confident are you that you are in the right fund for your goals?", options:[
         { label:"Very confident", value:"high" }, { label:"Fairly confident", value:"mid" },
-        { label:"Honestly not sure", value:"low" }, { label:"I am not sure what I am in", value:"none" } ]}
+        { label:"Honestly not sure", value:"low" }, { label:"I am not sure what I am in", value:"none" } ]},
+      urgency:{ text:"If we found a better KiwiSaver fund for you, when would you want to switch?", options:URGENCY_OPTIONS }
     }
   };
   var PLANS = {
