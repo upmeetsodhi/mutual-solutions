@@ -334,7 +334,9 @@
       max-width: 440px; margin-left: auto; margin-right: auto;
     }
     .btn-dark {
-      display: inline-block;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
       background: var(--ink); color: #fff;
       padding: 14px 32px; border-radius: 100px;
       font-size: 14px; font-weight: 600; text-decoration: none;
@@ -342,11 +344,21 @@
       transition: opacity .2s, transform .2s;
     }
     .btn-dark:hover { opacity: .82; transform: scale(1.02); }
+    .hamburger { display: none; width: 44px; height: 44px; border: 1px solid var(--border-mid); border-radius: 999px; background: rgba(255,255,255,0.9); align-items: center; justify-content: center; flex-direction: column; gap: 4px; cursor: pointer; padding: 0; }
+    .hamburger span { width: 18px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu { position: fixed; inset: 76px 16px auto; z-index: 199; display: none; flex-direction: column; gap: 10px; padding: 16px; background: rgba(255,255,255,0.98); border: 1px solid var(--border-mid); border-radius: 18px; box-shadow: 0 24px 48px rgba(0,0,0,0.12); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--ink); font-size: 15px; padding: 12px 14px; border-radius: 12px; background: var(--bg-subtle); }
+    .mobile-menu .mobile-cta { background: var(--ink); color: #fff; text-align: center; font-weight: 700; }
 
     /* ── MOBILE ──────────────────────────────────── */
     @media (max-width: 960px) {
       nav { padding: 16px 24px; }
-      .nav-links li:not(:last-child) { display: none; }
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
     }
 
     @media (max-width: 600px) {
@@ -354,6 +366,7 @@
       .page-wrap { padding: 0 20px; padding-top: 96px; padding-bottom: 80px; }
       .page-header { padding: 40px 0 48px; }
       .faq-cta { padding: 36px 24px; }
+      .faq-cta .btn-dark { width: 100%; }
       summary { font-size: 15px; padding: 18px 0; }
     }
   </style>
@@ -373,7 +386,16 @@
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/" onclick="closeMobileMenu()">Home</a>
+    <a href="/#services-outer" onclick="closeMobileMenu()">Services</a>
+    <a href="/adviser/upmeet.html" onclick="closeMobileMenu()">Adviser</a>
+    <a href="/blog/" onclick="closeMobileMenu()">Blog</a>
+    <a href="/faq.html" onclick="closeMobileMenu()">FAQ</a>
+    <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
+  </div>
 
   <div class="page-wrap">
 
@@ -583,10 +605,21 @@
     <div class="faq-cta">
       <h2>Still have questions?</h2>
       <p>Book a free 30-minute consultation and get straight answers from a Financial Adviser. No pressure, no jargon.</p>
-      <a href="index.html#cta" class="btn-dark">Book Free Consultation →</a>
+      <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" target="_blank" rel="noopener" class="btn-dark">Book Free Consultation →</a>
     </div>
 
   </div>
+
+  <script>
+  (function(){
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobile-menu");
+    if(!hamburger || !mobileMenu) return;
+    window.closeMobileMenu = function(){ hamburger.classList.remove("open"); mobileMenu.classList.remove("open"); hamburger.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; };
+    hamburger.addEventListener("click", function(){ var open = hamburger.classList.toggle("open"); mobileMenu.classList.toggle("open", open); hamburger.setAttribute("aria-expanded", open ? "true" : "false"); document.body.style.overflow = open ? "hidden" : ""; });
+    window.addEventListener("resize", function(){ if(window.innerWidth > 960) window.closeMobileMenu(); });
+  })();
+  </script>
 
 </body>
 </html>

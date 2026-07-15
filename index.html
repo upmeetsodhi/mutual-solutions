@@ -1060,14 +1060,18 @@
     .lg-hero h1 { font-size: clamp(40px,5.4vw,66px); font-weight: 800; line-height: 1.02; letter-spacing: -3px; color: var(--ink); }
     .lg-hero h1 .lg-ghost { color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.16); }
     .lg-sub { margin-top: 24px; font-size: 17px; line-height: 1.65; color: var(--ink-muted); max-width: 46ch; }
-    .lg-trust { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
+    .lg-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .lg-actions .btn-dark,
+    .lg-actions .btn-outline { min-height: 48px; }
+    .lg-trust { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
     .lg-trust span { display: inline-flex; align-items: center; gap: 8px; }
     .lg-trust svg { flex: none; }
     .lg-alt { margin-top: 24px; font-size: 13.5px; color: var(--ink-faint); }
     .lg-alt a { color: var(--ink-muted); text-decoration: underline; }
     .lg-card { background: var(--bg); border: 1px solid var(--border-mid); border-radius: 18px; box-shadow: 0 1px 2px rgba(0,0,0,.04), 0 18px 44px rgba(0,0,0,.07); overflow: hidden; }
     .lg-chead { display: flex; align-items: center; gap: 12px; padding: 16px 20px; border-bottom: 1px solid var(--border); }
-    .lg-av { width: 40px; height: 40px; border-radius: 50%; background: var(--ink); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex: none; }
+    .lg-av { width: 40px; height: 40px; border-radius: 50%; background: var(--bg-subtle); display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex: none; overflow: hidden; border: 1px solid var(--border-mid); }
+    .lg-av img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .lg-chead strong { font-size: 14.5px; font-weight: 600; display: block; letter-spacing: -.2px; }
     .lg-status { font-size: 12px; color: var(--ink-muted); display: inline-flex; align-items: center; gap: 6px; }
     .lg-status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #22a565; }
@@ -1090,7 +1094,7 @@
     .lg-chip { background: var(--bg); border: 1px solid var(--border-mid); border-radius: 100px; padding: 9px 16px; font-size: 13.5px; font-weight: 500; color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; }
     .lg-chip:hover { border-color: var(--ink); background: var(--bg-subtle); }
     .lg-lform { display: flex; flex-direction: column; gap: 9px; padding: 2px 0; animation: lgpop .22s ease; }
-    .lg-lform input { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 15px; font-family: inherit; width: 100%; }
+    .lg-lform input { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; width: 100%; }
     .lg-lform input:focus { outline: none; border-color: var(--ink); }
     .lg-err { border-color: #c0392b !important; }
     .lg-note { font-size: 11.5px; color: var(--ink-faint); }
@@ -1131,7 +1135,7 @@
     .lg-rcard h3 { font-size: 19px; font-weight: 700; letter-spacing: -.4px; margin-bottom: 6px; }
     .lg-rcard > p { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 20px; }
     .lg-rform { display: flex; flex-direction: column; gap: 10px; }
-    .lg-rform input, .lg-rform select { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 15px; font-family: inherit; background: var(--bg); color: var(--ink); width: 100%; }
+    .lg-rform input, .lg-rform select { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: var(--bg); color: var(--ink); width: 100%; }
     .lg-rform input:focus, .lg-rform select:focus { outline: none; border-color: var(--ink); }
     .lg-docnote { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; }
     .lg-docnote svg { flex: none; margin-top: 1px; }
@@ -1141,9 +1145,27 @@
       .lg-wrap { padding: 0 26px; }
       .lg-hero { padding: 84px 0 24px; }
       .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .lg-actions { flex-direction: column; }
+      .lg-actions .btn-dark,
+      .lg-actions .btn-outline { width: 100%; justify-content: center; text-align: center; }
+      .lg-trust { gap: 10px 16px; }
+      .lg-chead { align-items: flex-start; }
+      .lg-cfoot { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .lg-msg { max-width: 100%; }
       .lg-log { min-height: 220px; max-height: 360px; }
       .lg-claims { padding: 24px 0 28px; }
       .lg-review { padding: 48px 0; }
+      .lg-rcard { padding: 24px; }
+      .lg-rpoints { gap: 10px 18px; }
+    }
+    @media (max-width: 600px) {
+      .lg-wrap { padding: 0 18px; }
+      .lg-hero { padding: 78px 0 16px; }
+      .lg-hero h1 { letter-spacing: -2px; }
+      .lg-sub { font-size: 15px; }
+      .lg-card { border-radius: 16px; }
+      .lg-chead, .lg-log, .lg-cfoot { padding-left: 16px; padding-right: 16px; }
+      .lg-claims h2 { letter-spacing: -1px; }
     }
   </style>
 </head>
@@ -1154,7 +1176,7 @@
 
   <!-- ════ NAV ════════════════════════════════════ -->
   <nav id="main-nav">
-    <a class="nav-logo" href="#">
+    <a class="nav-logo" href="/">
       Mutual<span class="nav-logo-sub">&nbsp;Solutions</span>
     </a>
     <ul class="nav-links">
@@ -1186,6 +1208,10 @@
       <div>
         <h1>Advice that puts <span class="lg-ghost">you</span> first.</h1>
         <p class="lg-sub">Life, income, health, KiwiSaver and home loans, with one independent adviser who sees your whole picture. Answer five quick questions and get a plan outline in under a minute, before you share anything you would rather not.</p>
+        <div class="lg-actions">
+          <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="btn-dark" target="_blank" rel="noopener">Book Free Consultation</a>
+          <a href="#hero-chat" class="btn-outline">Start your 45-second plan</a>
+        </div>
         <div class="lg-trust">
           <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>10+ years advising Kiwi families</span>
           <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>100% independent</span>
@@ -1193,12 +1219,14 @@
         </div>
         <p class="lg-alt">Prefer to talk first? <a href="tel:+64800675555">Call 0800 67 55 55</a> or <a href="mailto:info@mutuals.co.nz">email us</a>.</p>
       </div>
-      <div class="lg-card">
+      <div class="lg-card" id="hero-chat">
         <div class="lg-chead">
-          <div class="lg-av">US</div>
+          <div class="lg-av">
+            <img src="/upmeet.jpg" alt="Upmeet Sodhi">
+          </div>
           <div>
             <strong>Upmeet, your adviser</strong>
-            <span class="lg-status">Replies within a day</span>
+            <span class="lg-status">Independent adviser · usually replies within 1 working day</span>
           </div>
           <span class="lg-prog" id="lg-prog"></span>
         </div>
@@ -2025,9 +2053,9 @@
   <footer>
     <div class="footer-top">
       <div class="footer-brand">
-        <a class="footer-brand-name" href="#">
-          Mutual Solutions
-        </a>
+    <a class="footer-brand-name" href="/">
+      Mutual Solutions
+    </a>
         <p>Independent insurance &amp; financial advisers serving clients across New Zealand, with strong roots in Palmerston North and Manawatū since 2012.</p>
         <p class="fsp">FSP 729871 · Registered Financial Advice Provider</p>
         <p class="fsp" style="margin-top:6px">

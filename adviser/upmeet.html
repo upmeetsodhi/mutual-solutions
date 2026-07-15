@@ -159,6 +159,58 @@
       padding: 9px 22px; border-radius: 100px;
       font-size: 13px !important; font-weight: 600;
     }
+    .hamburger {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--border-mid);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.9);
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      cursor: pointer;
+      padding: 0;
+    }
+    .hamburger span {
+      width: 18px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu {
+      position: fixed;
+      inset: 76px 16px auto;
+      z-index: 199;
+      display: none;
+      flex-direction: column;
+      gap: 10px;
+      padding: 16px;
+      background: rgba(255,255,255,0.98);
+      border: 1px solid var(--border-mid);
+      border-radius: 18px;
+      box-shadow: 0 24px 48px rgba(0,0,0,0.12);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      text-decoration: none;
+      color: var(--ink);
+      font-size: 15px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+    }
+    .mobile-menu .mobile-cta {
+      background: var(--ink);
+      color: #fff;
+      text-align: center;
+      font-weight: 700;
+    }
 
     /* ── HERO (photo-led split) ──────────────────── */
     #hero {
@@ -666,7 +718,8 @@
     /* ── MOBILE ──────────────────────────────────– */
     @media (max-width: 920px) {
       nav { padding: 16px 28px; }
-      .nav-links { gap: 18px; }
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
       .section-wrap { padding: 0 28px; }
       .about-grid,
       .blog-grid { grid-template-columns: 1fr; }
@@ -714,7 +767,18 @@
       <li><a href="/faq.html">FAQ</a></li>
       <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/" onclick="closeMobileMenu()">Home</a>
+    <a href="/#services-outer" onclick="closeMobileMenu()">Services</a>
+    <a href="/adviser/upmeet.html" onclick="closeMobileMenu()">Adviser</a>
+    <a href="/blog/" onclick="closeMobileMenu()">Blog</a>
+    <a href="/faq.html" onclick="closeMobileMenu()">FAQ</a>
+    <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
+  </div>
 
   <!-- ── HERO SECTION (photo-led split) ─────────– -->
   <section id="hero">
@@ -1193,6 +1257,7 @@
         <p class="cta-sub">Let's work together to create a plan that works for your situation. First consultation is free with no obligation.</p>
       </div>
       <div class="cta-btns">
+        <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="btn-light" target="_blank" rel="noopener">Book Free Consultation</a>
         <a href="tel:0800675555" class="btn-light">Call 0800 67 55 55</a>
         <a href="mailto:upmeet@mutuals.co.nz" class="btn-light">Email Me</a>
       </div>
@@ -1241,22 +1306,22 @@
       <div class="footer-col">
         <h4>Insurance</h4>
         <ul>
-          <li><a href="/#cta">Life Insurance</a></li>
-          <li><a href="/#cta">Income Protection</a></li>
-          <li><a href="/#cta">Health Insurance</a></li>
-          <li><a href="/#cta">Critical Illness</a></li>
-          <li><a href="/#cta">Disability Cover</a></li>
-          <li><a href="/#cta">Level Premiums</a></li>
+          <li><a href="/life-insurance.html">Life Insurance</a></li>
+          <li><a href="/income-protection.html">Income Protection</a></li>
+          <li><a href="/health-insurance.html">Health Insurance</a></li>
+          <li><a href="/life-insurance.html#critical-illness">Critical Illness</a></li>
+          <li><a href="/income-protection.html#disability-cover">Disability Cover</a></li>
+          <li><a href="/life-insurance.html#level-premiums">Level Premiums</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4>Financial</h4>
         <ul>
-          <li><a href="/#cta">Home Loans</a></li>
+          <li><a href="/home-loans.html">Home Loans</a></li>
           <li><a href="/kiwisaver.html">KiwiSaver Advice</a></li>
           <li><a href="/#cta">Investments</a></li>
           <li><a href="/faq.html">FAQ</a></li>
-          <li><a href="/#cta">Free Consultation</a></li>
+          <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" target="_blank" rel="noopener">Free Consultation</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -1265,7 +1330,7 @@
           <li><a href="tel:0800675555">0800 67 55 55</a></li>
           <li><a href="mailto:info@mutuals.co.nz">info@mutuals.co.nz</a></li>
           <li><a href="https://mutuals.co.nz" target="_blank">mutuals.co.nz</a></li>
-          <li><a href="/#cta">Level 2, 26 Broadway Ave<br/>Palmerston North</a></li>
+          <li><a href="/contact-us.html">Level 2, 26 Broadway Ave<br/>Palmerston North</a></li>
         </ul>
       </div>
     </div>
@@ -1347,6 +1412,30 @@
 
   <!-- ── SCROLL ANIMATIONS ──────────────────────– -->
   <script>
+    (function() {
+      const hamburger = document.getElementById('hamburger');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (!hamburger || !mobileMenu) return;
+
+      window.closeMobileMenu = function() {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      };
+
+      hamburger.addEventListener('click', function() {
+        const open = hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open', open);
+        hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        document.body.style.overflow = open ? 'hidden' : '';
+      });
+
+      window.addEventListener('resize', function() {
+        if (window.innerWidth > 920) window.closeMobileMenu();
+      });
+    })();
+
     function handleNavScroll() {
       const nav = document.getElementById('nav');
       nav.classList.toggle('scrolled', window.scrollY > 20);
