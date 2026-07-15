@@ -1250,6 +1250,117 @@
         line-height: inherit;
       }
     }
+
+    /* Focused homepage hero and claims proof */
+    .lg-wrap { max-width: 1220px; }
+    .lg-hero {
+      padding: 132px 0 72px;
+      background:
+        radial-gradient(circle at 76% 32%, rgba(0,0,0,.045), transparent 28%),
+        linear-gradient(180deg, #fff 0%, #fafaf8 100%);
+      border-bottom: 1px solid var(--border);
+    }
+    .lg-hero .lg-wrap {
+      grid-template-columns: minmax(0,1.05fr) minmax(420px,.95fr);
+      gap: 76px;
+    }
+    .lg-kicker {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-size: 11px; letter-spacing: 1.7px; text-transform: uppercase;
+      color: var(--ink-muted); font-weight: 650;
+    }
+    .lg-kicker::before {
+      content: ""; width: 7px; height: 7px; border-radius: 50%;
+      background: #168a57; box-shadow: 0 0 0 5px rgba(22,138,87,.1);
+    }
+    .lg-hero h1 {
+      margin-top: 24px; max-width: 12ch;
+      font-size: clamp(48px,5.5vw,72px); line-height: .98; letter-spacing: -4px;
+    }
+    .lg-hero h1 .lg-ghost { color: var(--ink-muted); -webkit-text-stroke: 0; }
+    .lg-sub { margin-top: 26px; font-size: 18px; line-height: 1.62; max-width: 49ch; }
+    .lg-actions { margin-top: 30px; align-items: center; gap: 18px; }
+    .lg-call {
+      color: var(--ink); font-size: 14px; font-weight: 600; text-decoration: none;
+      border-bottom: 1px solid rgba(0,0,0,.35); padding-bottom: 2px;
+    }
+    .lg-proof {
+      margin-top: 42px; display: grid; grid-template-columns: repeat(3,minmax(0,1fr));
+      max-width: 560px; border-top: 1px solid var(--border-mid); padding-top: 20px;
+    }
+    .lg-proof-item { padding-right: 18px; }
+    .lg-proof-item + .lg-proof-item { padding-left: 18px; border-left: 1px solid var(--border-mid); }
+    .lg-proof-item strong { display: block; font-size: 18px; line-height: 1.1; letter-spacing: -.5px; }
+    .lg-proof-item span { display: block; margin-top: 5px; font-size: 11.5px; line-height: 1.35; color: var(--ink-muted); }
+    .lg-card {
+      background: rgba(255,255,255,.94); border-radius: 22px;
+      box-shadow: 0 28px 70px rgba(0,0,0,.1);
+    }
+    .lg-card-intro { padding: 20px 22px 0; }
+    .lg-card-intro span {
+      display: block; margin-bottom: 7px; font-size: 10px; letter-spacing: 1.8px;
+      text-transform: uppercase; color: var(--ink-faint); font-weight: 650;
+    }
+    .lg-card-intro h2 { font-size: 23px; letter-spacing: -.8px; line-height: 1.15; }
+    .lg-card-intro p { margin-top: 7px; color: var(--ink-muted); font-size: 13px; line-height: 1.45; }
+    .lg-chead { margin-top: 18px; padding: 14px 22px; border-top: 1px solid var(--border); }
+    .lg-log { padding: 22px; min-height: 230px; max-height: 360px; }
+    .lg-claims { padding: 68px 0; background: var(--bg-dark); color: #fff; text-align: left; }
+    .lg-claims .lg-wrap {
+      display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.1fr);
+      gap: 84px; align-items: center;
+    }
+    .lg-claims .lg-eyebrow { color: #8e8e8e; }
+    .lg-claim-figure {
+      display: block; margin-top: 12px; font-size: clamp(52px,7vw,88px);
+      font-weight: 800; line-height: .95; letter-spacing: -5px;
+      font-variant-numeric: tabular-nums;
+    }
+    .lg-claims h2 {
+      font-size: clamp(30px,3.5vw,46px); font-weight: 750;
+      letter-spacing: -2px; color: #fff; line-height: 1.04;
+    }
+    .lg-claims p {
+      margin: 18px 0 0; font-size: 16px; line-height: 1.6;
+      color: #b8b8b8; max-width: 54ch;
+    }
+    .lg-claims .lg-cfootnote {
+      margin: 20px 0 0; font-size: 11px; font-style: normal;
+      color: #737373; max-width: 65ch; line-height: 1.5;
+    }
+    .lg-fstar { font-size: .35em; color: #8e8e8e; }
+
+    @media (max-width: 920px) {
+      .lg-hero { padding: 118px 0 56px; }
+      .lg-hero .lg-wrap { grid-template-columns: 1fr; gap: 42px; }
+      .lg-hero h1 { max-width: 11ch; }
+      .lg-claims { padding: 56px 0; }
+      .lg-claims .lg-wrap { grid-template-columns: 1fr; gap: 28px; }
+    }
+    @media (max-width: 600px) {
+      .lg-hero { padding: 112px 0 44px; }
+      .lg-hero .lg-wrap { gap: 32px; }
+      .lg-hero .lg-wrap > div:first-child { padding-top: 0; }
+      .lg-hero h1 {
+        margin-top: 18px; font-size: clamp(38px,11.4vw,48px);
+        letter-spacing: -2.5px; line-height: 1.01;
+      }
+      .lg-sub { margin-top: 20px; font-size: 15px; line-height: 1.55; }
+      .lg-actions { margin-top: 20px; }
+      .lg-actions .btn-dark { width: 100%; justify-content: center; }
+      .lg-call { width: 100%; text-align: center; border: 0; text-decoration: underline; text-underline-offset: 3px; }
+      .lg-proof { margin-top: 30px; padding-top: 18px; }
+      .lg-proof-item { padding-right: 10px; }
+      .lg-proof-item + .lg-proof-item { padding-left: 10px; }
+      .lg-proof-item strong { font-size: 15px; letter-spacing: -.3px; }
+      .lg-proof-item span { font-size: 10.5px; }
+      .lg-card { border-radius: 16px; }
+      .lg-card-intro { padding: 18px 16px 0; }
+      .lg-card-intro h2 { font-size: 21px; }
+      .lg-log { min-height: 250px; max-height: 330px; }
+      .lg-claim-figure { font-size: clamp(50px,16vw,66px); letter-spacing: -3px; }
+      .lg-claims h2 { font-size: 30px; letter-spacing: -1.2px; }
+    }
   </style>
 </head>
 <body>
@@ -1289,27 +1400,32 @@
   <section id="hero" class="lg-hero">
     <div class="lg-wrap">
       <div>
-        <h1>Advice that puts <span class="lg-ghost">you</span> first.</h1>
-        <p class="lg-sub">Life, income, health, KiwiSaver and home loans, with one independent adviser who sees your whole picture. Answer five quick questions and get a plan outline in under a minute, before you share anything you would rather not.</p>
+        <span class="lg-kicker">Independent advice, New Zealand-wide</span>
+        <h1>Advice that puts <span class="lg-ghost">you first.</span></h1>
+        <p class="lg-sub">Insurance, KiwiSaver and home loans, considered together by one independent adviser. Clear recommendations, ongoing support, and no pressure to proceed.</p>
         <div class="lg-actions">
           <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="btn-dark" target="_blank" rel="noopener">Book Free Consultation</a>
-          <a href="#hero-chat" class="btn-outline">Start your 45-second plan</a>
+          <a href="tel:+64800675555" class="lg-call">Call 0800 67 55 55</a>
         </div>
-        <div class="lg-trust">
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>10+ years advising Kiwi families</span>
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>100% independent</span>
-          <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0a0a0a" stroke-width="2"><rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg>No spam, ever</span>
+        <div class="lg-proof" aria-label="Mutual Solutions at a glance">
+          <div class="lg-proof-item"><strong>4.9 ★</strong><span>Google rating</span></div>
+          <div class="lg-proof-item"><strong>10+ years</strong><span>advising Kiwi families</span></div>
+          <div class="lg-proof-item"><strong>100%</strong><span>independent advice</span></div>
         </div>
-        <p class="lg-alt">Prefer to talk first? <a href="tel:+64800675555">Call 0800 67 55 55</a> or <a href="mailto:info@mutuals.co.nz">email us</a>.</p>
       </div>
       <div class="lg-card" id="hero-chat">
+        <div class="lg-card-intro">
+          <span>Not ready to book?</span>
+          <h2>Get a useful starting point in 45 seconds.</h2>
+          <p>Answer a few general questions. No personal details until you choose to share them.</p>
+        </div>
         <div class="lg-chead">
           <div class="lg-av">
             <img src="/upmeet.jpg" alt="Upmeet Sodhi">
           </div>
           <div>
             <strong>Upmeet, your adviser</strong>
-            <span class="lg-status">Independent adviser · usually replies within 1 working day</span>
+            <span class="lg-status">Independent financial adviser</span>
           </div>
           <span class="lg-prog" id="lg-prog"></span>
         </div>
@@ -1325,10 +1441,15 @@
   <!-- ════ CLAIMS PROOF ════════════════════════════ -->
   <section class="lg-claims">
     <div class="lg-wrap">
-      <span class="lg-eyebrow">Advice that pays off, literally</span>
-      <h2 style="margin-top:14px">We have helped clients receive<br><span class="flap-number" id="claimsFlap" data-value="$9,056,494">$9,056,494</span><span class="lg-fstar">*</span> in insurance claims.</h2>
-      <p>When life goes sideways, the right cover set up properly is what actually pays out. That is the whole point of good advice.</p>
-      <p class="lg-cfootnote">Based on insurance claims settled for Mutual Solutions clients from insurer payment confirmations on file, 2011 to 2026. Individual circumstances differ and this is not a guarantee of any future claim.</p>
+      <div>
+        <span class="lg-eyebrow">Claims advocacy that delivers</span>
+        <strong class="lg-claim-figure">$9,056,494<span class="lg-fstar">*</span></strong>
+      </div>
+      <div>
+        <h2>Paid to our clients when it mattered most.</h2>
+        <p>Good advice is not just about arranging cover. We stay beside our clients through the claims process, dealing with insurers and advocating for the outcome their policy provides.</p>
+        <p class="lg-cfootnote">Based on insurance claims settled for Mutual Solutions clients from insurer payment confirmations on file, 2011 to 2026. Individual circumstances differ and this is not a guarantee of any future claim.</p>
+      </div>
     </div>
   </section>
 
