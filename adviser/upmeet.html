@@ -732,8 +732,28 @@
       .hero-title { font-size: clamp(46px, 13vw, 72px); letter-spacing: -2px; }
       .reviews-sticky { flex-direction: column; min-height: auto; }
       .reviews-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 36px 28px; }
-      .reviews-rail { padding: 0 28px; }
-      .r-card { width: 100%; height: auto; }
+      .reviews-rail {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        padding: 28px;
+        gap: 16px;
+        overflow: visible;
+        cursor: default;
+      }
+      .r-card { width: 100%; height: auto; min-height: 0; }
+      .blog-sticky { flex-direction: column; min-height: auto; }
+      .blog-sidebar { width: 100%; border-right: none; border-bottom: 1px solid var(--border); padding: 36px 28px; }
+      .blog-rail {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        padding: 28px;
+        gap: 16px;
+        overflow: visible;
+        cursor: default;
+      }
+      .b-card { width: 100%; height: auto; min-height: 0; }
       .footer-top { grid-template-columns: 1fr 1fr; }
       .footer-bottom { flex-direction: column !important; gap: 6px !important; text-align: center; }
       .footer-bottom span:last-child { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 6px; line-height: 1.8; }
@@ -741,6 +761,10 @@
     }
 
     @media (max-width: 480px) {
+      .reviews-sidebar,
+      .blog-sidebar { padding: 28px 24px; }
+      .reviews-rail,
+      .blog-rail { padding: 20px 24px 28px; }
       .footer-top { grid-template-columns: 1fr; padding: 0 24px; gap: 32px; }
     }
 
@@ -784,9 +808,6 @@
   <section id="hero">
     <div class="hero-grid">
       <div class="hero-copy">
-        <a href="#reviews-outer" class="hero-badge">
-          <span class="badge-stars">★★★★★</span>&nbsp;4.9 rating on Google
-        </a>
         <h1 class="hero-title">
           Upmeet<br/>
           <span class="ghost">Sodhi</span>
