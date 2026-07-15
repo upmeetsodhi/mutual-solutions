@@ -55,14 +55,18 @@
   {
     "@context": "https://schema.org",
     "@type": ["LocalBusiness", "FinancialService"],
-    "name": "Mutual Solutions Limited",
-    "alternateName": "Mutual Solutions",
+    "@id": "https://mutuals.co.nz/#organization",
+    "name": "Mutual Solutions",
+    "legalName": "Mutual Solutions Limited",
+    "alternateName": "Mutual Solutions Limited",
     "url": "https://mutuals.co.nz",
+    "mainEntityOfPage": "https://mutuals.co.nz/",
     "logo": "https://mutuals.co.nz/upmeet.jpg",
     "image": "https://mutuals.co.nz/upmeet.jpg",
     "description": "Independent insurance and financial advice for clients across New Zealand. Life insurance, income protection, health insurance, KiwiSaver, and home loans, with strong roots in Palmerston North.",
     "telephone": "+64800675555",
     "email": "info@mutuals.co.nz",
+    "foundingDate": "2012",
     "priceRange": "Free consultation",
     "currenciesAccepted": "NZD",
     "paymentAccepted": "Free initial consultation",
@@ -122,17 +126,15 @@
       ]
     },
     "employee": {
-      "@type": "Person",
-      "name": "Upmeet Sodhi",
-      "jobTitle": "Financial Adviser",
-      "description": "Upmeet Sodhi is a Financial Adviser (FSP 250405) based in Palmerston North with over 10 years of experience helping New Zealand families with insurance and financial planning.",
-      "worksFor": { "@type": "Organization", "name": "Mutual Solutions Limited" }
+      "@id": "https://mutuals.co.nz/adviser/upmeet.html#upmeet-sodhi"
     },
-    "identifier": {
-      "@type": "PropertyValue",
-      "name": "FSP Number",
-      "value": "729871"
-    },
+    "identifier": [
+      {
+        "@type": "PropertyValue",
+        "name": "Financial Advice Provider FSP Number",
+        "value": "729871"
+      }
+    ],
     "sameAs": [
       "https://www.facebook.com/mutualsolutionslimited",
       "https://www.linkedin.com/in/upmeet-sodhi-b49b1271/",
@@ -164,8 +166,7 @@
       { "@type": "Offer", "name": "Free Consultation", "description": "30-minute free discovery call, no obligation" }
     ],
     "seller": {
-      "@type": "Organization",
-      "name": "Mutual Solutions Limited"
+      "@id": "https://mutuals.co.nz/#organization"
     }
   }
   </script>
@@ -175,21 +176,33 @@
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://mutuals.co.nz/adviser/upmeet.html#upmeet-sodhi",
     "name": "Upmeet Sodhi",
     "jobTitle": "Financial Adviser",
-    "url": "https://mutuals.co.nz",
+    "url": "https://mutuals.co.nz/adviser/upmeet.html",
     "image": "https://mutuals.co.nz/upmeet.jpg",
+    "identifier": {
+      "@type": "PropertyValue",
+      "name": "Financial Adviser FSP Number",
+      "value": "250405"
+    },
     "worksFor": {
-      "@type": "Organization",
-      "name": "Mutual Solutions Limited",
-      "url": "https://mutuals.co.nz"
+      "@id": "https://mutuals.co.nz/#organization"
     },
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Palmerston North",
       "addressCountry": "NZ"
     },
-    "knowsAbout": ["Life Insurance","Income Protection","Health Insurance","KiwiSaver","Home Loans","Financial Planning"]
+    "knowsAbout": ["Life Insurance","Income Protection","Health Insurance","KiwiSaver","Home Loans","Financial Planning"],
+    "hasCredential": [
+      {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "license",
+        "name": "Financial Adviser",
+        "credentialId": "250405"
+      }
+    ]
   }
   </script>
 
