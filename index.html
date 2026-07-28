@@ -1125,6 +1125,13 @@
     .lg-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
     .lg-actions .btn-dark,
     .lg-actions .btn-outline { min-height: 48px; }
+    /* hero entrance — hidden by default, revealed by the GSAP timeline on load (not scroll-triggered) */
+    .lg-hero .lg-kicker,
+    .lg-hero h1,
+    .lg-hero .lg-sub,
+    .lg-hero .lg-actions,
+    .lg-hero .lg-proof-item,
+    #hero-chat { opacity: 0; }
     .lg-trust { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
     .lg-trust span { display: inline-flex; align-items: center; gap: 8px; }
     .lg-trust svg { flex: none; }
@@ -1421,7 +1428,10 @@
         </div>
         <div class="lg-chead">
           <div class="lg-av">
-            <img src="/upmeet.jpg" alt="Upmeet Sodhi">
+            <picture>
+              <source srcset="/upmeet.webp" type="image/webp" />
+              <img src="/upmeet.jpg" alt="Upmeet Sodhi">
+            </picture>
           </div>
           <div>
             <strong>Upmeet, your adviser</strong>
@@ -1677,9 +1687,12 @@
         <!-- Photo -->
         <div class="adviser-photo-wrap reveal">
           <div class="adviser-photo-frame">
-            <img src="Profile.jpg"
-                 alt="Upmeet Sodhi, Financial Adviser, Mutual Solutions, Palmerston North"
-                 width="600" height="750" loading="lazy" />
+            <picture>
+              <source srcset="/Profile.webp" type="image/webp" />
+              <img src="Profile.jpg"
+                   alt="Upmeet Sodhi, Financial Adviser, Mutual Solutions, Palmerston North"
+                   width="600" height="750" loading="lazy" />
+            </picture>
           </div>
           <div class="adviser-badge-float">
             <div class="adviser-badge-stars">★★★★★</div>
@@ -2148,6 +2161,7 @@
         <p class="tag reveal">Service Area</p>
         <h2 class="h2 reveal" style="margin-top:16px; max-width:520px">Serving clients across New Zealand, with strong roots in the lower North Island</h2>
         <p class="areas-sub reveal">We work with clients nationwide, in person where practical and remotely by video or phone wherever you are in New Zealand.</p>
+        <p class="areas-sub reveal" style="margin-top:14px">Local to the Manawatū? <a href="/insurance-adviser-palmerston-north.html" style="color:var(--ink);text-decoration:underline">See our Palmerston North insurance &amp; financial advice page →</a></p>
       </div>
       <div class="areas-grid reveal">
         <span class="area-pill primary">Nationwide</span>
@@ -2589,7 +2603,14 @@ if (window.THREE) {
 ════════════════════════════════════════════════ */
 gsap.registerPlugin(ScrollTrigger);
 
-/* Old canvas-hero entrance/parallax animation removed along with the old hero markup. */
+/* hero entrance — plays once on load, above the fold, no scroll-trigger needed */
+gsap.timeline({ defaults: { ease: 'power3.out' } })
+  .fromTo('.lg-hero .lg-kicker',     { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6 }, 0.05)
+  .fromTo('.lg-hero h1',             { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.75 }, 0.15)
+  .fromTo('.lg-hero .lg-sub',        { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65 }, 0.35)
+  .fromTo('.lg-hero .lg-actions',    { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6 }, 0.48)
+  .fromTo('.lg-hero .lg-proof-item', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.58)
+  .fromTo('#hero-chat',              { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.85 }, 0.3);
 
 /* generic reveal */
 document.querySelectorAll('.reveal').forEach(el => {
