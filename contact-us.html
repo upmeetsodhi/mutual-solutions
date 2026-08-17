@@ -6,6 +6,11 @@
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    window.mutualsTrackEvent = window.mutualsTrackEvent || function(eventName, params) {
+      if (typeof gtag === "function") {
+        gtag("event", eventName, params || {});
+      }
+    };
     gtag('js', new Date());
     gtag('config', 'G-4F1FPHEDGM');
   </script>
@@ -446,6 +451,12 @@
       }).then(function(r){ return r.ok; }).catch(function(){ return false; }).then(function(success){
         box.style.display = "block";
         if(success){
+          if (typeof window.mutualsTrackEvent === "function") {
+            window.mutualsTrackEvent("generate_lead", {
+              lead_source: "general_enquiry",
+              form_location: "contact_page"
+            });
+          }
           box.textContent = "Thanks, " + n.value.trim() + ". Your message is on its way to Upmeet. Check your inbox (and spam folder) for our confirmation.";
           btn.textContent = "Sent";
         } else {
@@ -454,8 +465,10 @@
         }
       });
     });
+
   })();
   </script>
 
+  <script src="/analytics-events.js" defer></script>
 </body>
 </html>

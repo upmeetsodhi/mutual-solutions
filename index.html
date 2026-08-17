@@ -2749,6 +2749,11 @@ initArrowNavigation(rRail);
 
   window.dataLayer = window.dataLayer || [];
   function gtag() { dataLayer.push(arguments); }
+  window.mutualsTrackEvent = window.mutualsTrackEvent || function(eventName, params) {
+    if (typeof gtag === "function") {
+      gtag("event", eventName, params || {});
+    }
+  };
   gtag('js', new Date());
   gtag('config', 'G-4F1FPHEDGM');
 })();
@@ -2761,6 +2766,14 @@ initArrowNavigation(rRail);
   var DELAY = window.innerWidth <= 960 ? 260 : 480;
   function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function validPhone(v){ return v.replace(/\D/g,"").length >= 8; }
+  function trackLead(source){
+    if (typeof window.mutualsTrackEvent === "function") {
+      window.mutualsTrackEvent("generate_lead", {
+        lead_source: source,
+        form_location: "homepage"
+      });
+    }
+  }
   /* Returns a Promise that resolves true only on a genuine confirmed send,
      so callers can show honest success/failure instead of always saying
      "sent". Also asks FormSubmit to auto-email the visitor a receipt,
@@ -2994,6 +3007,7 @@ initArrowNavigation(rRail);
       sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), answers:summ() }).then(function(success){
         f.remove();
         if(success){
+          trackLead("chat_planner");
           bot("Thanks, "+n.value.trim()+". Your plan is on its way to your inbox, and Upmeet will follow up personally. Check your inbox (and spam folder) for our confirmation.", "lg-bot");
         } else {
           bot("Sorry, that did not send. Please try again, or reach us directly on <a href=\"tel:+64800675555\">0800 67 55 55</a> or <a href=\"mailto:info@mutuals.co.nz\">info@mutuals.co.nz</a>.", "lg-bot");
@@ -3016,6 +3030,7 @@ initArrowNavigation(rRail);
     sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value }).then(function(success){
       box.style.display="block";
       if(success){
+        trackLead("policy_review");
         box.textContent="Thanks, "+n.value.trim()+". We will email you from info@mutuals.co.nz so you can send your documents securely. Your written review follows within a couple of working days. Check your inbox (and spam folder) for our confirmation.";
         btn.textContent="Sent";
       } else {
@@ -3100,5 +3115,6 @@ initArrowNavigation(rRail);
   }
 })();
 </script>
+  <script src="/analytics-events.js" defer></script>
 </body>
 </html>
