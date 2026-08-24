@@ -1130,8 +1130,7 @@
     .lg-hero h1,
     .lg-hero .lg-sub,
     .lg-hero .lg-actions,
-    .lg-hero .lg-proof-item,
-    #hero-chat { opacity: 0; }
+    .lg-hero .lg-proof-item { opacity: 0; }
     .lg-trust { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
     .lg-trust span { display: inline-flex; align-items: center; gap: 8px; }
     .lg-trust svg { flex: none; }
@@ -1268,8 +1267,9 @@
       border-bottom: 1px solid var(--border);
     }
     .lg-hero .lg-wrap {
-      grid-template-columns: minmax(0,1.05fr) minmax(420px,.95fr);
-      gap: 76px;
+      grid-template-columns: minmax(0, 700px);
+      gap: 0;
+      justify-content: start;
     }
     .lg-kicker {
       display: inline-flex; align-items: center; gap: 9px;
@@ -1403,7 +1403,7 @@
     <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
   </div>
 
-  <!-- ════ HERO (lead-gen chatbot) ═════════════════ -->
+  <!-- ════ HERO ═════════════════ -->
   <section id="hero" class="lg-hero">
     <div class="lg-wrap">
       <div>
@@ -1418,31 +1418,6 @@
           <div class="lg-proof-item"><strong>4.9 ★</strong><span>Google rating</span></div>
           <div class="lg-proof-item"><strong>10+ years</strong><span>advising Kiwi families</span></div>
           <div class="lg-proof-item"><strong>100%</strong><span>independent advice</span></div>
-        </div>
-      </div>
-      <div class="lg-card" id="hero-chat">
-        <div class="lg-card-intro">
-          <span>Not ready to book?</span>
-          <h2>Get a useful starting point in 45 seconds.</h2>
-          <p>Answer a few general questions. No personal details until you choose to share them.</p>
-        </div>
-        <div class="lg-chead">
-          <div class="lg-av">
-            <picture>
-              <source srcset="/upmeet.webp" type="image/webp" />
-              <img src="/upmeet.jpg" alt="Upmeet Sodhi">
-            </picture>
-          </div>
-          <div>
-            <strong>Upmeet, your adviser</strong>
-            <span class="lg-status">Independent financial adviser</span>
-          </div>
-          <span class="lg-prog" id="lg-prog"></span>
-        </div>
-        <div class="lg-log" id="lg-log" role="log" aria-live="polite"></div>
-        <div class="lg-cfoot">
-          <span>Takes about 45 seconds. No login needed.</span>
-          <button class="lg-restart" id="lg-restart" type="button">Start over</button>
         </div>
       </div>
     </div>
@@ -2609,8 +2584,7 @@ gsap.timeline({ defaults: { ease: 'power3.out' } })
   .fromTo('.lg-hero h1',             { opacity: 0, y: 28 }, { opacity: 1, y: 0, duration: 0.75 }, 0.15)
   .fromTo('.lg-hero .lg-sub',        { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.65 }, 0.35)
   .fromTo('.lg-hero .lg-actions',    { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6 }, 0.48)
-  .fromTo('.lg-hero .lg-proof-item', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.58)
-  .fromTo('#hero-chat',              { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.85 }, 0.3);
+  .fromTo('.lg-hero .lg-proof-item', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.58);
 
 /* generic reveal */
 document.querySelectorAll('.reveal').forEach(el => {
@@ -3015,7 +2989,11 @@ initArrowNavigation(rRail);
       });
     });
   }
-  document.getElementById("lg-restart").addEventListener("click", function(){ log.innerHTML=""; answers={}; step=0; ask(); });
+  if(log){
+    var restart = document.getElementById("lg-restart");
+    if(restart) restart.addEventListener("click", function(){ log.innerHTML=""; answers={}; step=0; ask(); });
+    ask();
+  }
   var rf=document.getElementById("lg-rform");
   if(rf) rf.addEventListener("submit", function(e){
     e.preventDefault();
@@ -3039,7 +3017,6 @@ initArrowNavigation(rRail);
       }
     });
   });
-  ask();
 })();
 
 /* ═══ Split-flap "flip clock" claims figure (added) ═══
