@@ -212,6 +212,10 @@
   <!-- Libraries loaded once at bottom of body -->
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+    }
 
     :root {
       --bg:           #ffffff;
@@ -336,6 +340,7 @@
       margin-top: 0;
     }
     .btn-dark {
+      display: inline-flex; align-items: center; justify-content: center;
       background: var(--ink); color: #fff;
       padding: 14px 32px; border-radius: 100px;
       font-size: 14px; font-weight: 600; text-decoration: none;
@@ -344,6 +349,7 @@
     }
     .btn-dark:hover { opacity: .82; transform: scale(1.02); }
     .btn-outline {
+      display: inline-flex; align-items: center; justify-content: center;
       background: transparent; color: var(--ink);
       padding: 14px 32px; border-radius: 100px;
       font-size: 14px; font-weight: 500; text-decoration: none;
@@ -929,7 +935,7 @@
     }
 
     /* ── REVEAL UTIL ─────────────────────────────── */
-    .reveal { opacity: 0; transform: translateY(36px); }
+    .reveal { opacity: 1; transform: none; }
 
     /* ── HAMBURGER MENU ─────────────────────────── */
     .hamburger {
@@ -1106,7 +1112,7 @@
     }
 
     /* ═══ LEAD-GEN HERO + CLAIMS + REVIEW (added) ═══ */
-    .lg-wrap { max-width: 1180px; margin: 0 auto; padding: 0 52px; }
+    .lg-wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 0 52px; }
     .lg-eyebrow { font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-faint); font-weight: 600; }
     .lg-btn { display:flex; align-items:center; justify-content:center; width:100%; background:var(--ink); color:#fff; padding:14px 30px; border:none; border-radius:100px; font-size:14px; font-weight:600; font-family:inherit; cursor:pointer; transition:opacity .2s; }
     .lg-btn:hover { opacity:.82; }
@@ -1119,18 +1125,19 @@
     }
     .lg-hero { padding: 96px 0 32px; }
     .lg-hero .lg-wrap { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: 60px; align-items: center; }
+    .lg-hero *, .lg-claims * { min-width: 0; }
     .lg-hero h1 { font-size: clamp(40px,5.4vw,66px); font-weight: 800; line-height: 1.02; letter-spacing: -3px; color: var(--ink); }
     .lg-hero h1 .lg-ghost { color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.16); }
     .lg-sub { margin-top: 24px; font-size: 17px; line-height: 1.65; color: var(--ink-muted); max-width: 46ch; }
     .lg-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
     .lg-actions .btn-dark,
     .lg-actions .btn-outline { min-height: 48px; }
-    /* hero entrance — hidden by default, revealed by the GSAP timeline on load (not scroll-triggered) */
+    /* Content stays visible if animation/CDN scripts are blocked; GSAP enhances it when available. */
     .lg-hero .lg-kicker,
     .lg-hero h1,
     .lg-hero .lg-sub,
     .lg-hero .lg-actions,
-    .lg-hero .lg-proof-item { opacity: 0; }
+    .lg-hero .lg-proof-item { opacity: 1; }
     .lg-trust { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 10px 24px; font-size: 13.5px; color: var(--ink-muted); }
     .lg-trust span { display: inline-flex; align-items: center; gap: 8px; }
     .lg-trust svg { flex: none; }
@@ -1345,6 +1352,8 @@
       .lg-claims .lg-wrap { grid-template-columns: 1fr; gap: 28px; }
     }
     @media (max-width: 600px) {
+      #hero.lg-hero,
+      .lg-claims { width: 100%; max-width: 100vw; overflow-x: hidden; }
       .lg-hero { padding: 112px 0 44px; }
       .lg-hero .lg-wrap { gap: 32px; }
       .lg-hero .lg-wrap > div:first-child { padding-top: 0; }
@@ -1356,17 +1365,31 @@
       .lg-actions { margin-top: 20px; }
       .lg-actions .btn-dark { width: 100%; justify-content: center; }
       .lg-call { width: 100%; text-align: center; border: 0; text-decoration: underline; text-underline-offset: 3px; }
-      .lg-proof { margin-top: 30px; padding-top: 18px; }
-      .lg-proof-item { padding-right: 10px; }
-      .lg-proof-item + .lg-proof-item { padding-left: 10px; }
-      .lg-proof-item strong { font-size: 15px; letter-spacing: -.3px; }
-      .lg-proof-item span { font-size: 10.5px; }
+      .lg-proof {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        margin-top: 30px;
+        padding-top: 18px;
+      }
+      .lg-proof-item {
+        padding: 0 0 12px;
+        border-bottom: 1px solid var(--border-mid);
+      }
+      .lg-proof-item + .lg-proof-item {
+        padding-left: 0;
+        border-left: 0;
+      }
+      .lg-proof-item:last-child { border-bottom: 0; padding-bottom: 0; }
+      .lg-proof-item strong { font-size: 17px; letter-spacing: -.3px; }
+      .lg-proof-item span { font-size: 12px; }
       .lg-card { border-radius: 16px; }
       .lg-card-intro { padding: 18px 16px 0; }
       .lg-card-intro h2 { font-size: 21px; }
       .lg-log { min-height: 250px; max-height: 330px; }
       .lg-claim-figure { font-size: clamp(50px,16vw,66px); letter-spacing: -3px; }
       .lg-claims h2 { font-size: 30px; letter-spacing: -1.2px; }
+      .lg-sub,
+      .lg-claims p { max-width: 100%; overflow-wrap: break-word; }
     }
   </style>
 </head>
@@ -2072,10 +2095,14 @@
         <h3>Your free policy review</h3>
         <p>Leave your details and we will email you a secure way to send your documents.</p>
         <form class="lg-rform" id="lg-rform" novalidate>
-          <input type="text" id="lg-rname" placeholder="Your name" autocomplete="name" required>
-          <input type="email" id="lg-remail" placeholder="Email address" autocomplete="email" required>
-          <input type="tel" id="lg-rphone" placeholder="Phone number (optional)" autocomplete="tel">
-          <select id="lg-rcover">
+          <label class="sr-only" for="lg-rname">Your name</label>
+          <input type="text" id="lg-rname" name="name" placeholder="Your name" autocomplete="name" required>
+          <label class="sr-only" for="lg-remail">Email address</label>
+          <input type="email" id="lg-remail" name="email" placeholder="Email address" autocomplete="email" inputmode="email" required>
+          <label class="sr-only" for="lg-rphone">Phone number optional</label>
+          <input type="tel" id="lg-rphone" name="phone" placeholder="Phone number (optional)" autocomplete="tel" inputmode="tel">
+          <label class="sr-only" for="lg-rcover">What do you currently have?</label>
+          <select id="lg-rcover" name="current_cover">
             <option value="">What do you currently have? (optional)</option>
             <option>Life, trauma or income protection</option>
             <option>Health or medical insurance</option>
@@ -2088,7 +2115,7 @@
             <span>Once you submit, we will reply from <b>info@mutuals.co.nz</b> so you can email your policy documents straight back. Secure and confidential.</span>
           </div>
           <button class="lg-btn" type="submit">Get my free review</button>
-          <div class="lg-rsuccess" id="lg-rsuccess" role="status"></div>
+          <div class="lg-rsuccess" id="lg-rsuccess" role="status" aria-live="polite"></div>
           <p class="lg-legal">Mutual Solutions Limited, FSP 729871. This is general information, not personalised financial advice.</p>
         </form>
       </div>
@@ -2370,6 +2397,15 @@
 //   el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-large'));
 // });
 
+function canUseWebGL(canvas) {
+  if (!canvas) return false;
+  try {
+    return !!(canvas.getContext('webgl') || canvas.getContext('experimental-webgl'));
+  } catch (err) {
+    return false;
+  }
+}
+
 /* ── HAMBURGER MENU ─────────────────────────────── */
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
@@ -2396,9 +2432,10 @@ window.addEventListener('scroll', () => {
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
 if (window.THREE) {
+try {
 (function initHero() {
   const canvas   = document.getElementById('hero-canvas');
-  if (!canvas) return;
+  if (!canUseWebGL(canvas)) return;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
   renderer.setSize(innerWidth, innerHeight);
@@ -2471,6 +2508,9 @@ if (window.THREE) {
     renderer.setSize(innerWidth, innerHeight);
   });
 })();
+} catch (err) {
+  console.warn('Hero background disabled:', err && err.message ? err.message : err);
+}
 } // End mobile check for hero Three.js
 
 /* ════════════════════════════════════════════════
@@ -2478,9 +2518,11 @@ if (window.THREE) {
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
 if (window.THREE) {
+try {
 (function initSplit() {
   const canvas   = document.getElementById('split-canvas');
   const panel    = document.getElementById('split');
+  if (!panel || !canUseWebGL(canvas)) return;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
@@ -2524,6 +2566,9 @@ if (window.THREE) {
     renderer.render(scene, camera);
   })();
 })();
+} catch (err) {
+  console.warn('Split background disabled:', err && err.message ? err.message : err);
+}
 } // End mobile check for split-panel Three.js
 
 /* ════════════════════════════════════════════════
@@ -2531,10 +2576,11 @@ if (window.THREE) {
 ════════════════════════════════════════════════ */
 // Only init Three.js on desktop for performance
 if (window.THREE) {
+try {
 (function initCta() {
   const canvas   = document.getElementById('cta-canvas');
-  if (!canvas) return;
   const section  = document.getElementById('cta');
+  if (!section || !canUseWebGL(canvas)) return;
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
 
@@ -2571,12 +2617,16 @@ if (window.THREE) {
     renderer.render(scene, camera);
   })();
 })();
+} catch (err) {
+  console.warn('CTA background disabled:', err && err.message ? err.message : err);
+}
 } // End mobile check for cta Three.js
 
 /* ════════════════════════════════════════════════
    GSAP ANIMATIONS
 ════════════════════════════════════════════════ */
-gsap.registerPlugin(ScrollTrigger);
+if (window.gsap) {
+if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 
 /* hero entrance — plays once on load, above the fold, no scroll-trigger needed */
 gsap.timeline({ defaults: { ease: 'power3.out' } })
@@ -2586,46 +2636,49 @@ gsap.timeline({ defaults: { ease: 'power3.out' } })
   .fromTo('.lg-hero .lg-actions',    { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.6 }, 0.48)
   .fromTo('.lg-hero .lg-proof-item', { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.55, stagger: 0.1 }, 0.58);
 
-/* generic reveal */
-document.querySelectorAll('.reveal').forEach(el => {
-  gsap.fromTo(el,
-    { opacity: 0, y: 40 },
-    {
-      opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
-      scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
-    }
-  );
-});
+if (window.ScrollTrigger) {
+  /* generic reveal */
+  document.querySelectorAll('.reveal').forEach(el => {
+    gsap.fromTo(el,
+      { opacity: 0, y: 40 },
+      {
+        opacity: 1, y: 0, duration: 0.85, ease: 'power3.out',
+        scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none none' }
+      }
+    );
+  });
 
-/* intro headline parallax */
-gsap.to('.intro-left .h2', {
-  y: -45, ease: 'none',
-  scrollTrigger: { trigger: '#intro', start: 'top bottom', end: 'bottom top', scrub: true }
-});
+  /* intro headline parallax */
+  gsap.to('.intro-left .h2', {
+    y: -45, ease: 'none',
+    scrollTrigger: { trigger: '#intro', start: 'top bottom', end: 'bottom top', scrub: true }
+  });
 
-/* process steps stagger */
-gsap.from('.p-step', {
-  y: 40, opacity: 0, stagger: 0.1, duration: 0.75, ease: 'power3.out',
-  scrollTrigger: { trigger: '.process-grid', start: 'top 82%' }
-});
+  /* process steps stagger */
+  gsap.from('.p-step', {
+    y: 40, opacity: 0, stagger: 0.1, duration: 0.75, ease: 'power3.out',
+    scrollTrigger: { trigger: '.process-grid', start: 'top 82%' }
+  });
 
-/* stats stagger */
-gsap.from('.stat-item', {
-  y: 50, opacity: 0, stagger: 0.12, duration: 0.75, ease: 'power3.out',
-  scrollTrigger: { trigger: '#stats', start: 'top 80%' }
-});
+  /* stats stagger */
+  gsap.from('.stat-item', {
+    y: 50, opacity: 0, stagger: 0.12, duration: 0.75, ease: 'power3.out',
+    scrollTrigger: { trigger: '#stats', start: 'top 80%' }
+  });
 
-/* split panel entrance — vertical motion only; horizontal (x) transforms on
-   full-width edge-flush elements can push them past the viewport edge before
-   the scroll trigger fires, causing page-wide horizontal overflow on mobile */
-gsap.from('.split-left',  { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
-gsap.from('.split-right', { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
+  /* split panel entrance — vertical motion only; horizontal (x) transforms on
+     full-width edge-flush elements can push them past the viewport edge before
+     the scroll trigger fires, causing page-wide horizontal overflow on mobile */
+  gsap.from('.split-left',  { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
+  gsap.from('.split-right', { y: 40, opacity: 0, duration: 1,  ease: 'power3.out', scrollTrigger: { trigger: '#split', start: 'top 76%' } });
 
-/* review cards stagger */
-gsap.from('.r-card', {
-  y: 40, opacity: 0, stagger: 0.12, duration: 0.75, ease: 'power3.out',
-  scrollTrigger: { trigger: '.reviews-rail', start: 'top 82%' }
-});
+  /* review cards stagger */
+  gsap.from('.r-card', {
+    y: 40, opacity: 0, stagger: 0.12, duration: 0.75, ease: 'power3.out',
+    scrollTrigger: { trigger: '.reviews-rail', start: 'top 82%' }
+  });
+}
+}
 
 /* ── SERVICES DRAG-SCROLL ───────────────────────── */
 const rail = document.getElementById('services-rail');
@@ -2879,7 +2932,6 @@ initArrowNavigation(rRail);
       "A simple retirement projection so you know if you are on track" ]}
   };
   var log = document.getElementById("lg-log");
-  if(!log) return;
   var prog = document.getElementById("lg-prog");
   var answers = {}, step = 0;
   function sl(){ log.scrollTop = log.scrollHeight; }
@@ -2902,7 +2954,7 @@ initArrowNavigation(rRail);
     }, DELAY);
   }
   function ask(){
-    var q=QUESTIONS[step]; prog.textContent=(step+1)+" of "+QUESTIONS.length;
+    var q=QUESTIONS[step]; if(prog) prog.textContent=(step+1)+" of "+QUESTIONS.length;
     var qd = q.dynamic ? GOAL_COPY[answers.goal.value][q.id] : q;
     bot(qd.text, "lg-bot", function(){
       var c=document.createElement("div"); c.className="lg-chips";
@@ -2948,7 +3000,7 @@ initArrowNavigation(rRail);
     }
   };
   function plan(){
-    prog.textContent="Done";
+    if(prog) prog.textContent="Done";
     var p=PLANS[answers.goal.value]; var items=p.items.slice();
     var insight = DOMAIN_INSIGHTS[answers.goal.value] && DOMAIN_INSIGHTS[answers.goal.value][answers.domain.value];
     if(insight) items.unshift(insight);
@@ -2972,10 +3024,10 @@ initArrowNavigation(rRail);
     f.addEventListener("submit", function(e){
       e.preventDefault();
       var n=f.querySelector("#lg-name"), em=f.querySelector("#lg-email"), ph=f.querySelector("#lg-phone"); var ok=true;
-      [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); });
-      if(!n.value.trim()){ n.classList.add("lg-err"); ok=false; }
-      if(!validEmail(em.value)){ em.classList.add("lg-err"); ok=false; }
-      if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ok=false; }
+      [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); i.removeAttribute("aria-invalid"); });
+      if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
+      if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
+      if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
       if(!ok) return;
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
       sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), answers:summ() }).then(function(success){
@@ -2998,10 +3050,10 @@ initArrowNavigation(rRail);
   if(rf) rf.addEventListener("submit", function(e){
     e.preventDefault();
     var n=document.getElementById("lg-rname"), em=document.getElementById("lg-remail"), ph=document.getElementById("lg-rphone"), cv=document.getElementById("lg-rcover"); var ok=true;
-    [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); });
-    if(!n.value.trim()){ n.classList.add("lg-err"); ok=false; }
-    if(!validEmail(em.value)){ em.classList.add("lg-err"); ok=false; }
-    if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ok=false; }
+    [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); i.removeAttribute("aria-invalid"); });
+    if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
+    if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
+    if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
     if(!ok) return;
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     var box=document.getElementById("lg-rsuccess");

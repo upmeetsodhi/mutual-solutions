@@ -529,6 +529,14 @@
     let scene, camera, renderer, geometry, material, mesh;
     const colors = { light: 0xf5f5f5, dark: 0x0a0a0a };
 
+    function canUseWebGL(canvas) {
+      try {
+        return !!(window.WebGLRenderingContext && (canvas.getContext('webgl') || canvas.getContext('experimental-webgl')));
+      } catch (error) {
+        return false;
+      }
+    }
+
     function initThreeJS() {
       if (!window.THREE) {
         setTimeout(initThreeJS, 100);
@@ -536,48 +544,52 @@
       }
 
       const canvas = document.getElementById('hero-canvas');
-      if (!canvas) return;
+      if (!canvas || !canUseWebGL(canvas)) return;
 
-      const w = canvas.clientWidth, h = canvas.clientHeight;
-      scene = new THREE.Scene();
-      camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 10000);
-      camera.position.z = 60;
-      renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setSize(w, h);
-      renderer.setPixelRatio(window.devicePixelRatio);
-      renderer.setClearColor(colors.light, 1);
-
-      geometry = new THREE.IcosahedronGeometry(25, 4);
-      material = new THREE.MeshPhongMaterial({
-        color: 0xd0d0d0,
-        emissive: 0x111111,
-        shininess: 100,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.15,
-      });
-      mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-
-      const light = new THREE.DirectionalLight(0xffffff, 0.5);
-      light.position.set(10, 20, 10);
-      scene.add(light);
-      scene.add(new THREE.AmbientLight(0xffffff, 0.3));
-
-      function animate() {
-        requestAnimationFrame(animate);
-        mesh.rotation.x += 0.0002;
-        mesh.rotation.y += 0.0003;
-        renderer.render(scene, camera);
-      }
-      animate();
-
-      window.addEventListener('resize', () => {
+      try {
         const w = canvas.clientWidth, h = canvas.clientHeight;
-        camera.aspect = w / h;
-        camera.updateProjectionMatrix();
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(45, w / h, 0.1, 10000);
+        camera.position.z = 60;
+        renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setSize(w, h);
-      });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(colors.light, 1);
+
+        geometry = new THREE.IcosahedronGeometry(25, 4);
+        material = new THREE.MeshPhongMaterial({
+          color: 0xd0d0d0,
+          emissive: 0x111111,
+          shininess: 100,
+          wireframe: true,
+          transparent: true,
+          opacity: 0.15,
+        });
+        mesh = new THREE.Mesh(geometry, material);
+        scene.add(mesh);
+
+        const light = new THREE.DirectionalLight(0xffffff, 0.5);
+        light.position.set(10, 20, 10);
+        scene.add(light);
+        scene.add(new THREE.AmbientLight(0xffffff, 0.3));
+
+        function animate() {
+          requestAnimationFrame(animate);
+          mesh.rotation.x += 0.0002;
+          mesh.rotation.y += 0.0003;
+          renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+          const w = canvas.clientWidth, h = canvas.clientHeight;
+          camera.aspect = w / h;
+          camera.updateProjectionMatrix();
+          renderer.setSize(w, h);
+        });
+      } catch (error) {
+        console.warn('Blog background disabled:', error);
+      }
     }
 
     if (document.readyState === 'loading') {
@@ -597,11 +609,13 @@
 
     const hamburger = document.getElementById('hamburger');
     const mobileMenu = document.getElementById('mobile-menu');
-    hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('open');
-      mobileMenu.classList.toggle('open');
-      document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
-    });
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+        document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+      });
+    }
   </script>
   <script src="/analytics-events.js" defer></script>
 </body>
