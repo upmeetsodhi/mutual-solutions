@@ -54,7 +54,11 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "FinancialService"],
+    "@type": [
+      "LocalBusiness",
+      "FinancialService",
+      "InsuranceAgency"
+    ],
     "@id": "https://mutuals.co.nz/#organization",
     "name": "Mutual Solutions",
     "legalName": "Mutual Solutions Limited",
@@ -67,7 +71,7 @@
     "telephone": "+64800675555",
     "email": "info@mutuals.co.nz",
     "foundingDate": "2012",
-    "priceRange": "Free consultation",
+    "priceRange": "Free initial consultation",
     "currenciesAccepted": "NZD",
     "paymentAccepted": "Free initial consultation",
     "address": {
@@ -84,23 +88,65 @@
       "longitude": 175.6082
     },
     "areaServed": [
-      { "@type": "Country", "name": "New Zealand" },
-      { "@type": "AdministrativeArea", "name": "Manawatū-Whanganui" },
-      { "@type": "City", "name": "Palmerston North" },
-      { "@type": "City", "name": "Auckland" },
-      { "@type": "City", "name": "Wellington" },
-      { "@type": "City", "name": "Christchurch" },
-      { "@type": "City", "name": "Hamilton" },
-      { "@type": "City", "name": "Tauranga" },
-      { "@type": "City", "name": "Dunedin" },
-      { "@type": "City", "name": "Napier" },
-      { "@type": "City", "name": "Whanganui" },
-      { "@type": "City", "name": "Rotorua" }
+      {
+        "@type": "Country",
+        "name": "New Zealand"
+      },
+      {
+        "@type": "AdministrativeArea",
+        "name": "Manawatū-Whanganui"
+      },
+      {
+        "@type": "City",
+        "name": "Palmerston North"
+      },
+      {
+        "@type": "City",
+        "name": "Auckland"
+      },
+      {
+        "@type": "City",
+        "name": "Wellington"
+      },
+      {
+        "@type": "City",
+        "name": "Christchurch"
+      },
+      {
+        "@type": "City",
+        "name": "Hamilton"
+      },
+      {
+        "@type": "City",
+        "name": "Tauranga"
+      },
+      {
+        "@type": "City",
+        "name": "Dunedin"
+      },
+      {
+        "@type": "City",
+        "name": "Napier"
+      },
+      {
+        "@type": "City",
+        "name": "Whanganui"
+      },
+      {
+        "@type": "City",
+        "name": "Rotorua"
+      }
     ],
     "openingHoursSpecification": [
       {
         "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "dayOfWeek": [
+          "Monday",
+          "Tuesday",
+          "Wednesday",
+          "Thursday",
+          "Friday"
+        ],
         "opens": "09:00",
         "closes": "17:00"
       }
@@ -108,21 +154,69 @@
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "4.9",
-      "reviewCount": "109",
+      "reviewCount": "112",
       "bestRating": "5"
     },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Insurance & Financial Services",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Life Insurance" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Income Protection Insurance" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Health Insurance" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Critical Illness Cover" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Disability Insurance" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "KiwiSaver Advice" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Home Loans" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Investment Advice" } }
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Life Insurance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Income Protection Insurance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Health Insurance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Critical Illness Cover"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Disability Insurance"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "KiwiSaver Advice"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Home Loans"
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Investment Advice"
+          }
+        }
       ]
     },
     "employee": {
