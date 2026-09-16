@@ -40,7 +40,13 @@
     <loc>https://mutuals.co.nz/disclosure.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-09-16</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/how-commissions-work.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <lastmod>2026-09-16</lastmod>
   </url>
   <url>
     <loc>https://mutuals.co.nz/faq.html</loc>

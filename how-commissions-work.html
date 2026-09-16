@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F1FPHEDGM"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-4F1FPHEDGM');
+  </script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Commissions Work | Mutual Solutions</title>
+  <meta name="description" content="A plain-English explanation of how Mutual Solutions is paid: upfront and ongoing insurance commission, KiwiSaver and lender commission, clawback and recoupment, and how conflicts of interest are managed." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://mutuals.co.nz/how-commissions-work.html" />
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Mutual Solutions" />
+  <meta property="og:title" content="How Commissions Work | Mutual Solutions" />
+  <meta property="og:description" content="A plain-English explanation of how Mutual Solutions is paid: upfront and ongoing insurance commission, KiwiSaver and lender commission, clawback and recoupment, and how conflicts of interest are managed." />
+  <meta property="og:url" content="https://mutuals.co.nz/how-commissions-work.html" />
+  <meta property="og:image" content="https://mutuals.co.nz/upmeet.jpg" />
+  <meta property="og:locale" content="en_NZ" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How Commissions Work | Mutual Solutions" />
+  <meta name="twitter:description" content="A plain-English explanation of how Mutual Solutions is paid: upfront and ongoing insurance commission, KiwiSaver and lender commission, clawback and recoupment, and how conflicts of interest are managed." />
+  <meta name="twitter:image" content="https://mutuals.co.nz/upmeet.jpg" />
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://mutuals.co.nz"},
+    {"@type": "ListItem", "position": 2, "name": "How Commissions Work", "item": "https://mutuals.co.nz/how-commissions-work.html"}
+  ]}
+  </script>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0a0a'/%3E%3Cpath d='M16 4L4 10v8c0 8 5.5 15.5 12 17.5 6.5-2 12-9.5 12-17.5v-8L16 4z' fill='none' stroke='white' stroke-width='2'/%3E%3C/svg%3E" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #ffffff;
+      --bg-subtle:    #f5f5f5;
+      --bg-dark:      #0a0a0a;
+      --ink:          #0a0a0a;
+      --ink-2:        #1c1c1c;
+      --ink-muted:    #6b6b6b;
+      --ink-faint:    #b8b8b8;
+      --border:       rgba(0,0,0,0.08);
+      --border-mid:   rgba(0,0,0,0.12);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, 'Helvetica Neue', Arial, sans-serif;
+      overflow-x: hidden;
+    }
+
+    ::-webkit-scrollbar { width: 3px; }
+    ::-webkit-scrollbar-track { background: #f0f0f0; }
+    ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 2px; }
+
+    /* ── NAV ─────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 52px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 1px 0 var(--border);
+      transition: background .4s, box-shadow .4s;
+    }
+    .nav-logo { font-size: 16px; font-weight: 700; color: var(--ink); text-decoration: none; }
+    .nav-logo-sub { font-weight: 300; color: var(--ink-muted); font-size: 15px; }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a { color: var(--ink-muted); text-decoration: none; font-size: 14px; transition: color .2s; }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-phone { color: var(--ink-muted) !important; }
+    .nav-cta { background: var(--ink); color: #fff !important; padding: 9px 22px; border-radius: 100px; font-size: 13px !important; font-weight: 600; }
+
+    /* ── PAGE LAYOUT ─────────────────────────────── */
+    .page-wrap {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 56px;
+      padding-top: 110px;
+    }
+
+    .page-header {
+      padding: 60px 0 72px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 0;
+    }
+
+    .page-tag {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 16px;
+    }
+
+    .page-title {
+      font-size: clamp(38px, 6vw, 72px);
+      font-weight: 800; letter-spacing: -3px; line-height: 1;
+      color: var(--ink); margin-bottom: 12px;
+    }
+
+    .page-subtitle {
+      font-size: 16px; color: var(--ink-muted);
+      font-weight: 400; letter-spacing: -0.2px;
+    }
+
+    /* ── CONTENT GRID ────────────────────────────── */
+    .content-grid {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 72px;
+      align-items: start;
+      padding: 72px 0 120px;
+    }
+
+    /* ── STICKY TOC ──────────────────────────────── */
+    .toc {
+      position: sticky;
+      top: 100px;
+    }
+
+    .toc-label {
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 2.2px; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 18px;
+    }
+
+    .toc ul { list-style: none; }
+    .toc li { margin-bottom: 4px; }
+    .toc a {
+      font-size: 13px; color: var(--ink-muted);
+      text-decoration: none; display: block;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border-left: 2px solid transparent;
+      transition: color .2s, background .2s, border-color .2s;
+      line-height: 1.4;
+    }
+    .toc a:hover {
+      color: var(--ink);
+      background: var(--bg-subtle);
+      border-left-color: var(--ink);
+    }
+
+    /* ── SECTIONS ────────────────────────────────── */
+    .sections { display: flex; flex-direction: column; gap: 0; }
+
+    .doc-section {
+      border-top: 1px solid var(--border);
+      padding: 56px 0;
+    }
+    .doc-section:first-child { border-top: none; padding-top: 0; }
+
+    .section-heading {
+      font-size: 24px; font-weight: 800;
+      letter-spacing: -0.8px; line-height: 1.1;
+      color: var(--ink); margin-bottom: 28px;
+    }
+
+    .doc-section p {
+      font-size: 15px; line-height: 1.75;
+      color: #444; margin-bottom: 16px;
+    }
+    .doc-section p:last-child { margin-bottom: 0; }
+
+    .doc-section ul, .doc-section ol {
+      margin: 16px 0 16px 24px;
+    }
+    .doc-section li {
+      font-size: 15px; line-height: 1.75;
+      color: #444; margin-bottom: 8px;
+    }
+
+    /* Definition list style for structured info */
+    .def-list { margin: 20px 0; }
+    .def-row {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 16px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      align-items: baseline;
+    }
+    .def-row:first-child { border-top: 1px solid var(--border); }
+    .def-term {
+      font-size: 12px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.8px;
+      color: var(--ink-faint);
+    }
+    .def-val {
+      font-size: 14px; color: #444; line-height: 1.6;
+    }
+    .def-val a { color: var(--ink); }
+
+    /* Sub-headings within sections */
+    .sub-heading {
+      font-size: 16px; font-weight: 700;
+      color: var(--ink); margin: 28px 0 10px;
+      letter-spacing: -0.3px;
+    }
+
+    /* Step blocks for complaints */
+    .step-block {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-mid);
+      border-radius: 16px;
+      padding: 28px 32px;
+      margin: 20px 0;
+    }
+    .step-block .step-label {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 2px; text-transform: uppercase;
+      color: var(--ink-faint); margin-bottom: 10px;
+    }
+    .step-block .step-title {
+      font-size: 17px; font-weight: 700;
+      color: var(--ink); margin-bottom: 16px;
+    }
+    .step-block p {
+      font-size: 14px !important; line-height: 1.7 !important;
+      color: var(--ink-muted) !important; margin-bottom: 8px !important;
+    }
+    .step-block p:last-child { margin-bottom: 0 !important; }
+    .step-block strong { color: var(--ink); font-weight: 700; }
+
+    /* ── FOOTER ──────────────────────────────────── */
+    .page-footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--ink-faint);
+      margin-top: 0;
+    }
+    .page-footer a {
+      color: var(--ink-muted); text-decoration: none;
+      transition: color .2s;
+    }
+    .page-footer a:hover { color: var(--ink); }
+    .hamburger { display: none; width: 44px; height: 44px; border: 1px solid var(--border-mid); border-radius: 999px; background: rgba(255,255,255,0.9); align-items: center; justify-content: center; flex-direction: column; gap: 4px; cursor: pointer; padding: 0; }
+    .hamburger span { width: 18px; height: 2px; background: var(--ink); border-radius: 2px; transition: transform 0.2s, opacity 0.2s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+    .mobile-menu { position: fixed; inset: 76px 16px auto; z-index: 199; display: none; flex-direction: column; gap: 10px; padding: 16px; background: rgba(255,255,255,0.98); border: 1px solid var(--border-mid); border-radius: 18px; box-shadow: 0 24px 48px rgba(0,0,0,0.12); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { text-decoration: none; color: var(--ink); font-size: 15px; padding: 12px 14px; border-radius: 12px; background: var(--bg-subtle); }
+    .mobile-menu .mobile-cta { background: var(--ink); color: #fff; text-align: center; font-weight: 700; }
+
+    /* ── RESPONSIVE ──────────────────────────────── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hamburger { display: inline-flex; }
+      .page-wrap { padding: 0 24px; padding-top: 90px; }
+      .page-header { padding: 40px 0 52px; }
+      .content-grid { grid-template-columns: 1fr; gap: 40px; }
+      .toc { display: none; }
+      .def-row { grid-template-columns: 140px 1fr; }
+    }
+
+    @media (max-width: 600px) {
+      .page-title { letter-spacing: -2px; }
+      .doc-section { padding: 40px 0; }
+      .def-row { grid-template-columns: 1fr; gap: 4px; }
+      .def-term { margin-bottom: 2px; }
+      .step-block { padding: 20px 20px; }
+      .page-footer { flex-direction: column; gap: 12px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════ NAV ════════════════════════════════════ -->
+  <nav id="main-nav">
+    <a class="nav-logo" href="/">
+      Mutual<span class="nav-logo-sub">&nbsp;Solutions</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#services-outer">Services</a></li>
+      <li><a href="/adviser/upmeet.html">Adviser</a></li>
+      <li><a href="/blog/">Blog</a></li>
+      <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a></li>
+    </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"><span></span><span></span><span></span></button>
+  </nav>
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="/" onclick="closeMobileMenu()">Home</a>
+    <a href="/#services-outer" onclick="closeMobileMenu()">Services</a>
+    <a href="/adviser/upmeet.html" onclick="closeMobileMenu()">Adviser</a>
+    <a href="/blog/" onclick="closeMobileMenu()">Blog</a>
+    <a href="/faq.html" onclick="closeMobileMenu()">FAQ</a>
+    <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
+  </div>
+
+  <!-- ════ PAGE CONTENT ═══════════════════════════ -->
+  <div class="page-wrap">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <p class="page-tag">Legal &amp; Compliance</p>
+      <h1 class="page-title">How commissions work</h1>
+      <p class="page-subtitle">A plain-English guide to how Mutual Solutions is paid, and what that means for you</p>
+    </div>
+
+    <!-- Content grid: TOC + sections -->
+    <div class="content-grid">
+
+      <!-- Sticky table of contents -->
+      <aside class="toc">
+        <p class="toc-label">On this page</p>
+        <ul>
+          <li><a href="#what">What commission is</a></li>
+          <li><a href="#who-pays">Who pays it</a></li>
+          <li><a href="#cost">Do you pay more?</a></li>
+          <li><a href="#upfront">Upfront commission</a></li>
+          <li><a href="#ongoing">Ongoing commission</a></li>
+          <li><a href="#kiwisaver">KiwiSaver &amp; investments</a></li>
+          <li><a href="#lenders">Home loans</a></li>
+          <li><a href="#clawback">Clawback &amp; recoupment</a></li>
+          <li><a href="#conflicts">Managing conflicts</a></li>
+          <li><a href="#your-needs">Advice based on your needs</a></li>
+        </ul>
+      </aside>
+
+      <!-- Sections -->
+      <div class="sections">
+
+        <section class="doc-section" id="what">
+          <h2 class="section-heading">What commission is</h2>
+          <p>Commission is a payment a product provider makes to an adviser when a client takes out a product through that adviser. For Mutual Solutions, the providers are insurers, KiwiSaver and investment providers, and home loan lenders.</p>
+          <p>It is the main way we are paid. It is how most New Zealand advice businesses like ours are funded, and it means you can usually get personalised advice without paying us directly.</p>
+        </section>
+
+        <section class="doc-section" id="who-pays">
+          <h2 class="section-heading">Who pays commission</h2>
+          <p>The product provider pays it, out of its own revenue. You do not pay it to us, and it is not added as a separate charge on your policy, loan or account.</p>
+          <p>Commission is paid to Mutual Solutions Limited, the Financial Advice Provider, not to the adviser personally.</p>
+        </section>
+
+        <section class="doc-section" id="cost">
+          <h2 class="section-heading">Do you pay more because commission is paid?</h2>
+          <p>Generally, no. Providers build the cost of distribution into their pricing regardless of how you buy. If you went to an insurer or lender directly, you would usually pay the same premium or interest rate, but without personalised advice, someone to compare options for you, or support when you need to claim.</p>
+          <p>Where a provider does offer a materially different price for going direct, or where a product pays no commission at all, we will tell you and discuss the options with you.</p>
+        </section>
+
+        <section class="doc-section" id="upfront">
+          <h2 class="section-heading">Upfront commission</h2>
+          <p>When a new insurance policy starts, the insurer pays an upfront commission. It is worked out as a percentage of the first year's premium and, depending on the insurer and product, typically ranges from about 100% to 230% of that premium. For health insurance the range is lower, typically 10% to 170%.</p>
+          <p>This payment reflects the work involved in assessing your needs, comparing options, preparing your Statement of Advice, and managing the application and underwriting process. Upfront commission is also what an insurer can claw back if the policy is cancelled early, which is covered below.</p>
+        </section>
+
+        <section class="doc-section" id="ongoing">
+          <h2 class="section-heading">Ongoing (renewal) commission</h2>
+          <p>For each year an insurance policy stays in force, the insurer pays a smaller ongoing commission, typically between 2.5% and 30% of the annual premium depending on the product and insurer.</p>
+          <p>This is what funds the ongoing service we provide, including annual reviews of your cover, help with changes to your policy, and standing beside you through a claim.</p>
+        </section>
+
+        <section class="doc-section" id="kiwisaver">
+          <h2 class="section-heading">KiwiSaver and investment commission</h2>
+          <p>KiwiSaver and investment providers we work with may pay a one-off member commission when you join through us, typically up to $200, and an ongoing commission based on your balance, typically between 0.20% and 0.50% per year.</p>
+          <p>This ongoing amount is paid by the provider from the fees it already charges. It is not deducted from your balance as a separate adviser fee.</p>
+        </section>
+
+        <section class="doc-section" id="lenders">
+          <h2 class="section-heading">Home loan (lender) commission</h2>
+          <p>When a home loan arranged through us settles, the lender pays a commission based on the loan amount. Some lenders also pay a small ongoing trail commission for as long as the loan remains with them.</p>
+          <p>Home loan advice is provided under our separate Home Loan Disclosure Guide, which sets out the lenders we work with and the commission each one pays. We will give you that guide before any mortgage engagement.</p>
+        </section>
+
+        <section class="doc-section" id="clawback">
+          <h2 class="section-heading">Insurance clawback and client recoupment</h2>
+          <p>If an insurance policy is cancelled or materially reduced within the first 24 months, the insurer can require Mutual Solutions to repay some or all of the upfront commission. That is known as a clawback, and in some circumstances we may pass part of that cost on to you.</p>
+
+          <div class="step-block">
+            <p class="step-label">If a clawback happens</p>
+            <p class="step-title">What you may be invoiced</p>
+            <p>The <strong>lesser</strong> of:</p>
+            <p>(a) the actual commission amount clawed back by the insurer; or</p>
+            <p>(b) <strong>$3,000 + GST</strong>.</p>
+            <p style="margin-top:14px !important">This applies only where it has been disclosed to you and agreed in writing before your cover starts. It does not apply once the policy has been in force for more than 24 months, and it does not apply where the insurer does not claw back commission.</p>
+          </div>
+
+          <p>We include this because it is fair for you to know about it before you take out cover, not after. The full wording is in our <a href="disclosure.html#clawback">disclosure statement</a>.</p>
+        </section>
+
+        <section class="doc-section" id="conflicts">
+          <h2 class="section-heading">How we manage the conflict</h2>
+          <p>Being paid by providers, and working with a selected group of them, creates an obvious conflict of interest. We do not pretend it does not exist. We manage it like this:</p>
+          <ol>
+            <li>We assess your needs in writing before we look at any product or what it pays.</li>
+            <li>We compare the options available from our providers where appropriate, using a research matrix, and document why we recommend what we do.</li>
+            <li>Your Statement of Advice shows the commission and any other benefit we receive for the recommendation.</li>
+            <li>We keep records of our advice, and it is reviewed internally and, where required, independently.</li>
+            <li>The adviser completes an annual conflicts attestation and ongoing training.</li>
+            <li>If you think a conflict has affected our advice, you can complain to us and escalate to FSCL at no cost.</li>
+          </ol>
+          <p>Full details are in the <a href="disclosure.html#conflicts">conflicts of interest</a> section of our disclosure statement.</p>
+        </section>
+
+        <section class="doc-section" id="your-needs">
+          <h2 class="section-heading">Advice must be based on your needs</h2>
+          <p>The law is clear on this. Under the Financial Markets Conduct Act 2013, we must give priority to your interests, and our advice must not be materially influenced by what we are paid. Commission is how the business is funded. It is not how we decide what to recommend.</p>
+          <p>If a product that pays us less, or nothing at all, is the right one for you, that is what we will recommend. If you ever feel that has not been the case, please tell us.</p>
+
+          <div class="step-block">
+            <p class="step-label">Questions?</p>
+            <p class="step-title">Ask us anything about how we are paid</p>
+            <p><strong>Email:</strong> <a href="mailto:info@mutuals.co.nz">info@mutuals.co.nz</a> &nbsp;·&nbsp; <strong>Phone:</strong> <a href="tel:0800675555">0800 67 55 55</a></p>
+            <p>A full provider-by-provider commission schedule is available free of charge on request.</p>
+          </div>
+        </section>
+
+      </div><!-- end .sections -->
+
+    </div><!-- end .content-grid -->
+
+    <!-- Page footer -->
+    <div class="page-footer">
+      <span>&copy; 2026 Mutual Solutions Limited &nbsp;·&nbsp; FSP 729871</span>
+      <span><a href="disclosure.html">Disclosure &amp; Legal</a> &nbsp;·&nbsp; <a href="index.html">← Back to Mutual Solutions</a></span>
+    </div>
+
+  </div><!-- end .page-wrap -->
+  <script>
+  (function(){
+    var hamburger = document.getElementById("hamburger");
+    var mobileMenu = document.getElementById("mobile-menu");
+    if(!hamburger || !mobileMenu) return;
+    window.closeMobileMenu = function(){ hamburger.classList.remove("open"); mobileMenu.classList.remove("open"); hamburger.setAttribute("aria-expanded", "false"); document.body.style.overflow = ""; };
+    hamburger.addEventListener("click", function(){ var open = hamburger.classList.toggle("open"); mobileMenu.classList.toggle("open", open); hamburger.setAttribute("aria-expanded", open ? "true" : "false"); document.body.style.overflow = open ? "hidden" : ""; });
+    window.addEventListener("resize", function(){ if(window.innerWidth > 960) window.closeMobileMenu(); });
+  })();
+  </script>
+  <script src="/analytics-events.js" defer></script>
+</body>
+</html>
