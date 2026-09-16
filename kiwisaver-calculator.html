@@ -156,7 +156,8 @@ body {
   letter-spacing: -0.5px;
 }
 
-.logo-text { font-size: .9rem; font-weight: 700; letter-spacing: -.01em; }
+.logo-text { font-size: .9rem; font-weight: 700; letter-spacing: -.01em;   color: #fff;
+}
 .logo-sub  { font-size: .7rem; color: var(--slate-400); font-weight: 500; }
 
 .header-badge {
@@ -705,6 +706,78 @@ input[type=range]::-moz-range-thumb {
 }
 
 .chip-teal { background: var(--teal-50); color: var(--teal-700); }
+
+/* ── Site navigation in the calculator header ───────────────── */
+.calc-nav { display: flex; align-items: center; gap: 1.5rem; }
+.calc-nav a {
+  color: var(--slate-300);
+  text-decoration: none;
+  font-size: .8125rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: color .15s;
+}
+.calc-nav a:hover { color: #fff; }
+.calc-nav .calc-nav-cta {
+  background: #fff;
+  color: var(--slate-900);
+  padding: .5rem 1.1rem;
+  border-radius: 100px;
+  font-weight: 700;
+}
+.calc-nav .calc-nav-cta:hover { color: var(--slate-900); opacity: .88; }
+@media (max-width: 860px) {
+  .site-header { padding: 0 1.25rem; }
+  .calc-nav { gap: .9rem; }
+  .calc-nav a:not(.calc-nav-cta) { display: none; }
+}
+
+/* ── Closing call to action ─────────────────────────────────── */
+.calc-cta {
+  max-width: 1280px;
+  margin: 0 auto 4rem;
+  padding: 2.5rem 2rem;
+  background: var(--slate-900);
+  color: #fff;
+  border-radius: 16px;
+  text-align: center;
+}
+.calc-cta h2 {
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  margin-bottom: .75rem;
+  color: #fff;
+}
+.calc-cta p {
+  color: var(--slate-300);
+  font-size: .95rem;
+  line-height: 1.65;
+  max-width: 54ch;
+  margin: 0 auto 1.5rem;
+}
+.calc-cta-actions { display: flex; gap: .75rem; justify-content: center; flex-wrap: wrap; }
+.calc-cta-actions a {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: .8rem 1.6rem; border-radius: 100px;
+  font-size: .875rem; font-weight: 600; text-decoration: none;
+  transition: opacity .15s, transform .15s;
+}
+.calc-cta-actions a:hover { opacity: .88; transform: translateY(-1px); }
+.calc-cta-primary { background: #fff; color: var(--slate-900); }
+.calc-cta-secondary { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.3); }
+.calc-links {
+  max-width: 1280px; margin: 0 auto 3rem; padding: 0 1.75rem;
+  display: flex; gap: 1.25rem; flex-wrap: wrap; justify-content: center;
+  font-size: .8125rem;
+}
+.calc-links a { color: var(--slate-500); text-decoration: none; }
+.calc-links a:hover { color: var(--slate-900); text-decoration: underline; }
+@media (max-width: 600px) {
+  .calc-cta { margin-left: 1.25rem; margin-right: 1.25rem; padding: 2rem 1.25rem; }
+  .calc-cta-actions { flex-direction: column; }
+  .calc-cta-actions a { width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -712,13 +785,19 @@ input[type=range]::-moz-range-thumb {
 <!-- ── Header ──────────────────────────────────────────────── -->
 <header class="site-header">
   <a href="/" class="logo" style="text-decoration: none; color: inherit;">
-    <div class="logo-mark">KS</div>
+    <div class="logo-mark">MS</div>
     <div>
-      <div class="logo-text">KiwiSaver Calculator</div>
-      <div class="logo-sub">Retirement Projection Tool</div>
+      <div class="logo-text">Mutual Solutions</div>
+      <div class="logo-sub">KiwiSaver Retirement Calculator</div>
     </div>
   </a>
-  <div class="header-badge">New Zealand</div>
+  <nav class="calc-nav" aria-label="Main">
+    <a href="/">Home</a>
+    <a href="/kiwisaver.html">KiwiSaver Advice</a>
+    <a href="/about-us.html">About</a>
+    <a href="/faq.html">FAQ</a>
+    <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="calc-nav-cta" target="_blank" rel="noopener">Free Consult</a>
+  </nav>
 </header>
 
 <!-- ── Page ────────────────────────────────────────────────── -->
@@ -1115,6 +1194,27 @@ input[type=range]::-moz-range-thumb {
 </div>
 
 </div><!-- /page -->
+
+<!-- ── Closing CTA ──────────────────────────────────────────── -->
+<section class="calc-cta">
+  <h2>Not sure what your numbers are telling you?</h2>
+  <p>A projection is a starting point, not a plan. If the figure above is lower than you would like, the usual levers are your contribution rate, your fund type, and whether you are getting the full government contribution each year. We will talk you through which of those actually applies to you.</p>
+  <div class="calc-cta-actions">
+    <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="calc-cta-primary" target="_blank" rel="noopener">Book a free KiwiSaver review</a>
+    <a href="tel:0800675555" class="calc-cta-secondary">Call 0800 67 55 55</a>
+  </div>
+</section>
+
+<nav class="calc-links" aria-label="Related pages">
+  <a href="/kiwisaver.html">KiwiSaver advice</a>
+  <a href="/blog/kiwisaver-contribution-strategy.html">Contribution strategy guide</a>
+  <a href="/insurance-adviser-palmerston-north.html">Adviser in Palmerston North</a>
+  <a href="/about-us.html">About Mutual Solutions</a>
+  <a href="/faq.html">FAQ</a>
+  <a href="/contact-us.html">Contact</a>
+  <a href="/disclosure.html">Disclosure</a>
+</nav>
+
 
 <script>
 /* ─── State ──────────────────────────────────────────────── */

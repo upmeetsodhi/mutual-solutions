@@ -94,12 +94,12 @@
     function normalise(value) { return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim(); }
     function findAnswer(question) {
       const q = normalise(question);
-      const direct = answers.find(answer => answer.keys.some(key => q.includes(normalise(key))));
+      const direct = answers.find(answer => (answer.phrases || answer.keys || []).some(key => q.includes(normalise(key))));
       if (direct) return direct;
       const words = q.split(' ').filter(word => word.length > 3);
       let best; let bestScore = 0;
       answers.forEach(answer => {
-        const score = answer.keys.reduce((total, key) => total + normalise(key).split(' ').filter(word => word.length > 3 && words.includes(word)).length, 0);
+        const score = (answer.phrases || answer.keys || []).reduce((total, key) => total + normalise(key).split(' ').filter(word => word.length > 3 && words.includes(word)).length, 0);
         if (score > bestScore) { best = answer; bestScore = score; }
       });
       return bestScore >= 2 ? best : undefined;

@@ -7,7 +7,7 @@ window.MUTUALS_CHAT_KNOWLEDGE = [
   {
     id: 'about-mutual', topic: 'About Mutual Solutions',
     questions: ['What does Mutual Solutions do?', 'What services do you offer?', 'Who are Mutual Solutions?', 'Can you help people outside Palmerston North?'],
-    phrases: ['who are you', 'what does mutual', 'what do you do', 'what services', 'what help', 'can you help', 'about mutual', 'where are you based', 'where do you work', 'nationwide', 'new zealand'],
+    phrases: ['who are you', 'what does mutual', 'what do you do', 'what services', 'about mutual', 'where are you based', 'where do you work', 'nationwide', 'new zealand'],
     answer: 'Mutual Solutions Limited is an independent financial advice firm based in Palmerston North and serving clients across New Zealand. Its public service areas include personal insurance, home loans and KiwiSaver advice.',
     source: 'https://mutuals.co.nz/about-us.html', sourceLabel: 'About Mutual Solutions'
   },
