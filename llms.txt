@@ -14,7 +14,7 @@ Key facts:
 
 ## Services
 
-- [Life Insurance Advice](https://mutuals.co.nz/life-insurance.html): whole-of-market life cover comparison and needs analysis
+- [Life Insurance Advice](https://mutuals.co.nz/life-insurance.html): life cover comparison across the selected providers available to us, plus needs analysis
 - [Health Insurance Advice](https://mutuals.co.nz/health-insurance.html): private medical cover comparison for faster specialist and surgical access
 - [Income Protection Advice](https://mutuals.co.nz/income-protection.html): cover for up to 75% of income if illness or injury stops you working; fills the gap ACC leaves (ACC covers accidents, not illness)
 - [KiwiSaver Advice](https://mutuals.co.nz/kiwisaver.html): free fund reviews and contribution strategy
