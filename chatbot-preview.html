@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en-NZ">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>Private Chatbot Prototype | Mutual Solutions</title>
+  <style>
+    :root { --ink:#090909; --muted:#656565; --line:#e5e5e5; --paper:#fafafa; --card:#fff; --green:#168a57; --soft:#eef7f1; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:linear-gradient(135deg,#f6f6f4 0%,#fff 52%,#eff7f2 100%); color:var(--ink); font-family:Helvetica,Arial,sans-serif; }
+    .shell { width:min(1080px,calc(100% - 32px)); margin:0 auto; padding:28px 0 48px; }
+    header { display:flex; justify-content:space-between; align-items:center; gap:20px; padding-bottom:28px; }
+    .brand { font-weight:800; font-size:20px; letter-spacing:-.8px; }.brand span { font-weight:400; color:var(--muted); }
+    .tag { border:1px solid #d6eadc; border-radius:99px; background:#f2fbf5; color:#176440; padding:8px 12px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; white-space:nowrap; }
+    main { display:grid; grid-template-columns:minmax(0,1fr) 330px; gap:26px; align-items:start; }
+    .chat { overflow:hidden; background:var(--card); border:1px solid var(--line); border-radius:24px; box-shadow:0 16px 60px rgba(0,0,0,.07); }
+    .chat-head { padding:26px 28px 22px; border-bottom:1px solid var(--line); }
+    .eyebrow { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; }.dot { width:9px; height:9px; border-radius:99px; background:var(--green); box-shadow:0 0 0 4px #dff3e7; }
+    h1 { margin:12px 0 8px; max-width:600px; font-size:clamp(30px,4vw,46px); line-height:1; letter-spacing:-2px; }.intro { margin:0; color:var(--muted); max-width:600px; line-height:1.5; }
+    .notice { margin:16px 28px 0; padding:13px 14px; border:1px solid #dce9e0; background:var(--soft); border-radius:12px; color:#24563b; font-size:13px; line-height:1.45; }
+    .messages { min-height:350px; max-height:480px; overflow:auto; padding:24px 28px; scroll-behavior:smooth; }
+    .message { max-width:84%; padding:14px 16px; margin:0 0 14px; border-radius:16px; line-height:1.5; font-size:15px; }.bot { background:#f1f2f3; border-bottom-left-radius:4px; }.you { margin-left:auto; background:#0a0a0a; color:#fff; border-bottom-right-radius:4px; }.answer-title { font-weight:800; display:block; margin-bottom:6px; }.message a { color:inherit; font-weight:700; }.bot a { color:#145c3a; }
+    .suggestions { display:flex; flex-wrap:wrap; gap:8px; padding:0 28px 18px; }.suggestion { border:1px solid #ddd; background:#fff; border-radius:99px; padding:9px 12px; cursor:pointer; font:inherit; font-size:13px; text-align:left; }.suggestion:hover,.suggestion:focus-visible { border-color:#111; outline:2px solid transparent; background:#f6f6f6; }
+    form { display:flex; gap:10px; padding:18px 28px 26px; border-top:1px solid var(--line); } input { min-width:0; flex:1; border:1px solid #cbcbcb; border-radius:12px; padding:14px; font:inherit; } input:focus { outline:2px solid #111; outline-offset:1px; } button.send { border:0; border-radius:12px; background:#0a0a0a; color:#fff; cursor:pointer; padding:0 18px; font-weight:800; }
+    aside { display:grid; gap:14px; }.panel { background:rgba(255,255,255,.72); border:1px solid var(--line); border-radius:18px; padding:20px; }.panel h2 { margin:0 0 10px; font-size:17px; letter-spacing:-.4px; }.panel p,.panel li { color:var(--muted); font-size:14px; line-height:1.5; }.panel ul { margin:10px 0 0; padding-left:20px; }.panel .strong { color:var(--ink); font-weight:700; }.status { display:flex; gap:10px; align-items:flex-start; }.check { width:21px; height:21px; flex:0 0 21px; display:grid; place-items:center; border-radius:99px; background:#e5f6eb; color:#176440; font-size:13px; font-weight:800; }
+    .reset { width:100%; margin-top:4px; border:0; border-radius:10px; padding:11px; background:#eee; cursor:pointer; font:inherit; font-weight:700; }.reset:hover { background:#e4e4e4; }
+    @media (max-width:800px) { .shell { width:min(100% - 20px,650px); padding-top:14px; } header { padding-bottom:18px; }.tag { font-size:10px; padding:7px 9px; } main { grid-template-columns:1fr; }.chat-head,.messages { padding-left:18px; padding-right:18px; }.notice,.suggestions,form { margin-left:18px; margin-right:18px; padding-left:0; padding-right:0; }.notice { padding:13px; }.suggestions { padding-bottom:14px; }.messages { min-height:330px; } aside { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header><div class="brand">Mutual <span>Solutions</span></div><div class="tag">Private test only</div></header>
+    <main>
+      <section class="chat" aria-label="Mutual Solutions general information chatbot preview">
+        <div class="chat-head"><div class="eyebrow"><span class="dot"></span> General information assistant</div><h1>Ask a question. Get a clear starting point.</h1><p class="intro">This prototype answers only general questions about Mutual Solutions and common financial-advice topics.</p></div>
+        <div class="notice"><strong>Important:</strong> This assistant does not provide personalised financial advice, recommendations, quotes, or product comparisons. Please do not enter health, income, policy, or other sensitive personal information.</div>
+        <div class="messages" id="messages" aria-live="polite"></div>
+        <div class="suggestions" id="suggestions" aria-label="Suggested questions"></div>
+        <form id="chat-form"><input id="question" autocomplete="off" placeholder="Ask a general question..." aria-label="Ask a general question"><button class="send" type="submit">Ask</button></form>
+      </section>
+      <aside>
+        <section class="panel"><h2>Testing checklist</h2><div class="status"><span class="check">1</span><p>Ask natural questions in your own words, not just the suggested examples.</p></div><div class="status"><span class="check">2</span><p>Try a personal question. It should stop and direct the visitor to speak with an adviser.</p></div><div class="status"><span class="check">3</span><p>Check every factual answer against your approved website and disclosure documents.</p></div></section>
+        <section class="panel"><h2>Prototype boundaries</h2><ul><li><span class="strong">No external AI service</span>: this page sends no questions anywhere.</li><li><span class="strong">No data capture</span>: there is no form, email, tracking, or conversation storage.</li><li><span class="strong">No public release</span>: this file stays unlinked and uncommitted until you approve it.</li></ul><button class="reset" id="reset" type="button">Start a new test</button></section>
+      </aside>
+    </main>
+  </div>
+  <script src="chatbot-knowledge-base.js"></script>
+  <script>
+    const messages = document.getElementById('messages');
+    const suggestions = document.getElementById('suggestions');
+    const form = document.getElementById('chat-form');
+    const input = document.getElementById('question');
+    const starterQuestions = [
+      'What does Mutual Solutions help with?', 'What is income protection?', 'How does a policy review work?', 'What happens when I need to make a claim?', 'How do home loan advisers work?', 'Are you independent?'
+    ];
+    const sensitivePattern = /\b(my|i have|i earn|i make|my partner|our)\b.{0,35}\b(health|medical|diagnos|condition|income|salary|wage|debt|mortgage balance|policy number|date of birth|dob|address|phone|email)\b/i;
+    const personalPattern = /\b(should i|what should i|recommend|recommendation|best (policy|insurer|cover|fund|lender)|which (policy|insurer|cover|fund|lender)|can i get|will i get|am i eligible|how much cover|how much can i borrow|my situation|for me)\b/i;
+    /* The approved knowledge base is intentionally separate from the chat UI. */
+    const answers = window.MUTUALS_CHAT_KNOWLEDGE || [
+      { keys:['who are you','what does mutual','what do you do','services','what help','can you help','about mutual','where are you based','where do you work','nationwide','new zealand'], title:'About Mutual Solutions', text:'Mutual Solutions Limited is an independent financial advice firm based in Palmerston North and serving clients across New Zealand. Its public service areas include personal insurance, home loans and KiwiSaver advice. Upmeet Sodhi is a Financial Adviser, and Mutual Solutions Limited is a registered Financial Advice Provider.', link:'https://mutuals.co.nz/about-us.html', label:'Learn about Mutual Solutions' },
+      { keys:['independent','bank bias','tied to','bank owned','work for a bank','compare providers'], title:'Independence', text:'Mutual Solutions states that it is not owned by or aligned with a bank or insurance company. Any personal recommendation or provider comparison, however, must be made by an adviser after considering the client’s circumstances.', link:'https://mutuals.co.nz/disclosure.html', label:'Read the disclosure information' },
+      { keys:['income protection','income protect','income cover','acc cover','acc and income'], title:'Income protection', text:'Income protection is generally designed to provide a regular benefit if illness or injury prevents someone from working. ACC generally relates to accidents, while policy terms, benefit limits, waiting periods and eligibility vary. This is general information only.', link:'https://mutuals.co.nz/income-protection.html', label:'Read about income protection' },
+      { keys:['health insurance','health cover','medical insurance','medical cover','private health','private medical','healthcare insurance'], title:'Health insurance', text:'Private health insurance can help with eligible private treatment costs under the policy terms. Public and private healthcare work differently, and cover, exclusions, excesses and eligibility depend on the policy and the person’s circumstances.', link:'https://mutuals.co.nz/health-insurance.html', label:'Read about health insurance' },
+      { keys:['life insurance','life cover','death cover'], title:'Life insurance', text:'Life insurance generally pays a lump sum when an insured person dies, subject to the policy terms. The appropriate level and type of cover is personal financial advice, so this assistant cannot assess it.', link:'https://mutuals.co.nz/life-insurance.html', label:'Read about life insurance' },
+      { keys:['trauma','critical illness','serious illness'], title:'Trauma or critical illness cover', text:'Trauma cover, often called critical illness cover, may pay a lump sum for defined serious illnesses or events under a policy. Conditions covered and payment criteria vary by insurer and policy wording.', link:'https://mutuals.co.nz/life-insurance.html', label:'Read about personal insurance' },
+      { keys:['claim','claims','claiming','make a claim','claim process'], title:'Making an insurance claim', text:'If you need to make a claim, contact your insurer or adviser promptly. Keep relevant documents and follow the insurer’s claim process. Mutual Solutions says it supports clients through the claims process, but no claim outcome can be guaranteed.', link:'https://mutuals.co.nz/contact-us.html', label:'Contact Mutual Solutions' },
+      { keys:['policy review','review my cover','existing cover','review my policy','review a policy','second opinion'], title:'Policy reviews', text:'A policy review is a conversation to check whether existing arrangements still reflect changes in circumstances and policy details. A review can identify questions to investigate, but only an adviser can provide personalised advice about keeping, changing or replacing cover.', link:'https://mutuals.co.nz/contact-us.html', label:'Ask about a policy review' },
+      { keys:['home loan','home loans','mortgage','mortgages','first home','first-home','refinanc','buy a house','buying a house','buying a home','mortgage adviser','mortgage broker'], title:'Home loans', text:'A home loan adviser can explain the lending process, help prepare an application and work with lenders. Lending decisions, rates, approval criteria and loan structures vary, so this assistant cannot assess borrowing ability or recommend a lender.', link:'https://mutuals.co.nz/home-loans.html', label:'Read about home loans' },
+      { keys:['kiwisaver','kiwi saver','kiwi-saver','retirement fund','ks fund'], title:'KiwiSaver', text:'KiwiSaver is a voluntary retirement savings scheme. Fund choice, contribution rates and withdrawal rules depend on current settings and personal circumstances. This assistant can explain general concepts but cannot say which fund or contribution rate is right for someone.', link:'https://mutuals.co.nz/kiwisaver.html', label:'Read about KiwiSaver' },
+      { keys:['cost','costs','fee','fees','free','commission','commissions','charge','charges','price','prices','pay you'], title:'Fees and commissions', text:'Mutual Solutions’ public disclosure explains how it may be paid, including commissions for certain services. Initial conversations may be offered without a direct fee, but visitors should read the current disclosure for the full position.', link:'https://mutuals.co.nz/disclosure.html', label:'Read the disclosure information' },
+      { keys:['complaint','complaints','unhappy','problem with'], title:'Complaints', text:'If you have a complaint, contact Mutual Solutions directly first. Its disclosure and complaints information explains the process and external dispute-resolution option.', link:'https://mutuals.co.nz/complaints/index.html', label:'Read the complaints information' },
+      { keys:['contact','book','appointment','consultation','speak','talk to','get in touch','call you','contact details'], title:'Speaking with an adviser', text:'For a discussion about your own circumstances, the right next step is to speak directly with Mutual Solutions. That is where personalised financial advice can be considered.', link:'https://mutuals.co.nz/contact-us.html', label:'Contact Mutual Solutions' }
+    ];
+    function addMessage(kind, content, title) {
+      const item = document.createElement('div'); item.className = 'message ' + kind;
+      if (title) { const heading = document.createElement('span'); heading.className = 'answer-title'; heading.textContent = title; item.appendChild(heading); }
+      const body = document.createElement('span'); body.textContent = content; item.appendChild(body);
+      messages.appendChild(item); messages.scrollTop = messages.scrollHeight;
+      return item;
+    }
+    function addAnswer(answer) {
+      const item = addMessage('bot', answer.text, answer.title);
+      const br = document.createElement('br'); item.appendChild(br);
+      const link = document.createElement('a'); link.href = answer.link; link.target = '_blank'; link.rel = 'noopener'; link.textContent = answer.label + ' →'; item.appendChild(link);
+    }
+    function refusal() {
+      addMessage('bot', 'I can provide general information, but I cannot assess your circumstances, recommend a product or provider, estimate an outcome, or handle personal information in this chat. Please speak with Mutual Solutions directly for personal advice.');
+    }
+    function fallback() {
+      addMessage('bot', 'I do not have an approved general answer for that yet. I would rather not guess. You can try one of the suggested questions, browse the FAQ, or contact Mutual Solutions for help.');
+      const item = messages.lastElementChild; const br = document.createElement('br'); item.appendChild(br); const link = document.createElement('a'); link.href='https://mutuals.co.nz/faq.html'; link.target='_blank'; link.rel='noopener'; link.textContent='Open the FAQ →'; item.appendChild(link);
+    }
+    function normalise(value) { return value.toLowerCase().replace(/[^a-z0-9]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+    function findAnswer(question) {
+      const q = normalise(question);
+      const direct = answers.find(answer => answer.keys.some(key => q.includes(normalise(key))));
+      if (direct) return direct;
+      const words = q.split(' ').filter(word => word.length > 3);
+      let best; let bestScore = 0;
+      answers.forEach(answer => {
+        const score = answer.keys.reduce((total, key) => total + normalise(key).split(' ').filter(word => word.length > 3 && words.includes(word)).length, 0);
+        if (score > bestScore) { best = answer; bestScore = score; }
+      });
+      return bestScore >= 2 ? best : undefined;
+    }
+    function respond(question) {
+      const q = question.trim(); if (!q) return;
+      addMessage('you', q);
+      if (personalPattern.test(q) || sensitivePattern.test(q)) { refusal(); return; }
+      const match = findAnswer(q);
+      if (match) addAnswer(match); else fallback();
+    }
+    function renderSuggestions() { suggestions.innerHTML=''; starterQuestions.forEach(q => { const button=document.createElement('button'); button.className='suggestion'; button.type='button'; button.textContent=q; button.addEventListener('click',()=>respond(q)); suggestions.appendChild(button); }); }
+    function begin() { messages.innerHTML=''; addMessage('bot', 'Kia ora. I can answer general questions about Mutual Solutions, insurance, home loans and KiwiSaver. What would you like to know?'); renderSuggestions(); input.focus(); }
+    form.addEventListener('submit', event => { event.preventDefault(); respond(input.value); input.value=''; input.focus(); });
+    document.getElementById('reset').addEventListener('click', begin);
+    begin();
+  </script>
+</body>
+</html>
