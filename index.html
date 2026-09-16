@@ -2369,8 +2369,7 @@
 <!-- ══════════════════════════════════════════════════
      SCRIPTS
 ══════════════════════════════════════════════════ -->
-<!-- Three.js & GSAP libraries -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<!-- GSAP libraries (Three.js is lazy-loaded further down, on scroll) -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
@@ -2429,96 +2428,18 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ════════════════════════════════════════════════
-   HERO THREE.JS — dark particles + wireframes on white
+   HERO THREE.JS — REMOVED
+   The hero no longer has a <canvas id="hero-canvas">, so this
+   scene could never initialise. Removed rather than left dead.
 ════════════════════════════════════════════════ */
-// Only init Three.js on desktop for performance
-if (window.THREE) {
-try {
-(function initHero() {
-  const canvas   = document.getElementById('hero-canvas');
-  if (!canUseWebGL(canvas)) return;
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-  renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-  renderer.setSize(innerWidth, innerHeight);
-
-  const scene  = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 200);
-  camera.position.z = 32;
-
-  /* particle field */
-  const N = 2000, pos = new Float32Array(N * 3);
-  for (let i = 0; i < N; i++) {
-    pos[i*3]   = (Math.random() - .5) * 88;
-    pos[i*3+1] = (Math.random() - .5) * 68;
-    pos[i*3+2] = (Math.random() - .5) * 48;
-  }
-  const ptGeo = new THREE.BufferGeometry();
-  ptGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-  const ptMat = new THREE.PointsMaterial({ color: 0x0a0a0a, size: 0.13, transparent: true, opacity: 0.28 });
-  const pts   = new THREE.Points(ptGeo, ptMat);
-  scene.add(pts);
-
-  /* wireframe shapes */
-  const mkMat = (op) => new THREE.MeshBasicMaterial({ color: 0x0a0a0a, wireframe: true, transparent: true, opacity: op });
-  const geoms = [
-    [new THREE.IcosahedronGeometry(7, 0), -15, 5, -10, 0.05],
-    [new THREE.OctahedronGeometry(5, 0),   14, -4, -6, 0.06],
-    [new THREE.TetrahedronGeometry(6, 0),    2,-11,-14, 0.04],
-    [new THREE.IcosahedronGeometry(3.5,0),   8,  9, -4, 0.07],
-    [new THREE.OctahedronGeometry(4, 0),   -11, -6, -5, 0.05],
-  ];
-  const shapes = geoms.map(([g, x, y, z, op]) => {
-    const m = new THREE.Mesh(g, mkMat(op));
-    m.position.set(x, y, z);
-    m.rotation.set(Math.random()*Math.PI, Math.random()*Math.PI, 0);
-    scene.add(m);
-    return m;
-  });
-
-  /* perspective grid */
-  const grid = new THREE.GridHelper(120, 34, 0xdddddd, 0xeeeeee);
-  grid.position.y = -22;
-  grid.material.transparent = true;
-  grid.material.opacity = 0.55;
-  scene.add(grid);
-
-  let mx = 0, my = 0, t = 0, scrollY = 0;
-  document.addEventListener('mousemove', e => { mx = (e.clientX/innerWidth-.5)*2; my = (e.clientY/innerHeight-.5)*2; });
-  window.addEventListener('scroll', () => { scrollY = window.scrollY; }, { passive: true });
-
-  (function tick() {
-    requestAnimationFrame(tick);
-    t += 0.004;
-    camera.position.x += (mx * 4 - camera.position.x) * 0.025;
-    camera.position.y += (-my * 3 - camera.position.y) * 0.025;
-    camera.position.z = 32 + scrollY * 0.025;
-    camera.lookAt(0, 0, 0);
-    ptMat.opacity = Math.max(0, 0.28 - scrollY * 0.0005);
-    pts.rotation.y = t * 0.05;
-    shapes.forEach((s, i) => {
-      s.rotation.x += 0.003 + i * 0.0007;
-      s.rotation.y += 0.004 + i * 0.0004;
-      s.position.y += Math.sin(t + i * 1.4) * 0.007;
-    });
-    renderer.render(scene, camera);
-  })();
-
-  window.addEventListener('resize', () => {
-    camera.aspect = innerWidth / innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(innerWidth, innerHeight);
-  });
-})();
-} catch (err) {
-  console.warn('Hero background disabled:', err && err.message ? err.message : err);
-}
-} // End mobile check for hero Three.js
 
 /* ════════════════════════════════════════════════
    SPLIT-PANEL THREE.JS — white wireframes on dark
+   Deferred: called by the lazy Three.js loader below, once
+   the #split section is close to the viewport.
 ════════════════════════════════════════════════ */
-// Only init Three.js on desktop for performance
-if (window.THREE) {
+window.initSplitScene = function () {
+if (!window.THREE) return;
 try {
 (function initSplit() {
   const canvas   = document.getElementById('split-canvas');
@@ -2570,13 +2491,15 @@ try {
 } catch (err) {
   console.warn('Split background disabled:', err && err.message ? err.message : err);
 }
-} // End mobile check for split-panel Three.js
+}; // end initSplitScene
 
 /* ════════════════════════════════════════════════
    CTA THREE.JS — subtle spinning rings on light bg
+   Deferred: called by the lazy Three.js loader below, once
+   the #cta section is close to the viewport.
 ════════════════════════════════════════════════ */
-// Only init Three.js on desktop for performance
-if (window.THREE) {
+window.initCtaScene = function () {
+if (!window.THREE) return;
 try {
 (function initCta() {
   const canvas   = document.getElementById('cta-canvas');
@@ -2621,7 +2544,45 @@ try {
 } catch (err) {
   console.warn('CTA background disabled:', err && err.message ? err.message : err);
 }
-} // End mobile check for cta Three.js
+}; // end initCtaScene
+
+/* ════════════════════════════════════════════════
+   LAZY THREE.JS LOADER
+   Both remaining WebGL scenes (#split, #cta) sit well below the
+   fold, so the ~121KB library is only fetched once the user is
+   scrolling toward them, instead of on first paint.
+════════════════════════════════════════════════ */
+(function lazyThree() {
+  var targets = ['split', 'cta']
+    .map(function (id) { return document.getElementById(id); })
+    .filter(Boolean);
+  if (!targets.length) return;
+
+  var started = false;
+  function loadThree() {
+    if (started) return;
+    started = true;
+    var s = document.createElement('script');
+    s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
+    s.async = true;
+    s.onload = function () {
+      if (typeof window.initSplitScene === 'function') window.initSplitScene();
+      if (typeof window.initCtaScene === 'function') window.initCtaScene();
+    };
+    s.onerror = function () {
+      console.warn('Three.js failed to load; decorative backgrounds skipped.');
+    };
+    document.head.appendChild(s);
+  }
+
+  if (!('IntersectionObserver' in window)) { loadThree(); return; }
+  var io = new IntersectionObserver(function (entries) {
+    for (var i = 0; i < entries.length; i++) {
+      if (entries[i].isIntersecting) { loadThree(); io.disconnect(); return; }
+    }
+  }, { rootMargin: '600px 0px' });
+  targets.forEach(function (t) { io.observe(t); });
+})();
 
 /* ════════════════════════════════════════════════
    GSAP ANIMATIONS
