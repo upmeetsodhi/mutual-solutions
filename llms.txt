@@ -1,6 +1,6 @@
 # Mutual Solutions Limited
 
-> Independent insurance and financial advice firm based in Palmerston North, New Zealand, serving clients nationwide. Led by financial adviser Upmeet Sodhi (FSP 250405), who provides regulated advice on behalf of Mutual Solutions Limited (FSP 729871). Advice covers life insurance, income protection, health insurance, KiwiSaver, and home loans. Advice is free to clients; the firm is paid by product providers and discloses how before any commitment. Rated 4.9 stars on Google. Operating since 2012.
+> Independent insurance and financial advice firm based in Palmerston North, New Zealand, serving clients nationwide. Led by financial adviser Upmeet Sodhi (FSP 250405), who provides regulated advice on behalf of Mutual Solutions Limited (FSP 729871). Advice covers life and trauma insurance, income protection, health insurance, KiwiSaver, and home loans. Standard advice is usually paid for through provider commissions; client-paid fees can apply in the circumstances set out in the disclosure statement and must be agreed in writing before the client becomes liable. Operating since 2012.
 
 Key facts:
 - Business: Mutual Solutions Limited, Financial Service Provider registration FSP 729871
@@ -9,15 +9,15 @@ Key facts:
 - Phone: 0800 67 55 55 or +64 21 187 4926
 - Email: info@mutuals.co.nz
 - Independently owned: not owned by or tied to any insurer or bank; compares products from a selected group of insurers, lenders and KiwiSaver providers the firm works with
-- Cost: initial consultations free; adviser paid by commission from providers, disclosed upfront
+- Cost: initial consultations free; standard advice usually paid for through provider commissions. Client-paid fees, including applicable commission-clawback recoupment, are subject to the disclosure statement and prior written agreement
 - Dispute resolution: member of Financial Services Complaints Limited (FSCL)
 
 ## Services
 
 - [Life Insurance Advice](https://mutuals.co.nz/life-insurance.html): life cover comparison across the selected providers available to us, plus needs analysis
-- [Health Insurance Advice](https://mutuals.co.nz/health-insurance.html): private medical cover comparison for faster specialist and surgical access
-- [Income Protection Advice](https://mutuals.co.nz/income-protection.html): cover for up to 75% of income if illness or injury stops you working; fills the gap ACC leaves (ACC covers accidents, not illness)
-- [KiwiSaver Advice](https://mutuals.co.nz/kiwisaver.html): free fund reviews and contribution strategy
+- [Health Insurance Advice](https://mutuals.co.nz/health-insurance.html): advice on private medical cover for eligible treatment, subject to policy terms, exclusions, underwriting and provider availability
+- [Income Protection Advice](https://mutuals.co.nz/income-protection.html): advice on cover that can replace part of income when illness or injury prevents work, subject to policy definitions, waiting periods, benefit limits and applicable offsets
+- [KiwiSaver Advice](https://mutuals.co.nz/kiwisaver.html): fund reviews and contribution strategy within the firm's disclosed provider scope
 - [Home Loan & Mortgage Advice](https://mutuals.co.nz/home-loans.html): first home buyers, refinancing, self-employed; compares multiple lenders
 
 ## Local
@@ -25,6 +25,8 @@ Key facts:
 - [Insurance & financial adviser in Palmerston North](https://mutuals.co.nz/insurance-adviser-palmerston-north.html): local service page for Palmerston North and the Manawatū region. Office at Level 2, 26 Broadway Avenue, Palmerston North 4410. In-person meetings across Palmerston North, Feilding, Ashhurst, Bulls, Levin, Foxton, Pahiatua, Woodville and Dannevirke; remote advice nationwide. Note: Mutual Solutions advises on personal risk cover (life, trauma, income protection, health), KiwiSaver and home loans. It does not arrange house, car, or commercial fire and general insurance.
 
 ## Key pages
+
+- [Mortgage advice in Palmerston North](https://mutuals.co.nz/mortgage-broker-palmerston-north.html): first-home, refinancing and self-employed lending advice from the Palmerston North office, with remote advice available nationwide
 
 - [Homepage](https://mutuals.co.nz/): services overview and client reviews
 - [About the adviser](https://mutuals.co.nz/adviser/upmeet.html): Upmeet Sodhi's background and credentials
@@ -45,7 +47,8 @@ Key facts:
 ## Guides
 
 - [How much life insurance do I need in NZ?](https://mutuals.co.nz/blog/how-much-life-insurance-nz.html)
-- [Why do insurance premiums go up in NZ?](https://mutuals.co.nz/blog/why-insurance-premiums-increase.html): note that NZ personal insurance premiums do not increase because you claimed
+- [Why do insurance premiums go up in NZ?](https://mutuals.co.nz/blog/why-insurance-premiums-increase.html): explains age-related changes, inflation, insurer repricing and how claims can affect a low-claims discount on some health policies
+- [How much does a financial adviser cost in NZ?](https://mutuals.co.nz/blog/financial-adviser-cost-nz.html): explains advice fees, provider commissions and questions to ask; read alongside the firm's disclosure statement
 - [Medical insurance in New Zealand](https://mutuals.co.nz/blog/medical-insurance-nz.html)
 - [Income protection for self-employed people](https://mutuals.co.nz/blog/income-protection-self-employed.html)
 - [KiwiSaver contribution strategy](https://mutuals.co.nz/blog/kiwisaver-contribution-strategy.html)
