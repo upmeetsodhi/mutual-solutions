@@ -787,6 +787,7 @@ input[type=range]::-moz-range-thumb {
   .hero-years-badge .hybottom br { display: none; }
 }
 </style>
+  <link rel="stylesheet" href="/site-accessibility.css" />
 </head>
 <body>
 
@@ -824,7 +825,7 @@ input[type=range]::-moz-range-thumb {
     </div>
 
     <div class="field">
-      <label>Current Age</label>
+      <label for="currentAge">Current Age</label>
       <div class="slider-wrap">
         <input type="range" id="currentAge" min="18" max="64" value="30">
         <div class="slider-val" id="currentAgeVal">30</div>
@@ -832,7 +833,7 @@ input[type=range]::-moz-range-thumb {
     </div>
 
     <div class="field">
-      <label>Retirement Age</label>
+      <label for="retireAge">Retirement Age</label>
       <div class="slider-wrap">
         <input type="range" id="retireAge" min="55" max="75" value="65">
         <div class="slider-val" id="retireAgeVal">65</div>
@@ -840,7 +841,7 @@ input[type=range]::-moz-range-thumb {
     </div>
 
     <div class="field">
-      <label>Relationship Status</label>
+      <label for="relationship">Relationship Status</label>
       <div class="inp-wrap">
         <select class="inp" id="relationship">
           <option value="single">Single</option>
@@ -1018,7 +1019,7 @@ input[type=range]::-moz-range-thumb {
       </div>
 
       <div class="field">
-        <label>Drawdown Period</label>
+        <label for="drawdownYears">Drawdown Period</label>
         <div class="slider-wrap">
           <input type="range" id="drawdownYears" min="10" max="35" value="20">
           <div class="slider-val" id="drawdownVal">20</div>
@@ -1272,6 +1273,10 @@ function animCount(el, toVal, formatFn, duration = 500) {
   if (counterTargets[id] === toVal) return;
   const from = counterTargets[id] ?? toVal;
   counterTargets[id] = toVal;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    el.textContent = formatFn(toVal);
+    return;
+  }
   const start = performance.now();
   function tick(now) {
     const t = Math.min((now - start) / duration, 1);

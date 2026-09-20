@@ -116,14 +116,8 @@
   }
   </script>
 
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <script>
-    const script = document.createElement('script');
-    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js';
-    script.defer = true;
-    document.head.appendChild(script);
-  </script>
+  <script src="/motion-runtime.js" defer></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -348,6 +342,7 @@
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
+  <link rel="stylesheet" href="/site-accessibility.css" />
 </head>
 <body>
   <!-- ── NAVIGATION ──────────────────────────────– -->
@@ -539,10 +534,7 @@
     }
 
     function initThreeJS() {
-      if (!window.THREE) {
-        setTimeout(initThreeJS, 100);
-        return;
-      }
+      if (!window.THREE) return;
 
       const canvas = document.getElementById('hero-canvas');
       if (!canvas || !canUseWebGL(canvas)) return;
@@ -554,7 +546,7 @@
         camera.position.z = 60;
         renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
         renderer.setSize(w, h);
-        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
         renderer.setClearColor(colors.light, 1);
 
         geometry = new THREE.IcosahedronGeometry(25, 4);
@@ -574,13 +566,10 @@
         scene.add(light);
         scene.add(new THREE.AmbientLight(0xffffff, 0.3));
 
-        function animate() {
-          requestAnimationFrame(animate);
-          mesh.rotation.x += 0.0002;
-          mesh.rotation.y += 0.0003;
-          renderer.render(scene, camera);
-        }
-        animate();
+        window.mutualsAnimateScene(canvas, () => renderer.render(scene, camera), (step) => {
+          mesh.rotation.x += 0.0002 * step;
+          mesh.rotation.y += 0.0003 * step;
+        });
 
         window.addEventListener('resize', () => {
           const w = canvas.clientWidth, h = canvas.clientHeight;

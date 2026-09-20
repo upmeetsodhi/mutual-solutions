@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
+  <script src="/motion-runtime.js" defer></script>
   <!-- Google Analytics - Deferred to end of body for performance -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,8 +41,8 @@
   <meta property="og:title" content="Insurance &amp; Financial Adviser NZ | Mutual Solutions" />
   <meta property="og:description" content="Independently owned insurance, KiwiSaver and home loan advice across New Zealand. Life, income protection and health cover. Rated 4.9 stars on Google." />
   <meta property="og:image" content="https://mutuals.co.nz/Profile.jpg" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:image:width" content="992" />
+  <meta property="og:image:height" content="1056" />
   <meta property="og:locale" content="en_NZ" />
 
   <!-- ── TWITTER / X CARD ─────────────────────────── -->
@@ -1461,6 +1462,7 @@
       .lg-claims p { max-width: 100%; overflow-wrap: break-word; }
     }
   </style>
+  <link rel="stylesheet" href="/site-accessibility.css" />
 </head>
 <body>
 
@@ -2442,8 +2444,8 @@
      SCRIPTS
 ══════════════════════════════════════════════════ -->
 <!-- GSAP libraries (Three.js is lazy-loaded further down, on scroll) -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
 <script>
 /* ── CURSOR ─────────────────────────────────────── */
@@ -2549,16 +2551,14 @@ try {
   });
 
   let t = 0;
-  (function tick() {
-    requestAnimationFrame(tick);
-    t += 0.005;
+  window.mutualsAnimateScene(canvas, () => renderer.render(scene, camera), (step) => {
+    t += 0.005 * step;
     meshes.forEach((m, i) => {
-      m.rotation.x += 0.004;
-      m.rotation.y += 0.006 + i * 0.001;
+      m.rotation.x += 0.004 * step;
+      m.rotation.y += (0.006 + i * 0.001) * step;
       m.position.y = Math.sin(t + i * 2.1) * 1.4;
     });
-    renderer.render(scene, camera);
-  })();
+  });
 })();
 } catch (err) {
   console.warn('Split background disabled:', err && err.message ? err.message : err);
@@ -2604,14 +2604,12 @@ try {
     scene.add(ring);
   }
 
-  (function tick() {
-    requestAnimationFrame(tick);
+  window.mutualsAnimateScene(canvas, () => renderer.render(scene, camera), (step) => {
     scene.children.forEach((r, i) => {
-      r.rotation.x += 0.0018 + i * 0.0002;
-      r.rotation.z += 0.001;
+      r.rotation.x += (0.0018 + i * 0.0002) * step;
+      r.rotation.z += 0.001 * step;
     });
-    renderer.render(scene, camera);
-  })();
+  });
 })();
 } catch (err) {
   console.warn('CTA background disabled:', err && err.message ? err.message : err);
@@ -2624,7 +2622,7 @@ try {
    fold, so the ~121KB library is only fetched once the user is
    scrolling toward them, instead of on first paint.
 ════════════════════════════════════════════════ */
-(function lazyThree() {
+document.addEventListener('DOMContentLoaded', function lazyThree() {
   var targets = ['split', 'cta']
     .map(function (id) { return document.getElementById(id); })
     .filter(Boolean);
@@ -2654,12 +2652,13 @@ try {
     }
   }, { rootMargin: '600px 0px' });
   targets.forEach(function (t) { io.observe(t); });
-})();
+}, { once: true });
 
 /* ════════════════════════════════════════════════
    GSAP ANIMATIONS
 ════════════════════════════════════════════════ */
-if (window.gsap) {
+document.addEventListener('DOMContentLoaded', function () {
+if (window.gsap && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
 if (window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
 
 /* hero entrance — plays once on load, above the fold, no scroll-trigger needed */
@@ -2713,6 +2712,8 @@ if (window.ScrollTrigger) {
   });
 }
 }
+
+}, { once: true });
 
 /* ── SERVICES DRAG-SCROLL ───────────────────────── */
 const rail = document.getElementById('services-rail');
@@ -2843,11 +2844,17 @@ initArrowNavigation(rRail);
     p._subject = "Website lead: " + (p.source || "enquiry");
     p._template = "table";
     p._autoresponse = "Thanks for reaching out to Mutual Solutions. We've received your enquiry and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.";
+    var controller = new AbortController();
+    var timeout = setTimeout(function(){ controller.abort(); }, 20000);
     return fetch(ENDPOINT, {
+      signal: controller.signal,
       method:"POST",
       headers:{ "Content-Type":"application/json", "Accept":"application/json" },
       body: JSON.stringify(p)
-    }).then(function(r){ return r.ok; }).catch(function(){ return false; });
+    }).then(function(r){
+      if (!r.ok) return false;
+      return r.json().then(function(result){ return result.success === true || result.success === "true"; });
+    }).catch(function(){ return false; }).finally(function(){ clearTimeout(timeout); });
   }
   var QUESTIONS = [
     { id:"goal", text:"Kia ora. What would you most like to get sorted?", options:[
@@ -3088,7 +3095,7 @@ initArrowNavigation(rRail);
     if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
     if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
     if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
-    if(!ok) return;
+    if(!ok) { rf.querySelector('[aria-invalid="true"]').focus(); return; }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     var box=document.getElementById("lg-rsuccess");
     sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value }).then(function(success){
@@ -3114,7 +3121,7 @@ initArrowNavigation(rRail);
   var el = document.getElementById("claimsFlap");
   if(!el) return;
   var target = el.getAttribute("data-value") || el.textContent;
-  if(window.innerWidth <= 960){
+  if(window.innerWidth <= 960 || window.matchMedia('(prefers-reduced-motion: reduce)').matches){
     el.classList.add("is-static");
     el.textContent = target;
     return;

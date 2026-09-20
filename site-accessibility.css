@@ -1,0 +1,17 @@
+/* Keep existing layouts; honour visitors who request less motion. */
+input, select, textarea { scroll-margin-top: 110px; }
+.fund-table-scroll { max-width: 100%; overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) {
+  html, body, * { scroll-behavior: auto !important; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal, .p-step, .stat-item, .r-card,
+  .hero-photo-wrap, .hero-copy .hero-btns {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
