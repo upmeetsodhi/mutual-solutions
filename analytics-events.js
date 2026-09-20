@@ -40,9 +40,9 @@
 
     var href = link.getAttribute("href") || "";
     var params = {
-      link_url: href,
+      link_url: href.split('?')[0].split('#')[0],
       link_text: (link.textContent || "").trim().slice(0, 120),
-      page_location: window.location.href
+      page_location: window.location.origin + window.location.pathname
     };
 
     if (href.indexOf("tel:") === 0) {
@@ -51,6 +51,14 @@
       window.mutualsTrackEvent("click_email", params);
     } else if (href.indexOf("calendar.app.google") !== -1) {
       window.mutualsTrackEvent("click_booking", params);
+    } else if (/^https:\/\/(wa\.me|api\.whatsapp\.com|web\.whatsapp\.com)(\/|$)/i.test(href)) {
+      window.mutualsTrackEvent("click_whatsapp", params);
     }
   });
+  var reviewForm = document.getElementById('lg-rform');
+  if (reviewForm) {
+    reviewForm.addEventListener('input', function() {
+      window.mutualsTrackEvent('policy_review_start', { form_location: 'homepage' });
+    }, { once: true });
+  }
 })();

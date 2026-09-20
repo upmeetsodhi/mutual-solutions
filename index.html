@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-NZ">
 <head>
+  <script>if (!['mutuals.co.nz', 'www.mutuals.co.nz'].includes(location.hostname)) window['ga-disable-G-4F1FPHEDGM'] = true;</script>
   <script src="/motion-runtime.js" defer></script>
   <!-- Google Analytics - Deferred to end of body for performance -->
   <meta charset="UTF-8" />
@@ -3095,7 +3096,10 @@ initArrowNavigation(rRail);
     if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
     if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
     if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
-    if(!ok) { rf.querySelector('[aria-invalid="true"]').focus(); return; }
+    if(!ok) {
+      if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'validation', form_location: 'homepage' });
+      rf.querySelector('[aria-invalid="true"]').focus(); return;
+    }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     var box=document.getElementById("lg-rsuccess");
     sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value }).then(function(success){
@@ -3105,6 +3109,7 @@ initArrowNavigation(rRail);
         box.textContent="Thanks, "+n.value.trim()+". We will email you from info@mutuals.co.nz so you can send your documents securely. Your written review follows within a couple of working days. Check your inbox (and spam folder) for our confirmation.";
         btn.textContent="Sent";
       } else {
+        if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'submission', form_location: 'homepage' });
         box.textContent="Sorry, that did not send. Please try again, or reach us directly on 0800 67 55 55 or info@mutuals.co.nz.";
         btn.disabled=false; btn.textContent="Get my free review";
       }
