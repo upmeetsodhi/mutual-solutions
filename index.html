@@ -3385,7 +3385,7 @@ initArrowNavigation(rRail);
     overlay.hidden = false;
     window.requestAnimationFrame(function () { overlay.classList.add('is-open'); });
     startConversation();
-    closeButton.focus();
+    closeButton.focus({ preventScroll: true });
     track('chat_assistant_opened', { assistant_type: 'general_information' });
   }
 
