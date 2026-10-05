@@ -1410,9 +1410,9 @@
       border-bottom: 1px solid var(--border);
     }
     .lg-hero .lg-wrap {
-      grid-template-columns: minmax(0, 700px);
-      gap: 0;
-      justify-content: start;
+      grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
+      gap: clamp(40px, 6vw, 88px);
+      justify-content: normal;
     }
     .lg-kicker {
       display: inline-flex; align-items: center; gap: 9px;
