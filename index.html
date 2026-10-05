@@ -1232,9 +1232,7 @@
     .ms-chat-open:focus-visible, .ms-chat-mobile-open:focus-visible, .ms-chat-close:focus-visible, .ms-chat-topic:focus-visible, .ms-chat-reset:focus-visible { outline: 3px solid #1167d6; outline-offset: 3px; }
     .ms-chat-mobile-open { display: none; margin-top: 15px; background: transparent; color: var(--ink); border: 1px solid var(--border-mid); }
     .ms-chat-mobile-open svg, .ms-chat-open svg { width: 18px; height: 18px; flex: none; }
-    /* The homepage smooth-scroll layer transforms <body>. Remove that transform only
-       while the modal is open so a fixed panel remains anchored to the viewport. */
-    body.ms-chat-open { overflow: hidden; transform: none !important; }
+    body.ms-chat-open { overflow: hidden; }
     .ms-chat-overlay[hidden] { display: none; }
     .ms-chat-overlay { position: fixed; inset: 0; z-index: 1200; display: grid; justify-items: end; align-items: start; padding: 78px 30px 30px; background: transparent; opacity: 0; transition: opacity .2s ease; }
     .ms-chat-overlay.is-open { opacity: 1; }
@@ -3297,6 +3295,10 @@ initArrowNavigation(rRail);
 (function () {
   var overlay = document.getElementById('ms-chat-dialog');
   if (!overlay) return;
+
+  // The homepage's smooth-scroll layer transforms <body>. Keep the floating
+  // assistant outside it so it stays anchored to the viewport without hiding the page.
+  document.documentElement.appendChild(overlay);
 
   var messages = overlay.querySelector('[data-chat-messages]');
   var options = overlay.querySelector('[data-chat-options]');
