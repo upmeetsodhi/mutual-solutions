@@ -1,0 +1,68 @@
+:root {
+  --ink: #0a0a0a;
+  --muted: #5f6368;
+  --paper: #fbfbfa;
+  --line: #d9dddf;
+  --success: #117a43;
+  --focus: #1667d9;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+}
+a { color: inherit; }
+a:focus-visible, button:focus-visible, input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+.shell { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+.masthead { padding: 22px 0; border-bottom: 1px solid var(--line); }
+.brand { font-size: 20px; font-weight: 800; letter-spacing: -0.8px; text-decoration: none; }
+.brand span { color: #62666d; font-weight: 400; }
+.eyebrow { color: #5d6267; font-size: 12px; font-weight: 800; letter-spacing: 1.7px; text-transform: uppercase; }
+.hero { padding: clamp(44px, 7vw, 90px) 0 32px; }
+.grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: clamp(28px, 5vw, 76px); align-items: start; }
+h1 { font-size: clamp(38px, 5.4vw, 66px); letter-spacing: -3px; line-height: .98; margin: 14px 0 24px; max-width: 700px; }
+h2 { font-size: clamp(25px, 3vw, 36px); letter-spacing: -1.2px; line-height: 1.05; margin: 0 0 16px; }
+p { font-size: 18px; margin: 0 0 20px; }
+.lead { color: var(--muted); font-size: clamp(18px, 2.1vw, 22px); max-width: 640px; }
+.proof { display: flex; flex-wrap: wrap; gap: 20px 30px; padding: 25px 0; margin-top: 32px; border-top: 1px solid var(--line); }
+.proof strong { display: block; font-size: 19px; }
+.proof span { color: var(--muted); font-size: 14px; }
+.card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 3vw, 34px); box-shadow: 0 18px 44px rgba(10, 10, 10, .06); }
+.card p { color: var(--muted); font-size: 16px; }
+label { display: block; font-size: 14px; font-weight: 700; margin: 18px 0 7px; }
+input { width: 100%; border: 1px solid #9ca3a8; border-radius: 9px; padding: 14px 13px; color: var(--ink); font: inherit; min-height: 48px; }
+input[aria-invalid="true"] { border: 2px solid #b42318; }
+.help, .form-status { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
+.form-status[role="alert"] { color: #b42318; }
+.button { appearance: none; border: 0; border-radius: 999px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; min-height: 52px; padding: 13px 22px; background: var(--ink); color: #fff; font: inherit; font-weight: 800; text-decoration: none; margin-top: 22px; width: 100%; transition: background .2s ease, transform .2s ease; }
+.button:hover { background: #343434; transform: translateY(-1px); }
+.button:disabled { cursor: wait; opacity: .65; transform: none; }
+.legal { color: var(--muted); font-size: 12px; line-height: 1.55; margin-top: 17px; }
+.quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.quick-actions a { border: 1px solid var(--line); border-radius: 9px; padding: 11px; text-align: center; font-weight: 700; font-size: 14px; text-decoration: none; }
+.quick-actions a:hover { background: #f1f3f4; }
+.section { padding: 58px 0; border-top: 1px solid var(--line); }
+.points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+.points h3 { font-size: 18px; margin: 0 0 8px; }
+.points p { color: var(--muted); font-size: 16px; }
+.note { background: #f1f3f4; border-left: 4px solid var(--ink); padding: 20px; font-size: 16px; }
+.footer { color: var(--muted); font-size: 13px; padding: 34px 0 48px; border-top: 1px solid var(--line); }
+.footer p { font-size: inherit; margin-bottom: 10px; }
+@media (max-width: 760px) {
+  .shell { width: min(100% - 32px, 600px); }
+  .grid, .points { grid-template-columns: 1fr; }
+  .hero { padding-top: 38px; }
+  h1 { letter-spacing: -2px; }
+  .card { padding: 24px 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}

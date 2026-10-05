@@ -30,7 +30,9 @@
   }
   window.mutualsTrackEvent = window.mutualsTrackEvent || function(eventName, params) {
     if (typeof window.gtag === "function") {
-      window.gtag("event", eventName, params || {});
+      // Keep click and form events measurable when a visitor immediately navigates away.
+      var eventParams = Object.assign({ transport_type: "beacon" }, params || {});
+      window.gtag("event", eventName, eventParams);
     }
   };
 
