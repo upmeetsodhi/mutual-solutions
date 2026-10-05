@@ -1209,6 +1209,59 @@
       transition: color .2s ease, text-decoration-color .2s ease;
     }
     .lg-review-link:hover { color: var(--ink); text-decoration-color: currentColor; }
+    .ms-chat-launcher {
+      align-self: center; max-width: 390px; justify-self: end; padding: 28px;
+      background: linear-gradient(145deg, #ffffff 0%, #f2f7f8 100%);
+      border: 1px solid rgba(13, 21, 24, .09); border-radius: 20px;
+      box-shadow: 0 22px 50px rgba(12, 37, 45, .08);
+    }
+    .ms-chat-launcher .ms-chat-status { display: flex; align-items: center; gap: 8px; color: var(--ink-muted); font-size: 11px; font-weight: 700; letter-spacing: 1.35px; text-transform: uppercase; }
+    .ms-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #18a469; box-shadow: 0 0 0 5px rgba(24,164,105,.10); }
+    .ms-chat-launcher h2 { margin: 17px 0 8px; font-size: clamp(26px, 3vw, 34px); line-height: 1.02; letter-spacing: -1.5px; }
+    .ms-chat-launcher p { margin: 0; color: var(--ink-muted); font-size: 14px; line-height: 1.55; }
+    .ms-chat-topics { display: flex; flex-wrap: wrap; gap: 7px; margin: 19px 0 22px; }
+    .ms-chat-topics span { border: 1px solid rgba(0,0,0,.09); border-radius: 999px; padding: 6px 9px; color: #4e5557; font-size: 11px; font-weight: 600; }
+    .ms-chat-open, .ms-chat-mobile-open {
+      appearance: none; border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      min-height: 48px; padding: 13px 17px; border-radius: 999px; background: var(--ink); color: #fff;
+      font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform .2s ease, opacity .2s ease;
+    }
+    .ms-chat-open { width: 100%; }
+    .ms-chat-open:hover, .ms-chat-mobile-open:hover { opacity: .84; transform: translateY(-1px); }
+    .ms-chat-open:focus-visible, .ms-chat-mobile-open:focus-visible, .ms-chat-close:focus-visible, .ms-chat-topic:focus-visible, .ms-chat-reset:focus-visible { outline: 3px solid #1167d6; outline-offset: 3px; }
+    .ms-chat-mobile-open { display: none; margin-top: 15px; background: transparent; color: var(--ink); border: 1px solid var(--border-mid); }
+    .ms-chat-mobile-open svg, .ms-chat-open svg { width: 18px; height: 18px; flex: none; }
+    body.ms-chat-open { overflow: hidden; }
+    .ms-chat-overlay[hidden] { display: none; }
+    .ms-chat-overlay { position: fixed; inset: 0; z-index: 1200; display: grid; justify-items: end; align-items: start; padding: 78px 30px 30px; background: rgba(8, 12, 13, .22); opacity: 0; transition: opacity .2s ease; }
+    .ms-chat-overlay.is-open { opacity: 1; }
+    .ms-chat-panel { width: min(430px, 100%); max-height: calc(100dvh - 108px); display: flex; flex-direction: column; overflow: hidden; background: #fff; border: 1px solid rgba(0,0,0,.1); border-radius: 20px; box-shadow: 0 28px 75px rgba(0,0,0,.2); transform: translateY(14px) scale(.985); transition: transform .24s cubic-bezier(.2,.8,.2,1); }
+    .ms-chat-overlay.is-open .ms-chat-panel { transform: translateY(0) scale(1); }
+    .ms-chat-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 20px 16px; border-bottom: 1px solid var(--border); }
+    .ms-chat-head-copy { display: flex; align-items: flex-start; gap: 11px; }
+    .ms-chat-head strong { display: block; font-size: 16px; letter-spacing: -.35px; }
+    .ms-chat-head span { display: block; margin-top: 3px; color: var(--ink-muted); font-size: 12px; }
+    .ms-chat-close { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border: 1px solid var(--border-mid); border-radius: 50%; background: #fff; color: var(--ink); cursor: pointer; }
+    .ms-chat-close svg { width: 17px; height: 17px; }
+    .ms-chat-body { overflow-y: auto; padding: 18px 20px 20px; }
+    .ms-chat-notice { margin: 0 0 18px; padding: 11px 12px; border-radius: 10px; background: #f2f5f5; color: #4e5557; font-size: 12px; line-height: 1.45; }
+    .ms-chat-messages { display: flex; flex-direction: column; gap: 12px; }
+    .ms-chat-message { max-width: 92%; padding: 13px 14px; border-radius: 4px 15px 15px 15px; background: #eef2f3; color: #1d2426; font-size: 14px; line-height: 1.52; animation: chat-message-in .22s ease both; }
+    .ms-chat-answer { background: #fff; border: 1px solid var(--border); border-radius: 15px; }
+    .ms-chat-answer strong { display: block; margin-bottom: 6px; font-size: 14px; }
+    .ms-chat-answer a { color: inherit; font-weight: 700; text-underline-offset: 3px; }
+    .ms-chat-typing { display: flex; align-items: center; gap: 4px; min-height: 42px; }
+    .ms-chat-typing i { display: block; width: 6px; height: 6px; border-radius: 50%; background: #6e777a; animation: chat-dot 1s ease-in-out infinite; }
+    .ms-chat-typing i:nth-child(2) { animation-delay: .12s; }
+    .ms-chat-typing i:nth-child(3) { animation-delay: .24s; }
+    .ms-chat-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .ms-chat-topic, .ms-chat-reset { appearance: none; border: 1px solid var(--border-mid); border-radius: 999px; background: #fff; color: var(--ink); padding: 9px 11px; font: inherit; font-size: 12px; font-weight: 650; line-height: 1.25; cursor: pointer; text-align: left; transition: border-color .18s ease, background .18s ease; }
+    .ms-chat-topic:hover, .ms-chat-reset:hover { border-color: var(--ink); background: #f5f7f7; }
+    .ms-chat-footer { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; padding-top: 14px; border-top: 1px solid var(--border); }
+    .ms-chat-footer a { color: var(--ink); font-size: 12px; font-weight: 700; text-decoration: underline; text-underline-offset: 3px; }
+    .ms-chat-reset { padding: 7px 10px; font-size: 11px; }
+    @keyframes chat-message-in { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes chat-dot { 0%, 80%, 100% { transform: translateY(0); opacity: .45; } 40% { transform: translateY(-3px); opacity: 1; } }
     /* Content stays visible if animation/CDN scripts are blocked; GSAP enhances it when available. */
     .lg-hero .lg-kicker,
     .lg-hero h1,
@@ -1297,6 +1350,10 @@
       .lg-wrap { padding: 0 26px; }
       .lg-hero { padding: 84px 0 24px; }
       .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 32px; }
+      .ms-chat-launcher { display: none; }
+      .ms-chat-mobile-open { display: inline-flex; }
+      .ms-chat-overlay { align-items: end; padding: 12px; }
+      .ms-chat-panel { max-height: min(74dvh, 660px); border-radius: 18px; }
       .lg-actions { flex-direction: column; }
       .lg-actions .btn-dark,
       .lg-actions .btn-outline { width: 100%; justify-content: center; text-align: center; }
@@ -1443,6 +1500,9 @@
       .lg-actions .btn-dark { width: 100%; justify-content: center; }
       .lg-call { width: 100%; text-align: center; border: 0; text-decoration: underline; text-underline-offset: 3px; }
       .lg-review-link { justify-content: center; width: 100%; margin-top: 14px; }
+      .ms-chat-mobile-open { width: 100%; }
+      .ms-chat-body { padding: 16px; }
+      .ms-chat-head { padding: 17px 16px 14px; }
       .lg-proof {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -1468,6 +1528,10 @@
       .lg-claims h2 { font-size: 30px; letter-spacing: -1.2px; }
       .lg-sub,
       .lg-claims p { max-width: 100%; overflow-wrap: break-word; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ms-chat-overlay, .ms-chat-panel, .ms-chat-message { transition: none; animation: none; }
+      .ms-chat-typing i { animation: none; }
     }
   </style>
   <link rel="stylesheet" href="/site-accessibility.css" />
@@ -1517,14 +1581,43 @@
           <a href="tel:+64800675555" class="lg-call">Call 0800 67 55 55</a>
         </div>
         <a href="/insurance-review.html" class="lg-review-link">Already have cover? Get a free second opinion <span aria-hidden="true">→</span></a>
+        <button class="ms-chat-mobile-open" type="button" data-chat-open aria-haspopup="dialog" aria-controls="ms-chat-dialog">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg>
+          Ask a general question
+        </button>
         <div class="lg-proof" aria-label="Mutual Solutions at a glance">
           <div class="lg-proof-item"><strong>4.9 ★</strong><span>Google rating</span></div>
           <div class="lg-proof-item"><strong>10+ years</strong><span>advising Kiwi families</span></div>
           <div class="lg-proof-item"><strong>100%</strong><span>independently owned</span></div>
         </div>
       </div>
+      <aside class="ms-chat-launcher" aria-label="General information assistant">
+        <div class="ms-chat-status"><span class="ms-status-dot" aria-hidden="true"></span>General information assistant</div>
+        <h2>Have a question?</h2>
+        <p>Get a clear starting point on common insurance and financial-advice questions. No personal details needed.</p>
+        <div class="ms-chat-topics" aria-hidden="true"><span>Insurance</span><span>Health cover</span><span>Home loans</span><span>KiwiSaver</span></div>
+        <button class="ms-chat-open" type="button" data-chat-open aria-haspopup="dialog" aria-controls="ms-chat-dialog">
+          Ask a general question
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg>
+        </button>
+      </aside>
     </div>
   </section>
+
+  <div class="ms-chat-overlay" id="ms-chat-dialog" hidden>
+    <section class="ms-chat-panel" role="dialog" aria-modal="true" aria-labelledby="ms-chat-title" aria-describedby="ms-chat-notice">
+      <header class="ms-chat-head">
+        <div class="ms-chat-head-copy"><span class="ms-status-dot" aria-hidden="true"></span><div><strong id="ms-chat-title">Ask Mutual Solutions</strong><span>General information assistant</span></div></div>
+        <button class="ms-chat-close" type="button" data-chat-close aria-label="Close assistant"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      </header>
+      <div class="ms-chat-body">
+        <p class="ms-chat-notice" id="ms-chat-notice">This assistant provides general information only. It does not give personal recommendations or collect personal, health or financial details.</p>
+        <div class="ms-chat-messages" data-chat-messages aria-live="polite"></div>
+        <div class="ms-chat-options" data-chat-options aria-label="Choose a topic"></div>
+        <footer class="ms-chat-footer"><button class="ms-chat-reset" type="button" data-chat-reset>Start again</button><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" target="_blank" rel="noopener">Book a free consult</a></footer>
+      </div>
+    </section>
+  </div>
 
   <!-- ════ CLAIMS PROOF ════════════════════════════ -->
   <section class="lg-claims">
@@ -3196,6 +3289,117 @@ initArrowNavigation(rRail);
   } else {
     render();
   }
+})();
+</script>
+<script>
+/* Guided general-information assistant. It intentionally avoids free-text advice and personal-data collection. */
+(function () {
+  var overlay = document.getElementById('ms-chat-dialog');
+  if (!overlay) return;
+
+  var messages = overlay.querySelector('[data-chat-messages]');
+  var options = overlay.querySelector('[data-chat-options]');
+  var openers = document.querySelectorAll('[data-chat-open]');
+  var closeButton = overlay.querySelector('[data-chat-close]');
+  var resetButton = overlay.querySelector('[data-chat-reset]');
+  var lastOpener = null;
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var topics = [
+    { question: 'What is life insurance designed to do?', answer: 'Life insurance is generally designed to provide a lump-sum payment if the insured person dies, subject to the policy terms. People often use it to help protect a family from debt, lost income or future costs.', label: 'Life insurance', href: '/life-insurance.html', link: 'Read about life insurance' },
+    { question: 'What can private health insurance help with?', answer: 'Private health insurance may provide additional choice around specialists and elective treatment. What is covered, any exclusions, waiting periods and provider availability depend on the policy and the individual circumstances.', label: 'Health cover', href: '/health-insurance.html', link: 'Read about health insurance' },
+    { question: 'What does income protection do?', answer: 'Income protection may pay a regular benefit when illness or injury prevents someone from working, subject to the policy terms. Benefit levels, waiting periods, ACC interactions and eligibility differ between policies.', label: 'Income protection', href: '/income-protection.html', link: 'Read about income protection' },
+    { question: 'What can a mortgage adviser help explain?', answer: 'A mortgage adviser can explain lending processes, deposits, loan structures and the lenders available to them. Any lending decision still depends on a lender’s assessment and the borrower’s full circumstances.', label: 'Home loans', href: '/home-loans.html', link: 'Read about home loans' },
+    { question: 'What should I consider before changing KiwiSaver funds?', answer: 'A fund decision normally involves understanding investment risk, time horizon, fees and personal goals. Fund values can move up and down, and a change should be considered in the context of a person’s full circumstances.', label: 'KiwiSaver', href: '/kiwisaver.html', link: 'Read about KiwiSaver advice' },
+    { question: 'Can existing insurance be reviewed?', answer: 'Yes. A review can help identify what a current policy says it covers, what has changed since it was arranged and questions worth discussing. A review does not guarantee that a policy should be changed.', label: 'Review existing cover', href: '/insurance-review.html', link: 'Request a policy review' },
+    { question: 'What happens when I need to make a claim?', answer: 'The process depends on the policy and insurer. It usually involves notifying the insurer, supplying requested evidence and waiting for the insurer’s assessment. Mutual Solutions can assist clients with claims relating to policies we advise on.', label: 'Claims support', href: '/#claims', link: 'Learn about claims support' },
+    { question: 'How is Mutual Solutions paid?', answer: 'For insurance, mortgage and many KiwiSaver services, Mutual Solutions is generally paid by the relevant provider if a client proceeds. Fees may apply in some circumstances, and remuneration and applicable fees are disclosed before a client proceeds.', label: 'Fees and independence', href: '/how-commissions-work.html', link: 'How commissions work' }
+  ];
+
+  function track(eventName, detail) {
+    if (typeof window.mutualsTrackEvent === 'function') window.mutualsTrackEvent(eventName, detail || {});
+  }
+
+  function addMessage(text, className) {
+    var message = document.createElement('div');
+    message.className = 'ms-chat-message ' + (className || '');
+    message.textContent = text;
+    messages.appendChild(message);
+    message.scrollIntoView({ block: 'nearest', behavior: reducedMotion ? 'auto' : 'smooth' });
+    return message;
+  }
+
+  function addAnswer(topic) {
+    var answer = document.createElement('div');
+    var title = document.createElement('strong');
+    var body = document.createElement('div');
+    var link = document.createElement('a');
+    answer.className = 'ms-chat-message ms-chat-answer';
+    title.textContent = topic.question;
+    body.textContent = topic.answer + ' ';
+    link.href = topic.href;
+    link.textContent = topic.link + ' →';
+    body.appendChild(link);
+    answer.appendChild(title);
+    answer.appendChild(body);
+    messages.appendChild(answer);
+    answer.scrollIntoView({ block: 'nearest', behavior: reducedMotion ? 'auto' : 'smooth' });
+  }
+
+  function showTopics() {
+    options.innerHTML = '';
+    topics.forEach(function (topic) {
+      var button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'ms-chat-topic';
+      button.textContent = topic.label;
+      button.addEventListener('click', function () {
+        options.innerHTML = '';
+        addMessage(topic.label, 'ms-chat-question');
+        var typing = document.createElement('div');
+        typing.className = 'ms-chat-message ms-chat-typing';
+        typing.setAttribute('aria-label', 'Preparing an answer');
+        typing.innerHTML = '<i></i><i></i><i></i>';
+        messages.appendChild(typing);
+        setTimeout(function () {
+          typing.remove();
+          addAnswer(topic);
+          addMessage('Would you like to explore another topic?', '');
+          showTopics();
+          track('chat_topic_selected', { topic: topic.label, assistant_type: 'general_information' });
+        }, reducedMotion ? 0 : 320);
+      });
+      options.appendChild(button);
+    });
+  }
+
+  function startConversation() {
+    messages.innerHTML = '';
+    addMessage('Kia ora. Choose a topic and I will share a clear general answer. You do not need to enter any personal details.', '');
+    showTopics();
+  }
+
+  function openChat(opener) {
+    lastOpener = opener;
+    overlay.hidden = false;
+    window.requestAnimationFrame(function () { overlay.classList.add('is-open'); });
+    document.body.classList.add('ms-chat-open');
+    startConversation();
+    closeButton.focus();
+    track('chat_assistant_opened', { assistant_type: 'general_information' });
+  }
+
+  function closeChat() {
+    overlay.classList.remove('is-open');
+    document.body.classList.remove('ms-chat-open');
+    setTimeout(function () { overlay.hidden = true; }, reducedMotion ? 0 : 220);
+    if (lastOpener) lastOpener.focus();
+  }
+
+  openers.forEach(function (opener) { opener.addEventListener('click', function () { openChat(opener); }); });
+  closeButton.addEventListener('click', closeChat);
+  resetButton.addEventListener('click', startConversation);
+  overlay.addEventListener('click', function (event) { if (event.target === overlay) closeChat(); });
+  document.addEventListener('keydown', function (event) { if (event.key === 'Escape' && !overlay.hidden) closeChat(); });
 })();
 </script>
   <script src="/analytics-events.js" defer></script>
