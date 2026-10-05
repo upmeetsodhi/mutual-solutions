@@ -1203,6 +1203,13 @@
     .lg-actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; }
     .lg-actions .btn-dark,
     .lg-actions .btn-outline { min-height: 48px; }
+    .lg-review-link {
+      display: inline-flex; align-items: center; gap: 5px; margin-top: 15px;
+      color: var(--ink-muted); font-size: 13px; font-weight: 500; text-decoration: none;
+      text-decoration: underline; text-decoration-color: rgba(0,0,0,.22); text-underline-offset: 4px;
+      transition: color .2s ease, text-decoration-color .2s ease;
+    }
+    .lg-review-link:hover { color: var(--ink); text-decoration-color: currentColor; }
     /* Content stays visible if animation/CDN scripts are blocked; GSAP enhances it when available. */
     .lg-hero .lg-kicker,
     .lg-hero h1,
@@ -1436,6 +1443,7 @@
       .lg-actions { margin-top: 20px; }
       .lg-actions .btn-dark { width: 100%; justify-content: center; }
       .lg-call { width: 100%; text-align: center; border: 0; text-decoration: underline; text-underline-offset: 3px; }
+      .lg-review-link { justify-content: center; width: 100%; margin-top: 14px; }
       .lg-proof {
         grid-template-columns: 1fr;
         gap: 12px;
@@ -1509,6 +1517,7 @@
           <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="btn-dark" target="_blank" rel="noopener">Book Free Consultation</a>
           <a href="tel:+64800675555" class="lg-call">Call 0800 67 55 55</a>
         </div>
+        <a href="/insurance-review.html" class="lg-review-link">Already have cover? Get a free second opinion <span aria-hidden="true">→</span></a>
         <div class="lg-proof" aria-label="Mutual Solutions at a glance">
           <div class="lg-proof-item"><strong>4.9 ★</strong><span>Google rating</span></div>
           <div class="lg-proof-item"><strong>10+ years</strong><span>advising Kiwi families</span></div>
