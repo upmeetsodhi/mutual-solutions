@@ -1192,19 +1192,9 @@
       min-height: 0;
       display: block;
       text-align: left;
-      position: relative;
-      overflow: hidden;
-      isolation: isolate;
     }
     .lg-hero { padding: 96px 0 32px; }
-    .lg-hero .lg-wrap { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: 60px; align-items: center; }
-    .lg-orbit {
-      position: absolute; z-index: 0; top: 50%; left: calc(50% + 16px);
-      width: min(43vw, 500px); aspect-ratio: 1; transform: translateY(-49%);
-      pointer-events: none; opacity: .78; filter: drop-shadow(0 18px 36px rgba(0,125,210,.10));
-    }
-    .lg-orbit svg { display: block; width: 100%; height: 100%; overflow: visible; animation: orbit-drift 20s ease-in-out infinite alternate; }
-    @keyframes orbit-drift { from { transform: rotate(-1.5deg) translate3d(-4px, 3px, 0); } to { transform: rotate(1.5deg) translate3d(5px, -3px, 0); } }
+    .lg-hero .lg-wrap { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); gap: 60px; align-items: center; }
     .lg-hero *, .lg-claims * { min-width: 0; }
     .lg-hero h1 { font-size: clamp(40px,5.4vw,66px); font-weight: 800; line-height: 1.02; letter-spacing: -3px; color: var(--ink); }
     .lg-hero h1 .lg-ghost { color: transparent; -webkit-text-stroke: 1.5px rgba(0,0,0,0.16); }
@@ -1307,7 +1297,6 @@
       .lg-wrap { padding: 0 26px; }
       .lg-hero { padding: 84px 0 24px; }
       .lg-hero .lg-wrap, .lg-review .lg-wrap { grid-template-columns: 1fr; gap: 32px; }
-      .lg-orbit { display: none; }
       .lg-actions { flex-direction: column; }
       .lg-actions .btn-dark,
       .lg-actions .btn-outline { width: 100%; justify-content: center; text-align: center; }
@@ -1480,9 +1469,6 @@
       .lg-sub,
       .lg-claims p { max-width: 100%; overflow-wrap: break-word; }
     }
-    @media (prefers-reduced-motion: reduce) {
-      .lg-orbit svg { animation: none; }
-    }
   </style>
   <link rel="stylesheet" href="/site-accessibility.css" />
 </head>
@@ -1521,20 +1507,6 @@
 
   <!-- ════ HERO ═════════════════ -->
   <section id="hero" class="lg-hero">
-    <div class="lg-orbit" aria-hidden="true">
-      <svg viewBox="0 0 520 520" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <linearGradient id="hero-orbit" x1="54" y1="416" x2="454" y2="96" gradientUnits="userSpaceOnUse">
-            <stop stop-color="#0567E8" stop-opacity=".24"/>
-            <stop offset=".44" stop-color="#0599E8" stop-opacity=".88"/>
-            <stop offset=".78" stop-color="#42C7EB" stop-opacity=".48"/>
-            <stop offset="1" stop-color="#0567E8" stop-opacity=".08"/>
-          </linearGradient>
-        </defs>
-        <path d="M40 342C126 149 342 50 472 146C582 228 405 432 225 447C101 457 24 399 40 342Z" stroke="url(#hero-orbit)" stroke-width="15" stroke-linecap="round"/>
-        <path d="M63 377C176 493 408 438 476 270" stroke="url(#hero-orbit)" stroke-width="4" stroke-linecap="round" opacity=".7"/>
-      </svg>
-    </div>
     <div class="lg-wrap">
       <div>
         <span class="lg-kicker">Independently owned, New Zealand-wide</span>
