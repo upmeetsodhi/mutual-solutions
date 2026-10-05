@@ -1210,9 +1210,10 @@
     }
     .lg-review-link:hover { color: var(--ink); text-decoration-color: currentColor; }
     .ms-chat-launcher {
-      align-self: end; justify-self: end; margin-bottom: 24px;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      position: absolute; right: 0; bottom: 20px; display: flex; flex-direction: column;
+      align-items: center; gap: 9px; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     }
+    .ms-chat-launcher-label { color: var(--ink-muted); font-size: 11px; font-weight: 650; letter-spacing: .02em; white-space: nowrap; }
     .ms-status-dot { width: 8px; height: 8px; border-radius: 50%; background: #18a469; box-shadow: 0 0 0 5px rgba(24,164,105,.10); }
     .ms-chat-open, .ms-chat-mobile-open {
       appearance: none; border: 0; display: inline-flex; align-items: center; justify-content: center; gap: 10px;
@@ -1411,6 +1412,7 @@
       border-bottom: 1px solid var(--border);
     }
     .lg-hero .lg-wrap {
+      position: relative;
       grid-template-columns: minmax(0, 1fr) minmax(340px, 390px);
       gap: clamp(40px, 6vw, 88px);
       justify-content: normal;
@@ -1599,6 +1601,7 @@
           <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg>
           <span class="ms-sr-only">Open general information assistant</span>
         </button>
+        <span class="ms-chat-launcher-label" aria-hidden="true">Ask a question</span>
       </aside>
     </div>
   </section>
