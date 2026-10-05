@@ -1232,7 +1232,6 @@
     .ms-chat-open:focus-visible, .ms-chat-mobile-open:focus-visible, .ms-chat-close:focus-visible, .ms-chat-topic:focus-visible, .ms-chat-reset:focus-visible { outline: 3px solid #1167d6; outline-offset: 3px; }
     .ms-chat-mobile-open { display: none; margin-top: 15px; background: transparent; color: var(--ink); border: 1px solid var(--border-mid); }
     .ms-chat-mobile-open svg, .ms-chat-open svg { width: 18px; height: 18px; flex: none; }
-    body.ms-chat-open { overflow: hidden; }
     .ms-chat-overlay[hidden] { display: none; }
     .ms-chat-overlay { position: fixed; inset: 0; z-index: 1200; display: grid; justify-items: end; align-items: start; padding: 78px 30px 30px; background: transparent; opacity: 0; transition: opacity .2s ease; }
     .ms-chat-overlay.is-open { opacity: 1; }
@@ -3385,7 +3384,6 @@ initArrowNavigation(rRail);
     lastOpener = opener;
     overlay.hidden = false;
     window.requestAnimationFrame(function () { overlay.classList.add('is-open'); });
-    document.body.classList.add('ms-chat-open');
     startConversation();
     closeButton.focus();
     track('chat_assistant_opened', { assistant_type: 'general_information' });
@@ -3393,7 +3391,6 @@ initArrowNavigation(rRail);
 
   function closeChat() {
     overlay.classList.remove('is-open');
-    document.body.classList.remove('ms-chat-open');
     setTimeout(function () { overlay.hidden = true; }, reducedMotion ? 0 : 220);
     if (lastOpener) lastOpener.focus();
   }
