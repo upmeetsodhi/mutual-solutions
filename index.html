@@ -1422,6 +1422,11 @@
     .lg-kicker::before {
       content: ""; width: 7px; height: 7px; border-radius: 50%;
       background: #168a57; box-shadow: 0 0 0 5px rgba(22,138,87,.1);
+      animation: presence-pulse 3.8s ease-in-out infinite;
+    }
+    @keyframes presence-pulse {
+      0%, 100% { opacity: .72; box-shadow: 0 0 0 4px rgba(22,138,87,.08); }
+      50% { opacity: 1; box-shadow: 0 0 0 8px rgba(22,138,87,.16); }
     }
     .lg-hero h1 {
       margin-top: 24px; max-width: 12ch;
@@ -1547,6 +1552,7 @@
     }
     @media (prefers-reduced-motion: reduce) {
       .ms-chat-overlay, .ms-chat-panel, .ms-chat-message, .nav-chat-open::after, .hero-chat-open::after { transition: none; animation: none; }
+      .lg-kicker::before { animation: none; }
       .ms-chat-typing i { animation: none; }
     }
   </style>
