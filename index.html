@@ -549,12 +549,17 @@
       padding: 0 40px; gap: 20px;
       overflow-x: auto; scrollbar-width: none;
       cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      scroll-padding-inline: 24px;
     }
     .services-rail::-webkit-scrollbar { display: none; }
     .services-rail.dragging { cursor: grabbing; }
 
     .s-card {
       flex-shrink: 0; width: 290px;
+      scroll-snap-align: start;
       border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 36px 28px;
       background: var(--bg);
@@ -631,7 +636,7 @@
       font-size: 11px; font-weight: 700; color: var(--ink-faint);
       letter-spacing: 1px; flex-shrink: 0; width: 22px; padding-top: 2px;
     }
-    .f-text h4 {
+    .f-text h3 {
       font-size: 15px; font-weight: 700;
       letter-spacing: -0.2px; margin-bottom: 6px;
     }
@@ -709,12 +714,17 @@
       padding: 0 40px; gap: 20px;
       overflow-x: auto; scrollbar-width: none;
       cursor: grab;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x proximity;
+      scroll-padding-inline: 24px;
     }
     .reviews-rail::-webkit-scrollbar { display: none; }
     .reviews-rail.dragging { cursor: grabbing; }
 
     .r-card {
       flex-shrink: 0; width: 320px;
+      scroll-snap-align: start;
       border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 36px 28px;
       background: var(--bg);
@@ -837,7 +847,7 @@
       font-size: 11px; color: var(--ink-faint);
       letter-spacing: 0.3px;
     }
-    .footer-col h4 {
+    .footer-col h3 {
       font-size: 11px; font-weight: 600;
       letter-spacing: 2.2px; text-transform: uppercase;
       color: var(--ink-faint); margin-bottom: 18px;
@@ -1195,8 +1205,8 @@
       }
       /* compliance bar on mobile */
       .compliance-bar { padding: 12px 24px !important; }
-      /* show mobile arrow hints */
-      .mobile-hint { display: inline !important; }
+      .rail-hint-touch { display: inline; }
+      .rail-hint-desktop { display: none; }
     }
     /* Arrow navigation buttons for mobile */
     .rail-nav { display: none; position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.5); color: white; border: none; padding: 12px 16px; font-size: 20px; cursor: pointer; z-index: 10; border-radius: 4px; }
@@ -1205,6 +1215,19 @@
     .rail-nav.next { right: 12px; }
     @media (max-width: 768px) {
       .rail-nav { display: block; }
+    }
+    .rail-hint-touch { display: none; }
+    @media (max-width: 960px) {
+      .rail-nav { display: none; }
+      .rail-hint-touch { display: inline; }
+      .rail-hint-desktop { display: none; }
+    }
+    @media (hover: none), (pointer: coarse) {
+      .services-rail,
+      .reviews-rail { cursor: auto; }
+      .rail-nav { display: none; }
+      .rail-hint-touch { display: inline; }
+      .rail-hint-desktop { display: none; }
     }
 
     /* ═══ LEAD-GEN HERO + CLAIMS + REVIEW (added) ═══ */
@@ -1594,6 +1617,7 @@
     <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="mobile-cta" target="_blank" rel="noopener">Free Consult</a>
   </div>
 
+  <main>
   <!-- ════ HERO ═════════════════ -->
   <section id="hero" class="lg-hero">
     <div class="lg-wrap">
@@ -1696,14 +1720,14 @@
   <!-- ════ SERVICES (sticky horizontal scroll) ══════ -->
   <div id="services-outer">
     <div class="services-sticky" style="position:relative;">
-      <button class="rail-nav prev" onclick="document.getElementById('services-rail').scrollLeft -= 300">&#8592;</button>
-      <button class="rail-nav next" onclick="document.getElementById('services-rail').scrollLeft += 300">&#8594;</button>
+      <button class="rail-nav prev" type="button" aria-label="Show previous services" data-rail-scroll="services-rail" data-direction="-1">&#8592;</button>
+      <button class="rail-nav next" type="button" aria-label="Show next services" data-rail-scroll="services-rail" data-direction="1">&#8594;</button>
       <div class="services-sidebar">
         <p class="tag">What We Cover</p>
         <h2 class="h2">Everything you need. Nothing you don't.</h2>
-        <p style="margin-top:16px">Drag the cards to explore →<br/><span style="font-size: 0.9em; opacity: 0.8;">Click any card to learn more ↓</span></p>
+        <p style="margin-top:16px"><span class="rail-hint-desktop">Drag the cards to explore →</span><span class="rail-hint-touch">Swipe the cards to explore →</span><br/><span style="font-size: 0.9em; opacity: 0.8;"><span class="rail-hint-desktop">Click</span><span class="rail-hint-touch">Tap</span> any card to learn more ↓</span></p>
       </div>
-      <div class="services-rail" id="services-rail">
+      <div class="services-rail" id="services-rail" tabindex="0" role="region" aria-label="Services offered by Mutual Solutions">
 
         <a class="s-card" href="/life-insurance.html">
           <div>
@@ -1839,28 +1863,28 @@
       <div class="f-row reveal">
         <span class="f-n">01</span>
         <div class="f-text">
-          <h4>Independently Owned</h4>
+          <h3>Independently Owned</h3>
           <p>We compare products from the selected insurers and lenders we work with to find the right fit, not just the one that pays us most.</p>
         </div>
       </div>
       <div class="f-row reveal">
         <span class="f-n">02</span>
         <div class="f-text">
-          <h4>Claims Support When It Counts</h4>
+          <h3>Claims Support When It Counts</h3>
           <p>When you need to claim, we stand beside you. We manage the process and advocate on your behalf to ensure your entitlement is paid fully and promptly.</p>
         </div>
       </div>
       <div class="f-row reveal">
         <span class="f-n">03</span>
         <div class="f-text">
-          <h4>Annual Policy Reviews</h4>
+          <h3>Annual Policy Reviews</h3>
           <p>Your life changes, and your cover should too. We review every client's policies annually to make sure nothing has been outgrown or left behind.</p>
         </div>
       </div>
       <div class="f-row reveal">
         <span class="f-n">04</span>
         <div class="f-text">
-          <h4>One Adviser, Everything</h4>
+          <h3>One Adviser, Everything</h3>
           <p>Insurance, KiwiSaver, home loans, investments. You get one trusted adviser who understands your whole financial picture, not a different specialist every time.</p>
         </div>
       </div>
@@ -1971,8 +1995,8 @@
   <!-- ════ GOOGLE REVIEWS (sticky drag rail) ══════ -->
   <div id="reviews-outer">
     <div class="reviews-sticky" style="position:relative;">
-      <button class="rail-nav prev" onclick="document.getElementById('reviews-rail').scrollLeft -= 300">&#8592;</button>
-      <button class="rail-nav next" onclick="document.getElementById('reviews-rail').scrollLeft += 300">&#8594;</button>
+      <button class="rail-nav prev" type="button" aria-label="Show previous reviews" data-rail-scroll="reviews-rail" data-direction="-1">&#8592;</button>
+      <button class="rail-nav next" type="button" aria-label="Show next reviews" data-rail-scroll="reviews-rail" data-direction="1">&#8594;</button>
 
       <!-- Sidebar -->
       <div class="reviews-sidebar">
@@ -1983,11 +2007,11 @@
           <div class="gstars">★★★★★</div>
           <div class="gcount">Rated on Google · Mutual Solutions</div>
         </div>
-        <p>Drag the cards to read more → <span style="font-size: 0.9em; opacity: 0.8; display: none;" class="mobile-hint">Use ← → arrows on mobile</span></p>
+        <p><span class="rail-hint-desktop">Drag the cards to read more →</span><span class="rail-hint-touch">Swipe the cards to read more →</span></p>
       </div>
 
       <!-- Drag rail -->
-      <div class="reviews-rail" id="reviews-rail">
+      <div class="reviews-rail" id="reviews-rail" tabindex="0" role="region" aria-label="Google reviews for Mutual Solutions">
 
         <div class="r-card">
           <div>
@@ -2455,6 +2479,8 @@
     </div>
   </section>
 
+  </main>
+
   <!-- ════ COMPLIANCE BAR ════════════════════════════ -->
   <div class="compliance-bar" style="background:#f9f9f9;border-top:1px solid rgba(0,0,0,0.07);padding:14px 56px;font-size:11px;color:#888;text-align:center;">
     Mutual Solutions Limited (FSP 729871) is a registered Financial Advice Provider. Financial advice is subject to fees and our full disclosure statement. &nbsp;·&nbsp; <a href="disclosure.html" style="color:#888;text-decoration:underline">View Disclosure</a>
@@ -2496,7 +2522,7 @@
         </div>
       </div>
       <div class="footer-col">
-        <h4>Insurance</h4>
+        <h3>Insurance</h3>
         <ul>
           <li><a href="/life-insurance.html">Life Insurance</a></li>
           <li><a href="/income-protection.html">Income Protection</a></li>
@@ -2507,7 +2533,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Financial</h4>
+        <h3>Financial</h3>
         <ul>
           <li><a href="/home-loans.html">Home Loans</a></li>
           <li><a href="kiwisaver.html">KiwiSaver Advice</a></li>
@@ -2519,7 +2545,7 @@
         </ul>
       </div>
       <div class="footer-col">
-        <h4>Contact</h4>
+        <h3>Contact</h3>
         <ul>
           <li><a href="tel:0800675555">0800 67 55 55</a></li>
           <li><a href="mailto:info@mutuals.co.nz">info@mutuals.co.nz</a></li>
@@ -2864,15 +2890,6 @@ rail.addEventListener('click', e => {
   if (railDragged) { e.preventDefault(); e.stopPropagation(); railDragged = false; }
 }, true);
 
-/* touch scroll — services */
-let touchX = 0;
-rail.addEventListener('touchstart', e => { touchX = e.touches[0].pageX; });
-rail.addEventListener('touchmove',  e => {
-  const dx = touchX - e.touches[0].pageX;
-  rail.scrollLeft += dx;
-  touchX = e.touches[0].pageX;
-});
-
 /* ── REVIEWS DRAG-SCROLL ────────────────────────── */
 const rRail = document.getElementById('reviews-rail');
 let rDown = false, rStartX = 0, rScrollLeft = 0;
@@ -2892,31 +2909,26 @@ rRail.addEventListener('mousemove',  e => {
   rRail.scrollLeft = rScrollLeft - (x - rStartX) * 1.3;
 });
 
-/* touch scroll — reviews */
-let rTouchX = 0;
-rRail.addEventListener('touchstart', e => { rTouchX = e.touches[0].pageX; });
-rRail.addEventListener('touchmove',  e => {
-  const dx = rTouchX - e.touches[0].pageX;
-  rRail.scrollLeft += dx;
-  rTouchX = e.touches[0].pageX;
-});
-
-/* Arrow key navigation for draggable rails */
-function initArrowNavigation(rail) {
-  document.addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft') {
-      rail.scrollLeft -= 300;
-      e.preventDefault();
-    } else if (e.key === 'ArrowRight') {
-      rail.scrollLeft += 300;
-      e.preventDefault();
-    }
+/* Rails use the browser's native touch scrolling. Buttons and keyboard controls
+   are retained for keyboard and small non-touch screens. */
+function initRailControls(rail) {
+  rail.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    rail.scrollBy({ left: e.key === 'ArrowLeft' ? -300 : 300, behavior: 'smooth' });
+    e.preventDefault();
   });
 }
 
-/* Initialize arrow nav for both rails */
-initArrowNavigation(rail);
-initArrowNavigation(rRail);
+document.querySelectorAll('[data-rail-scroll]').forEach(button => {
+  button.addEventListener('click', () => {
+    const target = document.getElementById(button.dataset.railScroll);
+    const direction = Number(button.dataset.direction);
+    target.scrollBy({ left: direction * Math.min(320, target.clientWidth * 0.85), behavior: 'smooth' });
+  });
+});
+
+initRailControls(rail);
+initRailControls(rRail);
 
 /* ════════════════════════════════════════════════
    GOOGLE ANALYTICS
