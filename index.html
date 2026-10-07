@@ -339,7 +339,6 @@
     }
     .nav-logo-sub { font-weight: 300; color: var(--ink-muted); font-size: 15px; }
     .nav-links { display: flex; gap: 34px; list-style: none; }
-    .nav-actions { display: flex; align-items: center; gap: 10px; }
     .nav-links a {
       color: var(--ink-muted); text-decoration: none;
       font-size: 14px; transition: color .2s;
@@ -369,13 +368,6 @@
     }
     .nav-chat-open:hover { background: var(--ink); border-color: var(--ink); color: #fff; transform: translateY(-1px); }
     .nav-chat-open svg { width: 18px; height: 18px; }
-    .nav-chat-desktop {
-      width: auto; min-height: 38px; padding: 0 14px;
-      display: inline-flex; gap: 7px;
-      border-radius: 100px; font: inherit; font-size: 13px; font-weight: 600;
-      white-space: nowrap;
-    }
-    .nav-chat-label { display: inline; }
     .nav-chat-mobile { display: none; }
     .nav-mobile-actions { display: none; align-items: center; gap: 8px; }
     @keyframes nav-chat-pulse {
@@ -1085,7 +1077,6 @@
     @media (max-width: 768px) {
       .hamburger { display: flex; }
       .nav-links { display: none; }
-      .nav-actions { display: none; }
       .nav-mobile-actions { display: flex; }
       .nav-chat-mobile { display: inline-grid; }
     }
@@ -1451,6 +1442,19 @@
     .lg-proof-item + .lg-proof-item { padding-left: 18px; border-left: 1px solid var(--border-mid); }
     .lg-proof-item strong { display: block; font-size: 18px; line-height: 1.1; letter-spacing: -.5px; }
     .lg-proof-item span { display: block; margin-top: 5px; font-size: 11.5px; line-height: 1.35; color: var(--ink-muted); }
+    .hero-chat-launcher {
+      position: absolute;
+      right: max(52px, calc((100vw - 1220px) / 2 + 8px));
+      bottom: 84px;
+    }
+    .hero-chat-open {
+      width: auto; min-height: 42px; padding: 0 17px;
+      display: inline-flex; gap: 8px;
+      border-radius: 100px; font: inherit; font-size: 13px; font-weight: 600;
+      white-space: nowrap; box-shadow: 0 10px 24px rgba(0,0,0,.08);
+    }
+    .hero-chat-label { display: inline; }
+    .ms-status-dot { width: 8px; height: 8px; flex: none; margin-top: 5px; border-radius: 50%; background: #18a469; box-shadow: 0 0 0 5px rgba(24,164,105,.10); }
     .lg-card {
       background: rgba(255,255,255,.94); border-radius: 22px;
       box-shadow: 0 28px 70px rgba(0,0,0,.1);
@@ -1492,6 +1496,7 @@
     @media (max-width: 920px) {
       .lg-hero { padding: 118px 0 56px; }
       .lg-hero .lg-wrap { grid-template-columns: 1fr; gap: 42px; }
+      .hero-chat-launcher { right: 26px; bottom: 34px; }
       .lg-hero h1 { max-width: 11ch; }
       .lg-claims { padding: 56px 0; }
       .lg-claims .lg-wrap { grid-template-columns: 1fr; gap: 28px; }
@@ -1538,9 +1543,10 @@
       .lg-claims h2 { font-size: 30px; letter-spacing: -1.2px; }
       .lg-sub,
       .lg-claims p { max-width: 100%; overflow-wrap: break-word; }
+      .hero-chat-launcher { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .ms-chat-overlay, .ms-chat-panel, .ms-chat-message, .nav-chat-open::after { transition: none; animation: none; }
+      .ms-chat-overlay, .ms-chat-panel, .ms-chat-message, .nav-chat-open::after, .hero-chat-open::after { transition: none; animation: none; }
       .ms-chat-typing i { animation: none; }
     }
   </style>
@@ -1562,11 +1568,8 @@
       <li><a href="/adviser/upmeet.html">Adviser</a></li>
       <li><a href="/blog/">Blog</a></li>
       <li><a href="/faq.html">FAQ</a></li>
+      <li><a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a></li>
     </ul>
-    <div class="nav-actions">
-      <button class="nav-chat-open nav-chat-desktop" type="button" data-chat-open aria-haspopup="dialog" aria-controls="ms-chat-dialog"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg><span class="nav-chat-label">Ask a question</span><span class="ms-sr-only">Open general information assistant</span></button>
-      <a href="https://calendar.app.google/HRENgfye9BgSPNQj8" class="nav-cta" target="_blank" rel="noopener">Free Consult</a>
-    </div>
     <div class="nav-mobile-actions">
       <button class="nav-chat-open nav-chat-mobile" type="button" data-chat-open aria-haspopup="dialog" aria-controls="ms-chat-dialog" aria-label="Open general information assistant"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg><span class="ms-sr-only">Ask a general question</span></button>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -1603,6 +1606,12 @@
           <div class="lg-proof-item"><strong>100%</strong><span>independently owned</span></div>
         </div>
       </div>
+      <aside class="hero-chat-launcher" aria-label="General information assistant">
+        <button class="nav-chat-open hero-chat-open" type="button" data-chat-open aria-haspopup="dialog" aria-controls="ms-chat-dialog">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 11.5a7.5 7.5 0 0 1-8 7.48 8.7 8.7 0 0 1-3.65-.8L4 19.5l1.2-3.58A7.5 7.5 0 1 1 20 11.5Z"/><path d="M8.5 11.5h.01M12 11.5h.01M15.5 11.5h.01" stroke-linecap="round" stroke-width="2.6"/></svg>
+          <span class="hero-chat-label">Ask a question</span><span class="ms-sr-only">Open general information assistant</span>
+        </button>
+      </aside>
     </div>
   </section>
 
