@@ -52,7 +52,13 @@
       phone: phone.value.trim(),
       utm_source: params.get('utm_source') || '',
       utm_medium: params.get('utm_medium') || '',
-      utm_campaign: params.get('utm_campaign') || ''
+      utm_campaign: params.get('utm_campaign') || '',
+      utm_term: params.get('utm_term') || '',
+      utm_content: params.get('utm_content') || '',
+      gclid: params.get('gclid') || '',
+      gbraid: params.get('gbraid') || '',
+      wbraid: params.get('wbraid') || '',
+      landing_page: window.location.origin + window.location.pathname
     };
 
     fetch(endpoint, {
@@ -63,7 +69,13 @@
       return response.ok ? response.json() : Promise.reject(new Error('submit failed'));
     }).then(function (result) {
       if (result.success !== true && result.success !== 'true') throw new Error('submit failed');
-      track('generate_lead', { lead_source: source, form_location: 'paid_landing_page' });
+      track('generate_lead', {
+        lead_source: source,
+        form_location: 'paid_landing_page',
+        campaign_source: payload.utm_source,
+        campaign_medium: payload.utm_medium,
+        campaign_name: payload.utm_campaign
+      });
       window.location.assign('/thank-you.html?source=' + encodeURIComponent(source));
     }).catch(function () {
       button.disabled = false;
