@@ -32,13 +32,13 @@
         <h2 id="form-heading">Request a free initial conversation</h2>
         <p>Leave your details and Upmeet will contact you to arrange a suitable time.</p>
         <form data-paid-lead-form data-lead-source="income_protection_paid" novalidate>
-          <label for="income-name">Name</label>
+          <label for="income-name">Name <span aria-hidden="true">*</span></label>
           <input id="income-name" name="name" type="text" autocomplete="name" required>
-          <label for="income-email">Email address</label>
+          <label for="income-email">Email address <span aria-hidden="true">*</span></label>
           <input id="income-email" name="email" type="email" autocomplete="email" required>
-          <label for="income-phone">Phone number <span aria-hidden="true">(optional)</span></label>
+          <label for="income-phone">Phone number</label>
           <input id="income-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel">
-          <label for="income-message">How can we help? <span aria-hidden="true">(optional)</span></label>
+          <label for="income-message">How can we help?</label>
           <textarea id="income-message" name="message" rows="4" maxlength="1500" placeholder="Tell us what you would like to discuss. Please do not include sensitive medical or financial details."></textarea>
           <p class="form-status" data-form-status aria-live="polite"></p>
           <button class="button" type="submit">Request a free conversation</button>

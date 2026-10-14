@@ -1326,8 +1326,9 @@
     .lg-chip { background: var(--bg); border: 1px solid var(--border-mid); border-radius: 100px; padding: 9px 16px; font-size: 13.5px; font-weight: 500; color: var(--ink); cursor: pointer; transition: border-color .15s, background .15s; }
     .lg-chip:hover { border-color: var(--ink); background: var(--bg-subtle); }
     .lg-lform { display: flex; flex-direction: column; gap: 9px; padding: 2px 0; animation: lgpop .22s ease; }
-    .lg-lform input { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; width: 100%; }
-    .lg-lform input:focus { outline: none; border-color: var(--ink); }
+    .lg-lform input, .lg-lform textarea { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; width: 100%; }
+    .lg-lform textarea { min-height: 96px; resize: vertical; }
+    .lg-lform input:focus, .lg-lform textarea:focus { outline: none; border-color: var(--ink); }
     .lg-err { border-color: #c0392b !important; }
     .lg-note { font-size: 11.5px; color: var(--ink-faint); }
     .lg-cfoot { padding: 12px 20px; border-top: 1px solid var(--border); font-size: 12px; color: var(--ink-faint); display: flex; justify-content: space-between; align-items: center; }
@@ -2312,12 +2313,12 @@
         <h3>Your free policy review</h3>
         <p>Leave your details and we will email you a secure way to send your documents.</p>
         <form class="lg-rform" id="lg-rform" novalidate>
-          <label class="sr-only" for="lg-rname">Your name</label>
-          <input type="text" id="lg-rname" name="name" placeholder="Your name" autocomplete="name" required>
-          <label class="sr-only" for="lg-remail">Email address</label>
-          <input type="email" id="lg-remail" name="email" placeholder="Email address" autocomplete="email" inputmode="email" required>
-          <label class="sr-only" for="lg-rphone">Phone number optional</label>
-          <input type="tel" id="lg-rphone" name="phone" placeholder="Phone number (optional)" autocomplete="tel" inputmode="tel">
+          <label class="sr-only" for="lg-rname">Your name, required</label>
+          <input type="text" id="lg-rname" name="name" placeholder="Your name *" autocomplete="name" required>
+          <label class="sr-only" for="lg-remail">Email address, required</label>
+          <input type="email" id="lg-remail" name="email" placeholder="Email address *" autocomplete="email" inputmode="email" required>
+          <label class="sr-only" for="lg-rphone">Phone number</label>
+          <input type="tel" id="lg-rphone" name="phone" placeholder="Phone number" autocomplete="tel" inputmode="tel">
           <label class="sr-only" for="lg-rcover">What do you currently have?</label>
           <select id="lg-rcover" name="current_cover">
             <option value="">What do you currently have? (optional)</option>
@@ -2328,7 +2329,7 @@
             <option>A mix, and not totally sure</option>
           </select>
           <label class="sr-only" for="lg-rmessage">What would you like us to help with?</label>
-          <textarea id="lg-rmessage" name="message" rows="4" maxlength="1500" placeholder="What would you like us to help with? (optional) Please do not include sensitive medical or financial details."></textarea>
+          <textarea id="lg-rmessage" name="message" rows="4" maxlength="1500" placeholder="What would you like us to help with? Please do not include sensitive medical or financial details."></textarea>
           <div class="lg-docnote">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6b" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
             <span>Once you submit, we will reply from <b>info@mutuals.co.nz</b> so you can email your policy documents straight back. Secure and confidential.</span>
@@ -3192,22 +3193,23 @@ initRailControls(rRail);
   }
   function form(){
     var f=document.createElement("form"); f.className="lg-lform"; f.noValidate=true;
-    f.innerHTML='<input type="text" id="lg-name" placeholder="Your first name" autocomplete="given-name">'+
-      '<input type="email" id="lg-email" placeholder="Email address" autocomplete="email">'+
-      '<input type="tel" id="lg-phone" placeholder="Phone number (optional)" autocomplete="tel">'+
+    f.innerHTML='<input type="text" id="lg-name" placeholder="Your first name *" autocomplete="given-name">'+
+      '<input type="email" id="lg-email" placeholder="Email address *" autocomplete="email">'+
+      '<input type="tel" id="lg-phone" placeholder="Phone number" autocomplete="tel">'+
+      '<textarea id="lg-message" rows="3" maxlength="1500" placeholder="Anything else you would like us to know?"></textarea>'+
       '<button class="lg-btn" type="submit">Send me my plan</button>'+
       '<span class="lg-note">Goes straight to Upmeet so he can reply. Handled under our <a href="/disclosure.html#privacy" style="color:inherit;text-decoration:underline">Privacy Policy</a>.</span>';
     log.appendChild(f); sl();
     f.addEventListener("submit", function(e){
       e.preventDefault();
-      var n=f.querySelector("#lg-name"), em=f.querySelector("#lg-email"), ph=f.querySelector("#lg-phone"); var ok=true;
+      var n=f.querySelector("#lg-name"), em=f.querySelector("#lg-email"), ph=f.querySelector("#lg-phone"), msg=f.querySelector("#lg-message"); var ok=true;
       [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); i.removeAttribute("aria-invalid"); });
       if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
       if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
       if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
       if(!ok) return;
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
-      sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), answers:summ() }).then(function(success){
+      sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }).then(function(success){
         f.remove();
         if(success){
           trackLead("chat_planner");
