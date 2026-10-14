@@ -17,7 +17,7 @@ body {
   line-height: 1.5;
 }
 a { color: inherit; }
-a:focus-visible, button:focus-visible, input:focus-visible {
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
   outline: 3px solid var(--focus);
   outline-offset: 3px;
 }
@@ -35,11 +35,14 @@ p { font-size: 18px; margin: 0 0 20px; }
 .proof { display: flex; flex-wrap: wrap; gap: 20px 30px; padding: 25px 0; margin-top: 32px; border-top: 1px solid var(--line); }
 .proof strong { display: block; font-size: 19px; }
 .proof span { color: var(--muted); font-size: 14px; }
+.proof .google-review-link { display: block; text-decoration: none; border-radius: 5px; }
+.proof .google-review-link:hover strong, .proof .google-review-link:focus-visible strong { text-decoration: underline; text-underline-offset: 3px; }
 .card { background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: clamp(24px, 3vw, 34px); box-shadow: 0 18px 44px rgba(10, 10, 10, .06); }
 .card p { color: var(--muted); font-size: 16px; }
 label { display: block; font-size: 14px; font-weight: 700; margin: 18px 0 7px; }
-input { width: 100%; border: 1px solid #9ca3a8; border-radius: 9px; padding: 14px 13px; color: var(--ink); font: inherit; min-height: 48px; }
-input[aria-invalid="true"] { border: 2px solid #b42318; }
+input, textarea { width: 100%; border: 1px solid #9ca3a8; border-radius: 9px; padding: 14px 13px; color: var(--ink); font: inherit; min-height: 48px; }
+textarea { min-height: 112px; resize: vertical; }
+input[aria-invalid="true"], textarea[aria-invalid="true"] { border: 2px solid #b42318; }
 .help, .form-status { color: var(--muted); font-size: 13px; margin: 10px 0 0; }
 .form-status[role="alert"] { color: #b42318; }
 .button { appearance: none; border: 0; border-radius: 999px; display: inline-flex; justify-content: center; align-items: center; cursor: pointer; min-height: 52px; padding: 13px 22px; background: var(--ink); color: #fff; font: inherit; font-weight: 800; text-decoration: none; margin-top: 22px; width: 100%; transition: background .2s ease, transform .2s ease; }

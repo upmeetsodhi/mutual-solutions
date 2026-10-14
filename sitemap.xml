@@ -4,7 +4,7 @@
     <loc>https://mutuals.co.nz/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-15</lastmod>
   </url>
   <url>
     <loc>https://mutuals.co.nz/insurance-adviser-palmerston-north.html</loc>
@@ -35,6 +35,30 @@
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <lastmod>2026-07-14</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/insurance-review.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/health-insurance-advice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/income-protection-advice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/mortgage-protection-advice.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-15</lastmod>
   </url>
   <url>
     <loc>https://mutuals.co.nz/disclosure.html</loc>

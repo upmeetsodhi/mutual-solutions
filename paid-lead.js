@@ -23,6 +23,7 @@
     var name = form.elements.name;
     var email = form.elements.email;
     var phone = form.elements.phone;
+    var message = form.elements.message;
     var valid = true;
     [name, email].forEach(function (field) {
       field.removeAttribute('aria-invalid');
@@ -50,6 +51,7 @@
       name: name.value.trim(),
       email: email.value.trim(),
       phone: phone.value.trim(),
+      message: message ? message.value.trim() : '',
       utm_source: params.get('utm_source') || '',
       utm_medium: params.get('utm_medium') || '',
       utm_campaign: params.get('utm_campaign') || '',

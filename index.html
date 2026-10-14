@@ -1367,8 +1367,11 @@
     .lg-rcard h3 { font-size: 19px; font-weight: 700; letter-spacing: -.4px; margin-bottom: 6px; }
     .lg-rcard > p { font-size: 13.5px; color: var(--ink-muted); margin-bottom: 20px; }
     .lg-rform { display: flex; flex-direction: column; gap: 10px; }
-    .lg-rform input, .lg-rform select { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: var(--bg); color: var(--ink); width: 100%; }
-    .lg-rform input:focus, .lg-rform select:focus { outline: none; border-color: var(--ink); }
+    .lg-rform input, .lg-rform select, .lg-rform textarea { border: 1px solid var(--border-mid); border-radius: 10px; padding: 12px 14px; font-size: 16px; font-family: inherit; background: var(--bg); color: var(--ink); width: 100%; }
+    .lg-rform textarea { min-height: 108px; resize: vertical; }
+    .lg-rform input:focus, .lg-rform select:focus, .lg-rform textarea:focus { outline: none; border-color: var(--ink); }
+    .google-review-link { color: inherit; text-decoration: none; border-radius: 5px; }
+    .google-review-link:hover, .google-review-link:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
     .lg-docnote { display: flex; gap: 10px; align-items: flex-start; background: var(--bg-subtle); border: 1px solid var(--border); border-radius: 12px; padding: 13px 15px; font-size: 12.5px; color: var(--ink-muted); line-height: 1.5; }
     .lg-docnote svg { flex: none; margin-top: 1px; }
     .lg-rsuccess { display: none; background: var(--bg-subtle); border: 1px solid var(--border-mid); border-radius: 12px; padding: 15px; font-size: 14px; color: var(--ink-2); }
@@ -1631,7 +1634,7 @@
         </div>
         <a href="/insurance-review.html" class="lg-review-link">Already have cover? Get a free second opinion <span aria-hidden="true">→</span></a>
         <div class="lg-proof" aria-label="Mutual Solutions at a glance">
-          <div class="lg-proof-item"><strong>4.9 ★</strong><span>Google rating</span></div>
+          <div class="lg-proof-item"><a class="google-review-link" href="https://www.google.com/maps/place/Mutual+Solutions+Limited/data=!4m2!3m1!1s0x0:0xa9d217ba3b606d1c" target="_blank" rel="noopener noreferrer" aria-label="Read Mutual Solutions reviews on Google"><strong>4.9 ★</strong><span>Google rating</span></a></div>
           <div class="lg-proof-item"><strong>10+ years</strong><span>advising Kiwi families</span></div>
           <div class="lg-proof-item"><strong>100%</strong><span>independently owned</span></div>
         </div>
@@ -1909,7 +1912,7 @@
           <div class="adviser-badge-float">
             <div class="adviser-badge-stars">★★★★★</div>
             <div class="adviser-badge-text">
-              <strong>4.9 on Google</strong>
+              <a class="google-review-link" href="https://www.google.com/maps/place/Mutual+Solutions+Limited/data=!4m2!3m1!1s0x0:0xa9d217ba3b606d1c" target="_blank" rel="noopener noreferrer" aria-label="Read Mutual Solutions reviews on Google"><strong>4.9 on Google</strong></a>
               <span>Google Reviews</span>
             </div>
           </div>
@@ -1974,7 +1977,7 @@
   <section id="stats">
     <div class="stats-grid">
       <div class="stat-item">
-        <div class="stat-val">4.9★</div>
+        <div class="stat-val"><a class="google-review-link" href="https://www.google.com/maps/place/Mutual+Solutions+Limited/data=!4m2!3m1!1s0x0:0xa9d217ba3b606d1c" target="_blank" rel="noopener noreferrer" aria-label="Read Mutual Solutions reviews on Google">4.9★</a></div>
         <div class="stat-lbl">Rated on Google</div>
       </div>
       <div class="stat-item">
@@ -2003,7 +2006,7 @@
         <p class="tag">Google Reviews</p>
         <h2 class="h2">What our<br/>clients say</h2>
         <div class="gscore-block">
-          <div class="gscore-num">4.9</div>
+          <div class="gscore-num"><a class="google-review-link" href="https://www.google.com/maps/place/Mutual+Solutions+Limited/data=!4m2!3m1!1s0x0:0xa9d217ba3b606d1c" target="_blank" rel="noopener noreferrer" aria-label="Read Mutual Solutions reviews on Google">4.9</a></div>
           <div class="gstars">★★★★★</div>
           <div class="gcount">Rated on Google · Mutual Solutions</div>
         </div>
@@ -2324,6 +2327,8 @@
             <option>Home loan or mortgage</option>
             <option>A mix, and not totally sure</option>
           </select>
+          <label class="sr-only" for="lg-rmessage">What would you like us to help with?</label>
+          <textarea id="lg-rmessage" name="message" rows="4" maxlength="1500" placeholder="What would you like us to help with? (optional) Please do not include sensitive medical or financial details."></textarea>
           <div class="lg-docnote">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6b6b6b" stroke-width="2"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11L2 12v6a2 2 0 002 2h16a2 2 0 002-2v-6l-3.45-6.89A2 2 0 0016.76 4H7.24a2 2 0 00-1.79 1.11z"/></svg>
             <span>Once you submit, we will reply from <b>info@mutuals.co.nz</b> so you can email your policy documents straight back. Secure and confidential.</span>
@@ -3221,7 +3226,7 @@ initRailControls(rRail);
   var rf=document.getElementById("lg-rform");
   if(rf) rf.addEventListener("submit", function(e){
     e.preventDefault();
-    var n=document.getElementById("lg-rname"), em=document.getElementById("lg-remail"), ph=document.getElementById("lg-rphone"), cv=document.getElementById("lg-rcover"); var ok=true;
+    var n=document.getElementById("lg-rname"), em=document.getElementById("lg-remail"), ph=document.getElementById("lg-rphone"), cv=document.getElementById("lg-rcover"), msg=document.getElementById("lg-rmessage"); var ok=true;
     [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); i.removeAttribute("aria-invalid"); });
     if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
     if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
@@ -3232,7 +3237,7 @@ initRailControls(rRail);
     }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     var box=document.getElementById("lg-rsuccess");
-    sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value }).then(function(success){
+    sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }).then(function(success){
       box.style.display="block";
       if(success){
         trackLead("policy_review");
