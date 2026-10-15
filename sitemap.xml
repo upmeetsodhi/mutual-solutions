@@ -118,7 +118,13 @@
     <loc>https://mutuals.co.nz/blog/</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-15</lastmod>
+  </url>
+  <url>
+    <loc>https://mutuals.co.nz/blog/agreed-value-vs-indemnity-income-protection-nz.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <lastmod>2026-10-15</lastmod>
   </url>
   <url>
     <loc>https://mutuals.co.nz/blog/financial-adviser-cost-nz.html</loc>
