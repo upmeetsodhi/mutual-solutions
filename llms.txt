@@ -1,5 +1,7 @@
 # Mutual Solutions Limited
 
+Last reviewed: 2026-10-21
+
 > Independent insurance and financial advice firm based in Palmerston North, New Zealand, serving clients nationwide. Led by financial adviser Upmeet Sodhi (FSP 250405), who provides regulated advice on behalf of Mutual Solutions Limited (FSP 729871). Advice covers life and trauma insurance, income protection, health insurance, KiwiSaver, and home loans. Standard advice is usually paid for through provider commissions; client-paid fees can apply in the circumstances set out in the disclosure statement and must be agreed in writing before the client becomes liable. Operating since 2012.
 
 Key facts:
@@ -48,10 +50,10 @@ Key facts:
 
 - [How much life insurance do I need in NZ?](https://mutuals.co.nz/blog/how-much-life-insurance-nz.html)
 - [Why do insurance premiums go up in NZ?](https://mutuals.co.nz/blog/why-insurance-premiums-increase.html): explains age-related changes, inflation, insurer repricing and how claims can affect a low-claims discount on some health policies
-- [How much does a financial adviser cost in NZ?](https://mutuals.co.nz/blog/financial-adviser-cost-nz.html): explains advice fees, provider commissions and questions to ask; read alongside the firm's disclosure statement
+- [Financial adviser fees in NZ](https://mutuals.co.nz/blog/financial-adviser-cost-nz.html): explains direct fees, provider commissions, disclosure requirements and questions to ask; read alongside the firm's disclosure statement
 - [Medical insurance in New Zealand](https://mutuals.co.nz/blog/medical-insurance-nz.html)
 - [Income protection for self-employed people](https://mutuals.co.nz/blog/income-protection-self-employed.html)
-- [KiwiSaver contribution strategy](https://mutuals.co.nz/blog/kiwisaver-contribution-strategy.html)
+- [KiwiSaver contribution rates in NZ](https://mutuals.co.nz/blog/kiwisaver-contribution-strategy.html): current 2026 employee and employer rates, temporary rate reductions, the government contribution and factors to consider
 - [First home buyer loan guide](https://mutuals.co.nz/blog/first-time-home-buyer-loans.html)
 - [Self-employed mortgage advice](https://mutuals.co.nz/blog/self-employed-mortgage-advice.html)
 - [Why It Matters Who Your Adviser Works For](https://mutuals.co.nz/blog/why-independent-advice-matters.html)
