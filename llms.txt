@@ -33,6 +33,7 @@ Key facts:
 - [Homepage](https://mutuals.co.nz/): services overview and client reviews
 - [About the adviser](https://mutuals.co.nz/adviser/upmeet.html): Upmeet Sodhi's background and credentials
 - [FAQ](https://mutuals.co.nz/faq.html): common questions about insurance, KiwiSaver, home loans, and how the advice process works
+- [New Zealand Family Protection Check](https://mutuals.co.nz/family-protection-check.html): free, ungated household checklist covering dependants, debt, savings, existing insurance and questions to take to an adviser
 - [KiwiSaver Calculator](https://mutuals.co.nz/kiwisaver-calculator.html): retirement balance projection tool
 - [Disclosure statement](https://mutuals.co.nz/disclosure.html): regulatory disclosure, scope of advice, fees and commissions, conflicts of interest, complaints process, privacy policy, AML/CFT, FSCL membership
 - [How commissions work](https://mutuals.co.nz/how-commissions-work.html): plain-English explanation of upfront and ongoing commission, KiwiSaver and lender commission, clawback and recoupment, and how conflicts are managed
