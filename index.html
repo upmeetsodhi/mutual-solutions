@@ -3232,7 +3232,7 @@ initRailControls(rRail);
       box.style.display="block";
       if(success){
         trackLead("policy_review");
-        box.textContent="Thanks, "+n.value.trim()+". We will email you from info@mutuals.co.nz so you can send your documents securely. Your written review follows within a couple of working days. Check your inbox (and spam folder) for our confirmation.";
+        box.textContent="Thanks, "+n.value.trim()+". We've received your request. Upmeet will email you from info@mutuals.co.nz with a secure way to send your documents.";
         btn.textContent="Sent";
       } else {
         if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'submission', form_location: 'homepage' });
