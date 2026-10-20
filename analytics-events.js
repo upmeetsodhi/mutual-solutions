@@ -28,7 +28,7 @@
       if (getComputedStyle(menuButton).display === 'none') closeMenu();
     }, { passive: true });
   }
-  window.mutualsTrackEvent = window.mutualsTrackEvent || function(eventName, params) {
+  window.mutualsTrackEvent = function(eventName, params) {
     if (typeof window.gtag === "function") {
       // Keep click and form events measurable when a visitor immediately navigates away.
       var eventParams = Object.assign({ transport_type: "beacon" }, params || {});
@@ -44,7 +44,8 @@
     var params = {
       link_url: href.split('?')[0].split('#')[0],
       link_text: (link.textContent || "").trim().slice(0, 120),
-      page_location: window.location.origin + window.location.pathname
+      page_location: window.location.origin + window.location.pathname,
+      link_location: link.closest('nav') ? 'navigation' : (link.closest('footer') ? 'footer' : 'page_content')
     };
 
     if (href.indexOf("tel:") === 0) {

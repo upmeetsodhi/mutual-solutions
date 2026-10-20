@@ -152,12 +152,6 @@
         "closes": "17:30"
       }
     ],
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "114",
-      "bestRating": "5"
-    },
     "hasOfferCatalog": {
       "@type": "OfferCatalog",
       "name": "Insurance & Financial Services",
@@ -2947,14 +2941,9 @@ initRailControls(rRail);
   document.body.appendChild(script);
 
   window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  window.mutualsTrackEvent = window.mutualsTrackEvent || function(eventName, params) {
-    if (typeof gtag === "function") {
-      gtag("event", eventName, params || {});
-    }
-  };
-  gtag('js', new Date());
-  gtag('config', 'G-4F1FPHEDGM');
+  window.gtag = window.gtag || function() { window.dataLayer.push(arguments); };
+  window.gtag('js', new Date());
+  window.gtag('config', 'G-4F1FPHEDGM');
 })();
 </script>
 <script>
