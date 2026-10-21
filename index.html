@@ -2979,9 +2979,10 @@ initRailControls(rRail);
     p._url = window.location.origin + window.location.pathname;
     p.landing_page = window.location.origin + window.location.pathname;
     var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 20000);
+    var timeout = setTimeout(function(){ controller.abort(); }, 105000);
     return fetch(ENDPOINT, {
       signal: controller.signal,
+      keepalive: true,
       method:"POST",
       headers:{ "Content-Type":"application/json", "Accept":"application/json" },
       body: JSON.stringify(p)
@@ -3249,8 +3250,13 @@ initRailControls(rRail);
       box.style.display="block";
       box.textContent="Still sending securely. Please keep this page open for a moment...";
     }, 8000);
+    var delayed = window.setTimeout(function(){
+      box.style.display="block";
+      box.textContent="Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.";
+    }, 35000);
     sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
       window.clearTimeout(progress);
+      window.clearTimeout(delayed);
       box.style.display="block";
       if(success){
         trackLead("policy_review");

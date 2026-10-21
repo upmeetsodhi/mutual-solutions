@@ -469,21 +469,26 @@
         message: msg.value.trim(),
         landing_page: window.location.origin + window.location.pathname
       }, campaign);
-      var controller = new AbortController();
       var progress = window.setTimeout(function(){
         box.style.display = "block";
         box.textContent = "Still sending securely. Please keep this page open for a moment...";
       }, 8000);
-      var timeout = window.setTimeout(function(){ controller.abort(); }, 20000);
+      var delayed = window.setTimeout(function(){
+        box.style.display = "block";
+        box.textContent = "Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.";
+      }, 35000);
+      var controller = new AbortController();
+      var timeout = window.setTimeout(function(){ controller.abort(); }, 105000);
       fetch(ENDPOINT, {
         signal: controller.signal,
+        keepalive: true,
         method:"POST",
         headers:{ "Content-Type":"application/json", "Accept":"application/json" },
         body: JSON.stringify(payload)
       }).then(function(r){
         if(!r.ok) return false;
         return r.json().then(function(result){ return result.success === true || result.success === "true"; });
-      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(progress); window.clearTimeout(timeout); }).then(function(success){
+      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(progress); window.clearTimeout(delayed); window.clearTimeout(timeout); }).then(function(success){
         box.style.display = "block";
         if(success){
           if (typeof window.mutualsTrackEvent === "function") {

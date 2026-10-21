@@ -70,13 +70,17 @@
       landing_page: window.location.origin + window.location.pathname
     };
 
-    var controller = new AbortController();
     var progress = window.setTimeout(function () {
       status.textContent = 'Still sending securely. Please keep this page open for a moment...';
     }, 8000);
-    var timeout = window.setTimeout(function () { controller.abort(); }, 20000);
+    var delayed = window.setTimeout(function () {
+      status.textContent = 'Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.';
+    }, 35000);
+    var controller = new AbortController();
+    var timeout = window.setTimeout(function () { controller.abort(); }, 105000);
     fetch(endpoint, {
       signal: controller.signal,
+      keepalive: true,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
@@ -100,6 +104,7 @@
       track('lead_submission_error', { lead_source: source, form_location: formLocation });
     }).finally(function () {
       window.clearTimeout(progress);
+      window.clearTimeout(delayed);
       window.clearTimeout(timeout);
     });
   });
