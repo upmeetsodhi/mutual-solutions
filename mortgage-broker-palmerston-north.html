@@ -384,6 +384,38 @@
       line-height: 1.68; margin-bottom: 32px;
       max-width: 460px; margin-left: auto; margin-right: auto;
     }
+    .mortgage-enquiry {
+      background: var(--bg-dark); color: #fff;
+      border-radius: 20px; padding: 48px 44px;
+    }
+    .mortgage-enquiry h2 {
+      font-size: clamp(24px, 3vw, 34px); font-weight: 800;
+      letter-spacing: -1px; margin-bottom: 10px;
+    }
+    .mortgage-enquiry > p {
+      font-size: 15px; line-height: 1.65; color: rgba(255,255,255,0.68);
+      max-width: 62ch; margin-bottom: 28px;
+    }
+    .mortgage-enquiry-form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+    .mortgage-enquiry-form label { font-size: 13px; font-weight: 600; }
+    .mortgage-enquiry-form input,
+    .mortgage-enquiry-form textarea {
+      width: 100%; border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 10px; padding: 13px 15px; font: inherit;
+      font-size: 16px; background: rgba(255,255,255,0.07); color: #fff;
+    }
+    .mortgage-enquiry-form input:focus,
+    .mortgage-enquiry-form textarea:focus { outline: 2px solid #fff; outline-offset: 2px; }
+    .mortgage-enquiry-form textarea { resize: vertical; min-height: 130px; }
+    .mortgage-enquiry-form button {
+      border: 0; border-radius: 100px; padding: 14px 28px;
+      background: #fff; color: var(--ink); font: inherit;
+      font-size: 14px; font-weight: 700; cursor: pointer;
+    }
+    .mortgage-enquiry-form button:disabled { opacity: .6; cursor: default; }
+    .form-status { min-height: 20px; font-size: 14px; color: rgba(255,255,255,0.82); }
+    .form-privacy { font-size: 12px; line-height: 1.55; color: rgba(255,255,255,0.55); }
+    .form-privacy a { color: inherit; }
     .cta-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
     .btn-dark {
       display: inline-flex; align-items: center; justify-content: center;
@@ -419,6 +451,7 @@
       .cta-actions { flex-direction: column; }
       .cta-actions .btn-dark, .cta-actions .btn-outline { width: 100%; }
       .bottom-cta { padding: 44px 28px; }
+      .mortgage-enquiry { padding: 34px 24px; }
       .quote-card { padding: 30px 26px; }
       .office-card { padding: 26px 24px; }
     }
@@ -625,6 +658,26 @@
       </div>
     </section>
 
+    <section class="ks-section" aria-labelledby="mortgage-enquiry-heading">
+      <div class="mortgage-enquiry">
+        <h2 id="mortgage-enquiry-heading">Ask about your mortgage options</h2>
+        <p>Tell us whether you are buying, refinancing or preparing an application. Upmeet will contact you to arrange a free initial conversation.</p>
+        <form class="mortgage-enquiry-form" data-paid-lead-form data-lead-source="mortgage_broker_palmerston_north" novalidate>
+          <label for="mortgage-enquiry-name">Name <span aria-hidden="true">*</span></label>
+          <input id="mortgage-enquiry-name" name="name" type="text" autocomplete="name" required />
+          <label for="mortgage-enquiry-email">Email address <span aria-hidden="true">*</span></label>
+          <input id="mortgage-enquiry-email" name="email" type="email" inputmode="email" autocomplete="email" required />
+          <label for="mortgage-enquiry-phone">Phone number</label>
+          <input id="mortgage-enquiry-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" />
+          <label for="mortgage-enquiry-message">What would you like help with?</label>
+          <textarea id="mortgage-enquiry-message" name="message" maxlength="1500" placeholder="For example: first home, refinance, refix or a self-employed application."></textarea>
+          <p class="form-status" data-form-status aria-live="polite"></p>
+          <button type="submit">Request a free conversation</button>
+          <p class="form-privacy">Please do not include bank statements, income figures, identification or other sensitive information here. We will explain a secure way to provide documents if needed. By submitting, you agree to our <a href="/disclosure.html#privacy">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </section>
+
     <div class="bottom-cta">
       <h2>Talk to a Palmerston North mortgage broker</h2>
       <p>A free 30-minute conversation with an adviser. No pressure, no obligation, and a clearer understanding of your borrowing options.</p>
@@ -647,5 +700,6 @@
   })();
   </script>
   <script src="/analytics-events.js" defer></script>
+  <script src="/paid-lead.js?v=20261021" defer></script>
 </body>
 </html>
