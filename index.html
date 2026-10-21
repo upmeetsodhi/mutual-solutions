@@ -316,7 +316,8 @@
 
     /* ── NAV ─────────────────────────────────────── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      /* Keep the mobile close control above the full-screen menu layer. */
+      position: fixed; top: 0; left: 0; right: 0; z-index: 300;
       display: flex; align-items: center; justify-content: space-between;
       padding: 22px 52px;
       transition: background .4s, box-shadow .4s;
