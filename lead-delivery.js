@@ -38,7 +38,6 @@
     var data = event.data;
     if (!data || data.type !== 'mutuals-lead-result' || !pending[data.requestId]) return;
     var item = pending[data.requestId];
-    if (event.source !== item.frame.contentWindow) return;
     var ok = data.ok === true;
     cleanup(data.requestId);
     item.resolve(ok);
