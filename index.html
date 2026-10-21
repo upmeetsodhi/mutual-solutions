@@ -2977,6 +2977,8 @@ initRailControls(rRail);
   function sendLead(p){
     p._subject = "Website lead: " + (p.source || "enquiry");
     p._template = "table";
+    p._url = window.location.origin + window.location.pathname;
+    p.landing_page = window.location.origin + window.location.pathname;
     p._autoresponse = "Thanks for reaching out to Mutual Solutions. We've received your enquiry and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.";
     var controller = new AbortController();
     var timeout = setTimeout(function(){ controller.abort(); }, 20000);
@@ -3204,14 +3206,20 @@ initRailControls(rRail);
       if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
       if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
       if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
-      if(!ok) return;
+      if(!ok) {
+        var invalid = f.querySelector('[aria-invalid="true"]');
+        if(invalid) invalid.focus();
+        return;
+      }
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
       sendLead(Object.assign({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }, campaignContext())).then(function(success){
-        f.remove();
         if(success){
+          f.remove();
           trackLead("chat_planner");
           bot("Thanks, "+n.value.trim()+". Your plan is on its way to your inbox, and Upmeet will follow up personally. Check your inbox (and spam folder) for our confirmation.", "lg-bot");
         } else {
+          btn.disabled=false; btn.textContent="Send my plan";
+          if (window.mutualsTrackEvent) window.mutualsTrackEvent('lead_submission_error', { lead_source: 'chat', form_location: 'homepage' });
           bot("Sorry, that did not send. Please try again, or reach us directly on <a href=\"tel:+64800675555\">0800 67 55 55</a> or <a href=\"mailto:info@mutuals.co.nz\">info@mutuals.co.nz</a>.", "lg-bot");
         }
       });
@@ -3226,16 +3234,19 @@ initRailControls(rRail);
   if(rf) rf.addEventListener("submit", function(e){
     e.preventDefault();
     var n=document.getElementById("lg-rname"), em=document.getElementById("lg-remail"), ph=document.getElementById("lg-rphone"), cv=document.getElementById("lg-rcover"), msg=document.getElementById("lg-rmessage"); var ok=true;
+    var box=document.getElementById("lg-rsuccess");
     [n,em,ph].forEach(function(i){ i.classList.remove("lg-err"); i.removeAttribute("aria-invalid"); });
     if(!n.value.trim()){ n.classList.add("lg-err"); n.setAttribute("aria-invalid","true"); ok=false; }
     if(!validEmail(em.value)){ em.classList.add("lg-err"); em.setAttribute("aria-invalid","true"); ok=false; }
     if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
     if(!ok) {
       if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'validation', form_location: 'homepage' });
+      box.style.display="block";
+      box.textContent="Please enter your name and a valid email address. If you add a phone number, include at least eight digits.";
       rf.querySelector('[aria-invalid="true"]').focus(); return;
     }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
-    var box=document.getElementById("lg-rsuccess");
+    box.style.display="none";
     sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
       box.style.display="block";
       if(success){

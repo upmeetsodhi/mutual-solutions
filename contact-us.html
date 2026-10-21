@@ -443,29 +443,44 @@
       e.preventDefault();
       var n=document.getElementById("eq-name"), em=document.getElementById("eq-email"),
           ph=document.getElementById("eq-phone"), msg=document.getElementById("eq-message");
+      var box=document.getElementById("eq-result");
       var ok=true;
       [n,em,ph,msg].forEach(function(i){ i.classList.remove("eq-err"); i.removeAttribute("aria-invalid"); });
       if(!n.value.trim()){ n.classList.add("eq-err"); n.setAttribute("aria-invalid", "true"); ok=false; }
       if(!validEmail(em.value)){ em.classList.add("eq-err"); em.setAttribute("aria-invalid", "true"); ok=false; }
       if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("eq-err"); ph.setAttribute("aria-invalid", "true"); ok=false; }
-      if(!ok) return;
+      if(!ok) {
+        box.style.display = "block";
+        box.textContent = "Please enter your name and a valid email address. If you add a phone number, include at least eight digits.";
+        f.querySelector('[aria-invalid="true"]').focus();
+        return;
+      }
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
-      var box=document.getElementById("eq-result");
+      box.style.display = "none";
       var campaign = typeof window.mutualsCampaignContext === "function" ? window.mutualsCampaignContext() : {};
+      var payload = Object.assign({
+        _subject: "Website lead: general enquiry",
+        _template: "table",
+        _url: window.location.origin + window.location.pathname,
+        _autoresponse: "Thanks for reaching out to Mutual Solutions. We've received your message and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.",
+        source: "general_enquiry",
+        name: n.value.trim(),
+        email: em.value.trim(),
+        phone: ph.value.trim(),
+        message: msg.value.trim(),
+        landing_page: window.location.origin + window.location.pathname
+      }, campaign);
+      var controller = new AbortController();
+      var timeout = window.setTimeout(function(){ controller.abort(); }, 20000);
       fetch(ENDPOINT, {
+        signal: controller.signal,
         method:"POST",
         headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-        body: JSON.stringify(Object.assign({
-          _subject: "Website lead: general enquiry",
-          _template: "table",
-          _autoresponse: "Thanks for reaching out to Mutual Solutions. We've received your message and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.",
-          source: "general_enquiry",
-          name: n.value.trim(),
-          email: em.value.trim(),
-          phone: ph.value.trim(),
-          message: msg.value.trim()
-        }, campaign))
-      }).then(function(r){ return r.ok; }).catch(function(){ return false; }).then(function(success){
+        body: JSON.stringify(payload)
+      }).then(function(r){
+        if(!r.ok) return false;
+        return r.json().then(function(result){ return result.success === true || result.success === "true"; });
+      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(timeout); }).then(function(success){
         box.style.display = "block";
         if(success){
           if (typeof window.mutualsTrackEvent === "function") {
@@ -479,6 +494,12 @@
         } else {
           box.textContent = "Sorry, that did not send. Please try again, or reach us directly on 0800 67 55 55 or info@mutuals.co.nz.";
           btn.disabled = false; btn.textContent = "Send message";
+          if (typeof window.mutualsTrackEvent === "function") {
+            window.mutualsTrackEvent("lead_submission_error", {
+              lead_source: "general_enquiry",
+              form_location: "contact_page"
+            });
+          }
         }
       });
     });

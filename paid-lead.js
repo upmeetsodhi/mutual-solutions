@@ -51,6 +51,7 @@
     var payload = {
       _subject: 'Website lead: ' + source,
       _template: 'table',
+      _url: window.location.origin + window.location.pathname,
       _autoresponse: 'Thanks for contacting Mutual Solutions. We have received your request and will be in touch soon. If your enquiry is urgent, call 0800 67 55 55.',
       source: source,
       name: name.value.trim(),
@@ -70,7 +71,10 @@
       landing_page: window.location.origin + window.location.pathname
     };
 
+    var controller = new AbortController();
+    var timeout = window.setTimeout(function () { controller.abort(); }, 20000);
     fetch(endpoint, {
+      signal: controller.signal,
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify(payload)
@@ -92,6 +96,8 @@
       button.textContent = 'Request a free conversation';
       showError('Your request did not send. Please try again or call 0800 67 55 55.');
       track('lead_submission_error', { lead_source: source, form_location: formLocation });
+    }).finally(function () {
+      window.clearTimeout(timeout);
     });
   });
 })();
