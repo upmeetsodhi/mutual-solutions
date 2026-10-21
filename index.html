@@ -2951,11 +2951,10 @@ initRailControls(rRail);
   window.gtag('config', 'G-4F1FPHEDGM');
 })();
 </script>
+<script src="/lead-delivery.js?v=20261022a"></script>
 <script>
 /* ═══ Lead-gen chatbot + policy review (added) ═══ */
 (function(){
-  var LEAD_EMAIL = "info@mutuals.co.nz";
-  var ENDPOINT = "https://formsubmit.co/ajax/" + LEAD_EMAIL;
   var DELAY = window.innerWidth <= 960 ? 260 : 480;
   function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function validPhone(v){ return v.replace(/\D/g,"").length >= 8; }
@@ -2974,22 +2973,10 @@ initRailControls(rRail);
      so callers can show honest success/failure instead of always saying
      "sent". */
   function sendLead(p){
-    p._subject = "Website lead: " + (p.source || "enquiry");
-    p._template = "table";
-    p._url = window.location.origin + window.location.pathname;
     p.landing_page = window.location.origin + window.location.pathname;
-    var controller = new AbortController();
-    var timeout = setTimeout(function(){ controller.abort(); }, 105000);
-    return fetch(ENDPOINT, {
-      signal: controller.signal,
-      keepalive: true,
-      method:"POST",
-      headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-      body: JSON.stringify(p)
-    }).then(function(r){
-      if (!r.ok) return false;
-      return r.json().then(function(result){ return result.success === true || result.success === "true"; });
-    }).catch(function(){ return false; }).finally(function(){ clearTimeout(timeout); });
+    return typeof window.mutualsSendLead === "function"
+      ? window.mutualsSendLead(p, { timeoutMs: 20000 })
+      : Promise.resolve(false);
   }
   var QUESTIONS = [
     { id:"goal", text:"Kia ora. What would you most like to get sorted?", options:[
@@ -3249,14 +3236,9 @@ initRailControls(rRail);
     var progress = window.setTimeout(function(){
       box.style.display="block";
       box.textContent="Still sending securely. Please keep this page open for a moment...";
-    }, 8000);
-    var delayed = window.setTimeout(function(){
-      box.style.display="block";
-      box.textContent="Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.";
-    }, 35000);
+    }, 4000);
     sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
       window.clearTimeout(progress);
-      window.clearTimeout(delayed);
       box.style.display="block";
       if(success){
         trackLead("policy_review");

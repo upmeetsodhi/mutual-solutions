@@ -4,6 +4,7 @@
   <script>if (!['mutuals.co.nz', 'www.mutuals.co.nz'].includes(location.hostname)) window['ga-disable-G-4F1FPHEDGM'] = true;</script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F1FPHEDGM"></script>
+  <script src="/lead-delivery.js?v=20261022a"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -434,7 +435,6 @@
       });
     }
 
-    var ENDPOINT = "https://formsubmit.co/ajax/info@mutuals.co.nz";
     function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
     function validPhone(v){ return v.replace(/\D/g,"").length >= 8; }
     var f = document.getElementById("eq-form");
@@ -459,9 +459,6 @@
       box.style.display = "none";
       var campaign = typeof window.mutualsCampaignContext === "function" ? window.mutualsCampaignContext() : {};
       var payload = Object.assign({
-        _subject: "Website lead: general enquiry",
-        _template: "table",
-        _url: window.location.origin + window.location.pathname,
         source: "general_enquiry",
         name: n.value.trim(),
         email: em.value.trim(),
@@ -472,23 +469,11 @@
       var progress = window.setTimeout(function(){
         box.style.display = "block";
         box.textContent = "Still sending securely. Please keep this page open for a moment...";
-      }, 8000);
-      var delayed = window.setTimeout(function(){
-        box.style.display = "block";
-        box.textContent = "Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.";
-      }, 35000);
-      var controller = new AbortController();
-      var timeout = window.setTimeout(function(){ controller.abort(); }, 105000);
-      fetch(ENDPOINT, {
-        signal: controller.signal,
-        keepalive: true,
-        method:"POST",
-        headers:{ "Content-Type":"application/json", "Accept":"application/json" },
-        body: JSON.stringify(payload)
-      }).then(function(r){
-        if(!r.ok) return false;
-        return r.json().then(function(result){ return result.success === true || result.success === "true"; });
-      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(progress); window.clearTimeout(delayed); window.clearTimeout(timeout); }).then(function(success){
+      }, 4000);
+      var delivery = typeof window.mutualsSendLead === "function"
+        ? window.mutualsSendLead(payload, { timeoutMs: 20000 })
+        : Promise.resolve(false);
+      delivery.catch(function(){ return false; }).finally(function(){ window.clearTimeout(progress); }).then(function(success){
         box.style.display = "block";
         if(success){
           if (typeof window.mutualsTrackEvent === "function") {

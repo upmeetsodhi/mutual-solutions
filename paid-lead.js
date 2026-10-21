@@ -6,7 +6,6 @@
   var button = form.querySelector('button[type="submit"]');
   var source = form.getAttribute('data-lead-source') || 'paid_landing_page';
   var formLocation = form.getAttribute('data-form-location') || 'paid_landing_page';
-  var endpoint = 'https://formsubmit.co/ajax/info@mutuals.co.nz';
 
   function track(name, parameters) {
     if (typeof window.gtag === 'function') {
@@ -49,9 +48,6 @@
       ? window.mutualsCampaignContext()
       : {};
     var payload = {
-      _subject: 'Website lead: ' + source,
-      _template: 'table',
-      _url: window.location.origin + window.location.pathname,
       source: source,
       name: name.value.trim(),
       email: email.value.trim(),
@@ -72,22 +68,12 @@
 
     var progress = window.setTimeout(function () {
       status.textContent = 'Still sending securely. Please keep this page open for a moment...';
-    }, 8000);
-    var delayed = window.setTimeout(function () {
-      status.textContent = 'Our email service is slower than usual. Your request is still being processed; please keep this page open, or call 0800 67 55 55.';
-    }, 35000);
-    var controller = new AbortController();
-    var timeout = window.setTimeout(function () { controller.abort(); }, 105000);
-    fetch(endpoint, {
-      signal: controller.signal,
-      keepalive: true,
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    }).then(function (response) {
-      return response.ok ? response.json() : Promise.reject(new Error('submit failed'));
-    }).then(function (result) {
-      if (result.success !== true && result.success !== 'true') throw new Error('submit failed');
+    }, 4000);
+    var delivery = typeof window.mutualsSendLead === 'function'
+      ? window.mutualsSendLead(payload, { timeoutMs: 20000 })
+      : Promise.resolve(false);
+    delivery.then(function (success) {
+      if (!success) throw new Error('submit failed');
       track('generate_lead', {
         lead_source: source,
         form_location: formLocation,
@@ -104,8 +90,6 @@
       track('lead_submission_error', { lead_source: source, form_location: formLocation });
     }).finally(function () {
       window.clearTimeout(progress);
-      window.clearTimeout(delayed);
-      window.clearTimeout(timeout);
     });
   });
 })();
