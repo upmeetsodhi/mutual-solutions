@@ -2967,6 +2967,9 @@ initRailControls(rRail);
       });
     }
   }
+  function campaignContext(){
+    return typeof window.mutualsCampaignContext === "function" ? window.mutualsCampaignContext() : {};
+  }
   /* Returns a Promise that resolves true only on a genuine confirmed send,
      so callers can show honest success/failure instead of always saying
      "sent". Also asks FormSubmit to auto-email the visitor a receipt,
@@ -3203,7 +3206,7 @@ initRailControls(rRail);
       if(ph.value.trim() && !validPhone(ph.value)){ ph.classList.add("lg-err"); ph.setAttribute("aria-invalid","true"); ok=false; }
       if(!ok) return;
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
-      sendLead({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }).then(function(success){
+      sendLead(Object.assign({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }, campaignContext())).then(function(success){
         f.remove();
         if(success){
           trackLead("chat_planner");
@@ -3233,7 +3236,7 @@ initRailControls(rRail);
     }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     var box=document.getElementById("lg-rsuccess");
-    sendLead({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }).then(function(success){
+    sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
       box.style.display="block";
       if(success){
         trackLead("policy_review");

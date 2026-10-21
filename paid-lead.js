@@ -42,7 +42,9 @@
     status.textContent = 'Sending your request...';
     button.disabled = true;
     button.textContent = 'Sending...';
-    var params = new URLSearchParams(window.location.search);
+    var campaign = typeof window.mutualsCampaignContext === 'function'
+      ? window.mutualsCampaignContext()
+      : {};
     var payload = {
       _subject: 'Website lead: ' + source,
       _template: 'table',
@@ -52,14 +54,14 @@
       email: email.value.trim(),
       phone: phone.value.trim(),
       message: message ? message.value.trim() : '',
-      utm_source: params.get('utm_source') || '',
-      utm_medium: params.get('utm_medium') || '',
-      utm_campaign: params.get('utm_campaign') || '',
-      utm_term: params.get('utm_term') || '',
-      utm_content: params.get('utm_content') || '',
-      gclid: params.get('gclid') || '',
-      gbraid: params.get('gbraid') || '',
-      wbraid: params.get('wbraid') || '',
+      utm_source: campaign.utm_source || '',
+      utm_medium: campaign.utm_medium || '',
+      utm_campaign: campaign.utm_campaign || '',
+      utm_term: campaign.utm_term || '',
+      utm_content: campaign.utm_content || '',
+      gclid: campaign.gclid || '',
+      gbraid: campaign.gbraid || '',
+      wbraid: campaign.wbraid || '',
       landing_page: window.location.origin + window.location.pathname
     };
 

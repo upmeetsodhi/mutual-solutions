@@ -1,4 +1,29 @@
 (function() {
+  var campaignKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content", "gclid", "gbraid", "wbraid"];
+  var campaignStorageKey = "mutuals_campaign_context";
+
+  function readCampaignContext() {
+    var context = {};
+    var params = new URLSearchParams(window.location.search);
+    campaignKeys.forEach(function(key) {
+      var value = params.get(key);
+      if (value) context[key] = value.slice(0, 500);
+    });
+    try {
+      var saved = JSON.parse(window.sessionStorage.getItem(campaignStorageKey) || "{}");
+      campaignKeys.forEach(function(key) {
+        if (!context[key] && typeof saved[key] === "string") context[key] = saved[key];
+      });
+      if (Object.keys(context).length) window.sessionStorage.setItem(campaignStorageKey, JSON.stringify(context));
+    } catch (error) {
+      // Tracking still works when storage is unavailable or blocked.
+    }
+    return context;
+  }
+
+  window.mutualsCampaignContext = readCampaignContext;
+  readCampaignContext();
+
   var menuButton = document.getElementById('hamburger');
   var menu = document.getElementById('mobile-menu');
   if (menuButton && menu) {
@@ -31,7 +56,7 @@
   window.mutualsTrackEvent = function(eventName, params) {
     if (typeof window.gtag === "function") {
       // Keep click and form events measurable when a visitor immediately navigates away.
-      var eventParams = Object.assign({ transport_type: "beacon" }, params || {});
+      var eventParams = Object.assign({ transport_type: "beacon" }, readCampaignContext(), params || {});
       window.gtag("event", eventName, eventParams);
     }
   };
