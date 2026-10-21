@@ -2972,14 +2972,12 @@ initRailControls(rRail);
   }
   /* Returns a Promise that resolves true only on a genuine confirmed send,
      so callers can show honest success/failure instead of always saying
-     "sent". Also asks FormSubmit to auto-email the visitor a receipt,
-     since a silent send with no confirmation looks the same as no send. */
+     "sent". */
   function sendLead(p){
     p._subject = "Website lead: " + (p.source || "enquiry");
     p._template = "table";
     p._url = window.location.origin + window.location.pathname;
     p.landing_page = window.location.origin + window.location.pathname;
-    p._autoresponse = "Thanks for reaching out to Mutual Solutions. We've received your enquiry and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.";
     var controller = new AbortController();
     var timeout = setTimeout(function(){ controller.abort(); }, 20000);
     return fetch(ENDPOINT, {
@@ -3216,7 +3214,7 @@ initRailControls(rRail);
         if(success){
           f.remove();
           trackLead("chat_planner");
-          bot("Thanks, "+n.value.trim()+". Your plan is on its way to your inbox, and Upmeet will follow up personally. Check your inbox (and spam folder) for our confirmation.", "lg-bot");
+          bot("Thanks, "+n.value.trim()+". Your details have been sent to Upmeet, who will follow up personally.", "lg-bot");
         } else {
           btn.disabled=false; btn.textContent="Send my plan";
           if (window.mutualsTrackEvent) window.mutualsTrackEvent('lead_submission_error', { lead_source: 'chat', form_location: 'homepage' });
@@ -3247,7 +3245,12 @@ initRailControls(rRail);
     }
     var btn=e.target.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
     box.style.display="none";
+    var progress = window.setTimeout(function(){
+      box.style.display="block";
+      box.textContent="Still sending securely. Please keep this page open for a moment...";
+    }, 8000);
     sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
+      window.clearTimeout(progress);
       box.style.display="block";
       if(success){
         trackLead("policy_review");

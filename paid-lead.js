@@ -52,7 +52,6 @@
       _subject: 'Website lead: ' + source,
       _template: 'table',
       _url: window.location.origin + window.location.pathname,
-      _autoresponse: 'Thanks for contacting Mutual Solutions. We have received your request and will be in touch soon. If your enquiry is urgent, call 0800 67 55 55.',
       source: source,
       name: name.value.trim(),
       email: email.value.trim(),
@@ -72,6 +71,9 @@
     };
 
     var controller = new AbortController();
+    var progress = window.setTimeout(function () {
+      status.textContent = 'Still sending securely. Please keep this page open for a moment...';
+    }, 8000);
     var timeout = window.setTimeout(function () { controller.abort(); }, 20000);
     fetch(endpoint, {
       signal: controller.signal,
@@ -97,6 +99,7 @@
       showError('Your request did not send. Please try again or call 0800 67 55 55.');
       track('lead_submission_error', { lead_source: source, form_location: formLocation });
     }).finally(function () {
+      window.clearTimeout(progress);
       window.clearTimeout(timeout);
     });
   });

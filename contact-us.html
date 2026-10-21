@@ -462,7 +462,6 @@
         _subject: "Website lead: general enquiry",
         _template: "table",
         _url: window.location.origin + window.location.pathname,
-        _autoresponse: "Thanks for reaching out to Mutual Solutions. We've received your message and Upmeet will personally follow up soon. If it's urgent, call 0800 67 55 55 or reply to this email.",
         source: "general_enquiry",
         name: n.value.trim(),
         email: em.value.trim(),
@@ -471,6 +470,10 @@
         landing_page: window.location.origin + window.location.pathname
       }, campaign);
       var controller = new AbortController();
+      var progress = window.setTimeout(function(){
+        box.style.display = "block";
+        box.textContent = "Still sending securely. Please keep this page open for a moment...";
+      }, 8000);
       var timeout = window.setTimeout(function(){ controller.abort(); }, 20000);
       fetch(ENDPOINT, {
         signal: controller.signal,
@@ -480,7 +483,7 @@
       }).then(function(r){
         if(!r.ok) return false;
         return r.json().then(function(result){ return result.success === true || result.success === "true"; });
-      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(timeout); }).then(function(success){
+      }).catch(function(){ return false; }).finally(function(){ window.clearTimeout(progress); window.clearTimeout(timeout); }).then(function(success){
         box.style.display = "block";
         if(success){
           if (typeof window.mutualsTrackEvent === "function") {
@@ -489,7 +492,7 @@
               form_location: "contact_page"
             });
           }
-          box.textContent = "Thanks, " + n.value.trim() + ". Your message is on its way to Upmeet. Check your inbox (and spam folder) for our confirmation.";
+          box.textContent = "Thanks, " + n.value.trim() + ". Your message has been sent to Upmeet, who will follow up personally.";
           btn.textContent = "Sent";
         } else {
           box.textContent = "Sorry, that did not send. Please try again, or reach us directly on 0800 67 55 55 or info@mutuals.co.nz.";
