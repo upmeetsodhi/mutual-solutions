@@ -399,12 +399,14 @@
     .mortgage-enquiry-form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
     .mortgage-enquiry-form label { font-size: 13px; font-weight: 600; }
     .mortgage-enquiry-form input,
+    .mortgage-enquiry-form select,
     .mortgage-enquiry-form textarea {
       width: 100%; border: 1px solid rgba(255,255,255,0.2);
       border-radius: 10px; padding: 13px 15px; font: inherit;
       font-size: 16px; background: rgba(255,255,255,0.07); color: #fff;
     }
     .mortgage-enquiry-form input:focus,
+    .mortgage-enquiry-form select:focus,
     .mortgage-enquiry-form textarea:focus { outline: 2px solid #fff; outline-offset: 2px; }
     .mortgage-enquiry-form textarea { resize: vertical; min-height: 130px; }
     .mortgage-enquiry-form button {
@@ -662,7 +664,7 @@
       <div class="mortgage-enquiry">
         <h2 id="mortgage-enquiry-heading">Ask about your mortgage options</h2>
         <p>Tell us whether you are buying, refinancing or preparing an application. Upmeet will contact you to arrange a free initial conversation.</p>
-        <form class="mortgage-enquiry-form" data-paid-lead-form data-lead-source="mortgage_broker_palmerston_north" novalidate>
+        <form class="mortgage-enquiry-form" data-paid-lead-form data-lead-source="mortgage_broker_palmerston_north" data-form-location="local_service_page" novalidate>
           <label for="mortgage-enquiry-name">Name <span aria-hidden="true">*</span></label>
           <input id="mortgage-enquiry-name" name="name" type="text" autocomplete="name" required />
           <label for="mortgage-enquiry-email">Email address <span aria-hidden="true">*</span></label>
@@ -671,6 +673,18 @@
           <input id="mortgage-enquiry-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" />
           <label for="mortgage-enquiry-message">What would you like help with?</label>
           <textarea id="mortgage-enquiry-message" name="message" maxlength="1500" placeholder="For example: first home, refinance, refix or a self-employed application."></textarea>
+          <label for="mortgage-enquiry-how-heard">How did you hear about us?</label>
+          <select id="mortgage-enquiry-how-heard" name="how_heard">
+            <option value="">Choose an option (optional)</option>
+            <option value="google_search">Google Search</option>
+            <option value="ai_assistant">ChatGPT, Google AI, Perplexity or another AI assistant</option>
+            <option value="google_maps">Google Maps</option>
+            <option value="referral">Friend, family or professional referral</option>
+            <option value="social_media">Social media</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="mortgage-enquiry-ai-prompt">If an AI assistant helped, what did you ask it?</label>
+          <input id="mortgage-enquiry-ai-prompt" name="ai_prompt" type="text" maxlength="300" placeholder="Optional — please do not include personal financial details." />
           <p class="form-status" data-form-status aria-live="polite"></p>
           <button type="submit">Request a free conversation</button>
           <p class="form-privacy">Please do not include bank statements, income figures, identification or other sensitive information here. We will explain a secure way to provide documents if needed. By submitting, you agree to our <a href="/disclosure.html#privacy">Privacy Policy</a>.</p>
@@ -700,6 +714,6 @@
   })();
   </script>
   <script src="/analytics-events.js" defer></script>
-  <script src="/paid-lead.js?v=20261021" defer></script>
+  <script src="/paid-lead.js?v=20261022" defer></script>
 </body>
 </html>

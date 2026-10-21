@@ -5,6 +5,7 @@
   var status = form.querySelector('[data-form-status]');
   var button = form.querySelector('button[type="submit"]');
   var source = form.getAttribute('data-lead-source') || 'paid_landing_page';
+  var formLocation = form.getAttribute('data-form-location') || 'paid_landing_page';
   var endpoint = 'https://formsubmit.co/ajax/info@mutuals.co.nz';
 
   function track(name, parameters) {
@@ -24,6 +25,8 @@
     var email = form.elements.email;
     var phone = form.elements.phone;
     var message = form.elements.message;
+    var howHeard = form.elements.how_heard;
+    var aiPrompt = form.elements.ai_prompt;
     var valid = true;
     [name, email].forEach(function (field) {
       field.removeAttribute('aria-invalid');
@@ -54,6 +57,8 @@
       email: email.value.trim(),
       phone: phone.value.trim(),
       message: message ? message.value.trim() : '',
+      how_heard: howHeard ? howHeard.value : '',
+      ai_prompt: aiPrompt ? aiPrompt.value.trim() : '',
       utm_source: campaign.utm_source || '',
       utm_medium: campaign.utm_medium || '',
       utm_campaign: campaign.utm_campaign || '',
@@ -75,7 +80,8 @@
       if (result.success !== true && result.success !== 'true') throw new Error('submit failed');
       track('generate_lead', {
         lead_source: source,
-        form_location: 'paid_landing_page',
+        form_location: formLocation,
+        discovery_source: payload.how_heard,
         campaign_source: payload.utm_source,
         campaign_medium: payload.utm_medium,
         campaign_name: payload.utm_campaign
@@ -85,7 +91,7 @@
       button.disabled = false;
       button.textContent = 'Request a free conversation';
       showError('Your request did not send. Please try again or call 0800 67 55 55.');
-      track('lead_submission_error', { lead_source: source, form_location: 'paid_landing_page' });
+      track('lead_submission_error', { lead_source: source, form_location: formLocation });
     });
   });
 })();

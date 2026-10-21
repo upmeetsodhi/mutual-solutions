@@ -403,6 +403,23 @@
       transition: border-color .2s, transform .2s;
     }
     .btn-outline:hover { border-color: var(--ink); transform: scale(1.02); }
+    .local-enquiry { background: var(--ink); color: #fff; padding: 46px; border-radius: 3px; }
+    .local-enquiry h2 { font-family: Georgia, 'Times New Roman', serif; font-size: 34px; font-weight: 400; margin: 0 0 12px; }
+    .local-enquiry > p { color: rgba(255,255,255,.78); max-width: 700px; margin: 0 0 24px; }
+    .local-enquiry-form { display: flex; flex-direction: column; gap: 12px; max-width: 560px; }
+    .local-enquiry-form label { font-size: 13px; font-weight: 600; }
+    .local-enquiry-form input,
+    .local-enquiry-form select,
+    .local-enquiry-form textarea { width: 100%; padding: 13px 14px; border: 1px solid rgba(255,255,255,.45); border-radius: 2px; background: #fff; color: var(--ink); font: inherit; }
+    .local-enquiry-form input:focus,
+    .local-enquiry-form select:focus,
+    .local-enquiry-form textarea:focus { outline: 2px solid #fff; outline-offset: 2px; }
+    .local-enquiry-form textarea { resize: vertical; min-height: 130px; }
+    .local-enquiry-form button { align-self: flex-start; padding: 14px 24px; border: 0; border-radius: 2px; background: #fff; color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+    .local-enquiry-form button:disabled { opacity: .6; cursor: default; }
+    .form-status { min-height: 20px; margin: 0; color: #fff; font-size: 14px; }
+    .form-privacy { margin: 0; color: rgba(255,255,255,.7); font-size: 12px; line-height: 1.6; }
+    .form-privacy a { color: #fff; }
 
     @media (max-width: 960px) {
       nav { padding: 16px 24px; }
@@ -419,6 +436,7 @@
       .cta-actions { flex-direction: column; }
       .cta-actions .btn-dark, .cta-actions .btn-outline { width: 100%; }
       .bottom-cta { padding: 44px 28px; }
+      .local-enquiry { padding: 34px 24px; }
       .quote-card { padding: 30px 26px; }
       .office-card { padding: 26px 24px; }
     }
@@ -626,6 +644,38 @@
       </div>
     </section>
 
+    <section class="ks-section" aria-labelledby="insurance-enquiry-heading">
+      <div class="local-enquiry">
+        <h2 id="insurance-enquiry-heading">Ask for a personal insurance review</h2>
+        <p>Tell us what you would like reviewed. Upmeet will contact you to arrange a free initial conversation and explain the next step.</p>
+        <form class="local-enquiry-form" data-paid-lead-form data-lead-source="insurance_adviser_palmerston_north" data-form-location="local_service_page" novalidate>
+          <label for="insurance-enquiry-name">Name <span aria-hidden="true">*</span></label>
+          <input id="insurance-enquiry-name" name="name" type="text" autocomplete="name" required />
+          <label for="insurance-enquiry-email">Email address <span aria-hidden="true">*</span></label>
+          <input id="insurance-enquiry-email" name="email" type="email" inputmode="email" autocomplete="email" required />
+          <label for="insurance-enquiry-phone">Phone number</label>
+          <input id="insurance-enquiry-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" />
+          <label for="insurance-enquiry-message">What would you like help with?</label>
+          <textarea id="insurance-enquiry-message" name="message" maxlength="1500" placeholder="For example: reviewing existing cover, life insurance, health insurance or income protection."></textarea>
+          <label for="insurance-enquiry-how-heard">How did you hear about us?</label>
+          <select id="insurance-enquiry-how-heard" name="how_heard">
+            <option value="">Choose an option (optional)</option>
+            <option value="google_search">Google Search</option>
+            <option value="ai_assistant">ChatGPT, Google AI, Perplexity or another AI assistant</option>
+            <option value="google_maps">Google Maps</option>
+            <option value="referral">Friend, family or professional referral</option>
+            <option value="social_media">Social media</option>
+            <option value="other">Other</option>
+          </select>
+          <label for="insurance-enquiry-ai-prompt">If an AI assistant helped, what did you ask it?</label>
+          <input id="insurance-enquiry-ai-prompt" name="ai_prompt" type="text" maxlength="300" placeholder="Optional — please do not include personal health or financial details." />
+          <p class="form-status" data-form-status aria-live="polite"></p>
+          <button type="submit">Request a free conversation</button>
+          <p class="form-privacy">Please do not include policy numbers, medical information, identification or other sensitive information here. We will explain a secure way to provide documents if needed. By submitting, you agree to our <a href="/disclosure.html#privacy">Privacy Policy</a>.</p>
+        </form>
+      </div>
+    </section>
+
     <div class="bottom-cta">
       <h2>Talk to a Palmerston North adviser</h2>
       <p>A free 30-minute conversation with an adviser at an independently owned firm. No pressure, no obligation, and a clear picture of where you actually stand.</p>
@@ -648,5 +698,6 @@
   })();
   </script>
   <script src="/analytics-events.js" defer></script>
+  <script src="/paid-lead.js?v=20261022" defer></script>
 </body>
 </html>
