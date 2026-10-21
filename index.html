@@ -348,7 +348,7 @@
     .nav-cta:hover { opacity: 0.8; }
     .nav-chat-open {
       position: relative;
-      width: 38px; height: 38px; padding: 0;
+      width: 44px; height: 44px; padding: 0;
       display: inline-grid; place-items: center;
       border: 1px solid var(--border-mid); border-radius: 50%;
       background: #fff; color: var(--ink); cursor: pointer;
@@ -545,7 +545,8 @@
       cursor: grab;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
-      scroll-snap-type: x proximity;
+      /* Each swipe should finish on a complete card, not a half-visible one. */
+      scroll-snap-type: x mandatory;
       scroll-padding-inline: 24px;
     }
     .services-rail::-webkit-scrollbar { display: none; }
@@ -554,6 +555,7 @@
     .s-card {
       flex-shrink: 0; width: 290px;
       scroll-snap-align: start;
+      scroll-snap-stop: always;
       border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 36px 28px;
       background: var(--bg);
@@ -710,7 +712,8 @@
       cursor: grab;
       -webkit-overflow-scrolling: touch;
       overscroll-behavior-x: contain;
-      scroll-snap-type: x proximity;
+      /* Match the services rail so touch and trackpad navigation is predictable. */
+      scroll-snap-type: x mandatory;
       scroll-padding-inline: 24px;
     }
     .reviews-rail::-webkit-scrollbar { display: none; }
@@ -719,6 +722,7 @@
     .r-card {
       flex-shrink: 0; width: 320px;
       scroll-snap-align: start;
+      scroll-snap-stop: always;
       border: 1px solid var(--border-mid);
       border-radius: 20px; padding: 36px 28px;
       background: var(--bg);
