@@ -46,6 +46,7 @@
   window.mutualsSendLead = function (payload, options) {
     options = options || {};
     var id = requestId();
+    payload.submission_id = payload.submission_id || id;
     var frameName = 'mutuals_lead_' + id.replace(/[^a-z0-9_-]/gi, '');
     var frame = document.createElement('iframe');
     frame.name = frameName;

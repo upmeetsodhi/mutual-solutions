@@ -77,6 +77,7 @@
       track('generate_lead', {
         lead_source: source,
         form_location: formLocation,
+        submission_id: payload.submission_id,
         discovery_source: payload.how_heard,
         campaign_source: payload.utm_source,
         campaign_medium: payload.utm_medium,
@@ -87,7 +88,11 @@
       button.disabled = false;
       button.textContent = 'Request a free conversation';
       showError('Your request did not send. Please try again or call 0800 67 55 55.');
-      track('lead_submission_error', { lead_source: source, form_location: formLocation });
+      track('lead_submission_error', {
+        lead_source: source,
+        form_location: formLocation,
+        submission_id: payload.submission_id
+      });
     }).finally(function () {
       window.clearTimeout(progress);
     });

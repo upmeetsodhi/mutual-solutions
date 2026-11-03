@@ -2951,18 +2951,19 @@ initRailControls(rRail);
   window.gtag('config', 'G-4F1FPHEDGM');
 })();
 </script>
-<script src="/lead-delivery.js?v=20261022b"></script>
+<script src="/lead-delivery.js?v=20261104a"></script>
 <script>
 /* ═══ Lead-gen chatbot + policy review (added) ═══ */
 (function(){
   var DELAY = window.innerWidth <= 960 ? 260 : 480;
   function validEmail(v){ return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
   function validPhone(v){ return v.replace(/\D/g,"").length >= 8; }
-  function trackLead(source){
+  function trackLead(source, submissionId){
     if (typeof window.mutualsTrackEvent === "function") {
       window.mutualsTrackEvent("generate_lead", {
         lead_source: source,
-        form_location: "homepage"
+        form_location: "homepage",
+        submission_id: submissionId
       });
     }
   }
@@ -3198,14 +3199,15 @@ initRailControls(rRail);
         return;
       }
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
-      sendLead(Object.assign({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }, campaignContext())).then(function(success){
+      var chatPayload = Object.assign({ source:"chat", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), message:msg.value.trim(), answers:summ() }, campaignContext());
+      sendLead(chatPayload).then(function(success){
         if(success){
           f.remove();
-          trackLead("chat_planner");
+          trackLead("chat_planner", chatPayload.submission_id);
           bot("Thanks, "+n.value.trim()+". Your details have been sent to Upmeet, who will follow up personally.", "lg-bot");
         } else {
           btn.disabled=false; btn.textContent="Send my plan";
-          if (window.mutualsTrackEvent) window.mutualsTrackEvent('lead_submission_error', { lead_source: 'chat', form_location: 'homepage' });
+          if (window.mutualsTrackEvent) window.mutualsTrackEvent('lead_submission_error', { lead_source: 'chat', form_location: 'homepage', submission_id: chatPayload.submission_id });
           bot("Sorry, that did not send. Please try again, or reach us directly on <a href=\"tel:+64800675555\">0800 67 55 55</a> or <a href=\"mailto:info@mutuals.co.nz\">info@mutuals.co.nz</a>.", "lg-bot");
         }
       });
@@ -3237,15 +3239,16 @@ initRailControls(rRail);
       box.style.display="block";
       box.textContent="Still sending securely. Please keep this page open for a moment...";
     }, 4000);
-    sendLead(Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext())).then(function(success){
+    var reviewPayload = Object.assign({ source:"policy_review", name:n.value.trim(), email:em.value.trim(), phone:ph.value.trim(), current_cover:cv.value, message:msg.value.trim() }, campaignContext());
+    sendLead(reviewPayload).then(function(success){
       window.clearTimeout(progress);
       box.style.display="block";
       if(success){
-        trackLead("policy_review");
+        trackLead("policy_review", reviewPayload.submission_id);
         box.textContent="Thanks, "+n.value.trim()+". We've received your request. Upmeet will email you from info@mutuals.co.nz with a secure way to send your documents.";
         btn.textContent="Sent";
       } else {
-        if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'submission', form_location: 'homepage' });
+        if (window.mutualsTrackEvent) window.mutualsTrackEvent('policy_review_error', { error_type: 'submission', form_location: 'homepage', submission_id: reviewPayload.submission_id });
         box.textContent="Sorry, that did not send. Please try again, or reach us directly on 0800 67 55 55 or info@mutuals.co.nz.";
         btn.disabled=false; btn.textContent="Get my free review";
       }

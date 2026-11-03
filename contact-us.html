@@ -4,7 +4,7 @@
   <script>if (!['mutuals.co.nz', 'www.mutuals.co.nz'].includes(location.hostname)) window['ga-disable-G-4F1FPHEDGM'] = true;</script>
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4F1FPHEDGM"></script>
-  <script src="/lead-delivery.js?v=20261022b"></script>
+  <script src="/lead-delivery.js?v=20261104a"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
@@ -295,6 +295,7 @@
     .eq-form input::placeholder, .eq-form textarea::placeholder { color: rgba(255,255,255,0.4); }
     .eq-form input:focus, .eq-form textarea:focus { outline: none; border-color: #fff; }
     .eq-form textarea { resize: vertical; min-height: 150px; line-height: 1.5; }
+    .eq-honeypot { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
     .eq-err { border-color: #e0685c !important; }
     .eq-btn {
       display: inline-flex; align-items: center; justify-content: center;
@@ -404,6 +405,8 @@
           <input type="tel" id="eq-phone" name="phone" placeholder="Phone number" autocomplete="tel" inputmode="tel">
           <label class="sr-only" for="eq-message">What can we help with?</label>
           <textarea id="eq-message" name="message" placeholder="What can we help with?"></textarea>
+          <label class="eq-honeypot" aria-hidden="true" for="eq-website">Website</label>
+          <input class="eq-honeypot" type="text" id="eq-website" name="website" tabindex="-1" autocomplete="off">
           <button class="eq-btn" type="submit">Send message</button>
           <div class="eq-result" id="eq-result" role="status"></div>
           <p class="eq-note">Mutual Solutions Limited, FSP 729871. We collect your details so an adviser can respond to your enquiry. Your message is delivered to us through a secure form service and handled in line with our <a href="/disclosure.html#privacy" style="color:inherit;text-decoration:underline">Privacy Policy</a>. Please do not include health or financial details in this form.</p>
@@ -442,7 +445,8 @@
     f.addEventListener("submit", function(e){
       e.preventDefault();
       var n=document.getElementById("eq-name"), em=document.getElementById("eq-email"),
-          ph=document.getElementById("eq-phone"), msg=document.getElementById("eq-message");
+          ph=document.getElementById("eq-phone"), msg=document.getElementById("eq-message"),
+          website=document.getElementById("eq-website");
       var box=document.getElementById("eq-result");
       var ok=true;
       [n,em,ph,msg].forEach(function(i){ i.classList.remove("eq-err"); i.removeAttribute("aria-invalid"); });
@@ -455,6 +459,11 @@
         f.querySelector('[aria-invalid="true"]').focus();
         return;
       }
+      if(website.value.trim()) {
+        box.style.display = "block";
+        box.textContent = "Thanks. Your message has been received.";
+        return;
+      }
       var btn=f.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Sending...";
       box.style.display = "none";
       var campaign = typeof window.mutualsCampaignContext === "function" ? window.mutualsCampaignContext() : {};
@@ -464,6 +473,7 @@
         email: em.value.trim(),
         phone: ph.value.trim(),
         message: msg.value.trim(),
+        website: website.value.trim(),
         landing_page: window.location.origin + window.location.pathname
       }, campaign);
       var progress = window.setTimeout(function(){
@@ -479,7 +489,8 @@
           if (typeof window.mutualsTrackEvent === "function") {
             window.mutualsTrackEvent("generate_lead", {
               lead_source: "general_enquiry",
-              form_location: "contact_page"
+              form_location: "contact_page",
+              submission_id: payload.submission_id
             });
           }
           box.textContent = "Thanks, " + n.value.trim() + ". Your message has been sent to Upmeet, who will follow up personally.";
@@ -490,7 +501,8 @@
           if (typeof window.mutualsTrackEvent === "function") {
             window.mutualsTrackEvent("lead_submission_error", {
               lead_source: "general_enquiry",
-              form_location: "contact_page"
+              form_location: "contact_page",
+              submission_id: payload.submission_id
             });
           }
         }
