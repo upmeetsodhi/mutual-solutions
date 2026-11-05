@@ -74,7 +74,7 @@
       : Promise.resolve(false);
     delivery.then(function (success) {
       if (!success) throw new Error('submit failed');
-      track('generate_lead', {
+      var leadContext = {
         lead_source: source,
         form_location: formLocation,
         submission_id: payload.submission_id,
@@ -82,8 +82,24 @@
         campaign_source: payload.utm_source,
         campaign_medium: payload.utm_medium,
         campaign_name: payload.utm_campaign
+      };
+      var contextStored = false;
+      try {
+        window.sessionStorage.setItem(
+          'mutuals_pending_lead_' + payload.submission_id,
+          JSON.stringify(leadContext)
+        );
+        contextStored = true;
+      } catch (error) {
+        // If session storage is unavailable, record the confirmed lead here.
+        track('generate_lead', leadContext);
+      }
+      var confirmation = new URLSearchParams({
+        source: source,
+        submission_id: payload.submission_id
       });
-      window.location.assign('/thank-you.html?source=' + encodeURIComponent(source));
+      if (!contextStored) confirmation.set('tracked', '1');
+      window.location.assign('/thank-you.html?' + confirmation.toString());
     }).catch(function () {
       button.disabled = false;
       button.textContent = 'Request a free conversation';
