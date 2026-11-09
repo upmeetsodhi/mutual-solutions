@@ -1,6 +1,6 @@
 # Mutual Solutions Limited
 
-Last reviewed: 2026-10-22
+Last reviewed: 2026-11-09
 
 > Independent insurance and financial advice firm based in Palmerston North, New Zealand, serving clients nationwide. Led by financial adviser Upmeet Sodhi (FSP 250405), who provides regulated advice on behalf of Mutual Solutions Limited (FSP 729871). Advice covers life and trauma insurance, income protection, health insurance, KiwiSaver, and home loans. Standard advice is usually paid for through provider commissions; client-paid fees can apply in the circumstances set out in the disclosure statement and must be agreed in writing before the client becomes liable. Operating since 2012.
 
@@ -19,6 +19,8 @@ Key facts:
 - [Life Insurance Advice](https://mutuals.co.nz/life-insurance.html): life cover comparison across the selected providers available to us, plus needs analysis
 - [Health Insurance Advice](https://mutuals.co.nz/health-insurance.html): advice on private medical cover for eligible treatment, subject to policy terms, exclusions, underwriting and provider availability
 - [Income Protection Advice](https://mutuals.co.nz/income-protection.html): advice on cover that can replace part of income when illness or injury prevents work, subject to policy definitions, waiting periods, benefit limits and applicable offsets
+- [Life Insurance and Income Protection Guide](https://mutuals.co.nz/life-and-income-protection.html): plain-English comparison of the different financial roles of life cover and monthly income protection
+- [Mortgage Protection Insurance Guide](https://mutuals.co.nz/mortgage-protection-insurance.html): explains how life, income, trauma and disability cover can address different risks around a mortgage
 - [KiwiSaver Advice](https://mutuals.co.nz/kiwisaver.html): fund reviews and contribution strategy within the firm's disclosed provider scope
 - [Home Loan & Mortgage Advice](https://mutuals.co.nz/home-loans.html): first home buyers, refinancing, self-employed; compares multiple lenders
 
